@@ -2,6 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
+	<properties>
+		<sonar.sources>src/main</sonar.sources>
+		<sonar.tests>src/test</sonar.tests>
+	</properties>
+	
 	<parent>
 		<groupId>fr.femm</groupId>
 		<artifactId>findyourtrashcan</artifactId>
@@ -33,6 +38,7 @@
 			<artifactId>findyourtrashcan-web</artifactId>
 			<version>${project.version}</version>
 			<scope>runtime</scope>
+			<type>war</type>
 		</dependency>
 	</dependencies>
 	<build>
