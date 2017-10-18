@@ -2,23 +2,30 @@
 
 ## Développement
 
-Before beginning to developp, you'll have to install maven. Here's how :
+Before beginning to developp, you'll have to install node js and npm. Here's how :
 
-1. [Maven][]: Download the latest version from the maven website and install it.
+1. [Node.js][]: Download the latest version from the node js website and install it. It contains both node and npm.
+2. (Optionnal) [Yarn][]: You can use Yarn to manage your dependencies if you want.
 
-Then in the PARENT directory run :
+Then in the current directory run :
 
-    mvn clean install
+    npm install
 
-Then go in the current directory (findyourtrashcan-api) and run:
+Or if you have installed Yarn :
 
-    mvn spring-boot:run
+    yarn install
 
-You will have to start the [frontend][] server to be able to develop in good conditions !
+Then run :
+    npm start
 
-Then you will be able to access the frontend with [http://localhost:4200](http://localhost:4200).
+Or with Yarn :
+    yarn start
 
-### Add dependencies
+You will have to start the [backend][] server to be able to work !
+
+Then you will be able to access the frontend with [http://localhost:4200](http://localhost:4200) (or [http://localhost:8080](http://localhost:8080) if you are in production mode).
+
+### Add libraries
 
 // TODO
 
@@ -33,6 +40,6 @@ Then you will be able to access the frontend with [http://localhost:4200](http:/
 // TODO
 - launch tests
 
-[Maven]: https://maven.apache.org/download.cgi
+[Node.js]: https://nodejs.org/
 [Yarn]: https://yarnpkg.org/
-[frontend]: ../findyourtrashcan-api/README.md
+[backend]: ../findyourtrashcan-web/README.md
