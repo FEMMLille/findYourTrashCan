@@ -20,6 +20,11 @@
   "TUTORIAL_SLIDE3_TITLE": "Pour commencer",
   "TUTORIAL_SLIDE3_DESCRIPTION": "Si vous avez besoin d’aide, consultez le README du Super Starter pour un tutoriel complet.",
 
+  "TUTORIAL_SLIDE4_TITLE": "Prêts à jouer ?",
+
+  "TUTORIAL_SKIP_BUTTON": "Passer",
+  "TUTORIAL_CONTINUE_BUTTON": "Continuer",
+
   "SETTINGS_TITLE": "Paramètres",
   "SETTINGS_OPTION1": "Option 1",
   "SETTINGS_OPTION2": "Option 2",
