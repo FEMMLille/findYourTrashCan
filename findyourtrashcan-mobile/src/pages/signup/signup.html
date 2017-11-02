@@ -8,17 +8,24 @@
 
 
 <ion-content>
-  <form (submit)="doSignup()">
+  <form (submit)="doSignup()" #registerForm="ngForm">
     <ion-list>
 
       <ion-item>
-        <ion-label fixed>{{ 'NAME' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
+        <ion-input required type="text" [(ngModel)]="account.firstName" name="firstName" placeholder="{{ 'FIRST_NAME' | translate }}"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        <ion-input required type="text" [(ngModel)]="account.lastName" name="lastName" placeholder="{{ 'LAST_NAME' | translate }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input required type="email" [(ngModel)]="account.email" name="email" placeholder="{{ 'EMAIL' | translate }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-datetime required pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="account.birthdate" name="birthDate"
+          placeholder="{{ 'BIRTH_DATE' | translate }}" cancelText="{{ 'CANCEL_BUTTON' | translate }}" doneText="{{ 'DONE_BUTTON' | translate }}"></ion-datetime>
       </ion-item>
 
       <!--
@@ -31,12 +38,16 @@
       -->
 
       <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+        <ion-input required type="password" [(ngModel)]="password" name="password" placeholder="{{ 'PASSWORD' | translate }}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input required type="password" [(ngModel)]="cpassword" name="password" placeholder="{{ 'CONFIRM_PASSWORD' | translate }}"></ion-input>
       </ion-item>
 
       <div padding>
-        <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <button ion-button color="primary" type="submit" block [disabled]="!registerForm.form.valid">{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <button ion-button clear color="danger" type="button" (click)="cancel()" block>{{ 'CANCEL_BUTTON' | translate }}</button>
       </div>
 
     </ion-list>
