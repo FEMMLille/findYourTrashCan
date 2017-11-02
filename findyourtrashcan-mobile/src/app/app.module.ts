@@ -1,3 +1,4 @@
+import { AccountDetailsService } from './../providers/user/account-details';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -59,6 +60,7 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
+    AccountDetailsService,
     Items,
     User,
     Camera,

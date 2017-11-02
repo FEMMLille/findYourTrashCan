@@ -1,4 +1,6 @@
+import { AccountDetails } from './../../shared/model/account-details';
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Rx';
 
 import { Injectable } from '@angular/core';
 
@@ -53,8 +55,9 @@ export class User {
    * Send a POST request to our signup endpoint with the data
    * the user entered on the form.
    */
-  signup(accountInfo: any) {
-    let seq = this.api.post('signup', accountInfo).share();
+  /* Commented because I put this in account details for the moment
+  signup(accountInfo: AccountDetails): Observable<any> {
+    let seq = this.api.post('user', accountInfo).share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
@@ -67,7 +70,7 @@ export class User {
 
     return seq;
   }
-
+*/
   /**
    * Log the user out, which forgets the session
    */
