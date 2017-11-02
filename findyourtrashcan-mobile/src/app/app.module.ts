@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../providers/auth/authenticate';
 import { AccountDetailsService } from './../providers/user/account-details';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -65,6 +66,7 @@ export function provideSettings(storage: Storage) {
     User,
     Camera,
     SplashScreen,
+    AuthenticationService,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development

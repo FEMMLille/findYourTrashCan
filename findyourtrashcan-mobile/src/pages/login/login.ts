@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../providers/auth/authenticate';
+import { Credentials } from './../../shared/model/credentials';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
@@ -14,10 +16,7 @@ export class LoginPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
-  };
+  credentials = new Credentials();
 
   // Our translated text strings
   private loginErrorString: string;
@@ -25,7 +24,8 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public auth: AuthenticationService) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
@@ -34,17 +34,25 @@ export class LoginPage {
 
   // Attempt to login in through our User service
   doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
+    this.auth.authenticate(this.credentials).subscribe((res) => {
+      if (res) // TODO CHECK Or if auth.user != null ?
+        this.navCtrl.push(MainPage);
     }, (err) => {
-      this.navCtrl.push(MainPage);
-      // Unable to log in
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
+      this.showToastError(this.loginErrorString);
     });
+  }
+
+  showToastError(message: string) {
+    // Unable to sign up
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  cancel() {
+    this.navCtrl.pop();
   }
 }

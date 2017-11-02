@@ -1,6 +1,8 @@
+
 import { WelcomePage } from '../pages';
 import { AccountDetailsService } from './../../providers/user/account-details';
 import { Credentials } from './../../shared/model/credentials';
+import { AuthenticationService } from './../../providers/auth/authenticate';
 import { AccountDetails } from './../../shared/model/account-details';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,6 +32,7 @@ export class SignupPage {
     public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
+    public auth: AuthenticationService,
     public accountDetails: AccountDetailsService) {
 
     this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
@@ -44,8 +47,9 @@ export class SignupPage {
     // Attempt to login in through our User service
     if (this.password == this.cpassword) {
       this.accountDetails.signup(this.account).subscribe((resp) => {
-
-        this.navCtrl.push(MainPage);
+        this.auth.authenticate(new Credentials(this.account.email, this.password)).subscribe((res) => {
+          this.navCtrl.push(MainPage);
+        });
       }, (err) => {
         this.showToastError(this.signupErrorString);
       });
