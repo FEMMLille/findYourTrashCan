@@ -1,6 +1,7 @@
 package fr.femm.findyourtrashcan.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.femm.findyourtrashcan.data.FYTCUser;
@@ -20,7 +21,11 @@ public class FYTCUserServiceImpl implements FYTCUserService {
 	
 	@Override
 	public FYTCUser createUser(FYTCUser user){
-		return this.userRepository.save(user);
+		//Encrypting password before saving in database
+		 BCryptPasswordEncoder passwordEncode =	new BCryptPasswordEncoder();
+		 user.setPassword(passwordEncode.encode(user.getPassword()));
+		 
+		 return this.userRepository.save(user);
 	}
 
 	@Override
