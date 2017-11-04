@@ -28,7 +28,6 @@ export class SignupPage {
   private unmatchingPasswordsErrorString: string;
 
   constructor(public navCtrl: NavController,
-    public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
     public auth: AuthenticationService,
