@@ -1,3 +1,4 @@
+import { User } from './../../shared/model/user';
 import { Credentials } from './../../shared/model/credentials';
 import { AccountDetails } from './../../shared/model/account-details';
 import 'rxjs/add/operator/toPromise';
@@ -10,7 +11,7 @@ import { Api } from '../api/api';
 
 @Injectable()
 export class AuthenticationService {
-    _user: any;
+    _user: User;
 
     constructor(public api: Api) { }
 
@@ -43,7 +44,7 @@ export class AuthenticationService {
     /**
     * Process a login/signup response to store user data
     */
-    _loggedIn(resp) {
-        this._user = resp.user;
+    _loggedIn(resp: User) {
+        this._user = resp;
     }
 }
