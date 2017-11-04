@@ -1,10 +1,11 @@
-import { AuthenticationService } from './../../providers/auth/authenticate';
+import { User } from './../../shared/model/user';
+import { ProfilePage } from './../pages';
+import { AuthenticationService } from './../../providers/providers';
 import { Credentials } from './../../shared/model/credentials';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
 
 @IonicPage()
@@ -22,7 +23,6 @@ export class LoginPage {
   private loginErrorString: string;
 
   constructor(public navCtrl: NavController,
-    public user: User,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
     public auth: AuthenticationService) {

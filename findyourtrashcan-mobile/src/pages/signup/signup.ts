@@ -1,14 +1,13 @@
+import { AuthenticationService } from './../../providers/providers';
+import { User } from './../../shared/model/user';
 
 import { WelcomePage } from '../pages';
-import { AccountDetailsService } from './../../providers/user/account-details';
+import { AccountDetailsService } from './../../providers/providers';
 import { Credentials } from './../../shared/model/credentials';
-import { AuthenticationService } from './../../providers/auth/authenticate';
 import { AccountDetails } from './../../shared/model/account-details';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
-
-import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
 
 @IonicPage()

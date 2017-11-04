@@ -7,6 +7,7 @@
   "LAST_NAME": "Nom",
   "BIRTH_DATE": "Date de naissance",
   "LOGIN": "Connexion",
+  "LOGOUT": "Déconnexion",
   "SIGNUP": "Inscription",
   "DATE_FORMAT": "DD/mm/YYYY",
   "TAB1_TITLE": "Items",
@@ -35,6 +36,8 @@
   "SIGNUP_TITLE": "Inscription",
   "SIGNUP_ERROR": "Inscription impossible. Veuillez vérifier les informations de votre compte et réessayer.",
   "SIGNUP_BUTTON": "Inscription",
+  "PROFILE_TITLE": "Profil",
+  "RANK": "Rang",
   "LIST_MASTER_TITLE": "Items",
   "ITEM_CREATE_TITLE": "Nouvel item",
   "ITEM_CREATE_CHOOSE_IMAGE": "Ajouter une image",
@@ -43,6 +46,7 @@
   "CANCEL_BUTTON": "Annuler",
   "DELETE_BUTTON": "Supprimer",
   "SEARCH_TITLE": "Recherche",
+  "SAVE": "Enregistrer",
   "UNMATCHING_PASSWORD_ERRORS": "Les mots de passe ne correspondent pas",
   "FORGOTTEN_PASSWORD": "Vous avez oublié votre mot de passe ?"
 }
