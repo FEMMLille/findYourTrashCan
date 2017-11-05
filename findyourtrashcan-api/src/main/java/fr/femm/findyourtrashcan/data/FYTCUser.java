@@ -23,6 +23,10 @@ public class FYTCUser {
 	private String password;
 	
 	private String email;
+
+	private boolean enabled;
+	
+	private String role;
 	
 	public FYTCUser() {
 		
@@ -33,6 +37,8 @@ public class FYTCUser {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.enabled = true;
+		this.role = "USER";
 	}
 
 	public Integer getId() {
@@ -65,6 +71,22 @@ public class FYTCUser {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 }
