@@ -3,9 +3,9 @@ package fr.femm.findyourtrashcan.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.femm.findyourtrashcan.data.FYTCUser;
@@ -27,13 +27,9 @@ public class FYTCUserController {
 	 */
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public FYTCUser createUser(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("mail") String mail) {
-		 //TODO Changer les requestParam en requestBody pour par la suite envoyer du JSON depuis le front au lieu de mettre tout en paramètre dans la requête
-		
-		logger.info("WebService createUser [username : "+ username +", password : "+ password +", mail : "+ mail +"]");
-		
-		FYTCUser user = new FYTCUser(username,password,mail);
-		
+	public FYTCUser createUser(@RequestBody FYTCUser user) {		
+		logger.info("WebService createUser [username : "+ user.getUsername() +", password : "+ user.getPassword() +", mail : "+ user.getEmail() +"]");
+				
 		return service.createUser(user);
 	}
 	
