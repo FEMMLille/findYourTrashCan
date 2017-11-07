@@ -1,3 +1,5 @@
+import { RankTypeService } from './rank/rank_types';
+import { RankService } from './rank/rank';
 import { AccountDetailsService } from './user/account-details';
 import { AuthenticationService } from './auth/authenticate';
 import { Api } from './api/api';
@@ -9,5 +11,7 @@ export {
     Items,
     Settings,
     AuthenticationService,
-    AccountDetailsService
+    AccountDetailsService,
+    RankService,
+    RankTypeService
 };

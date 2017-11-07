@@ -33,10 +33,10 @@
         </ion-item>
 
         <div padding>
-            <h3 class="color-primary">{{ 'RANK' | translate }} : Ambassaor gros</h3>
+            <h3 class="color-primary">{{ 'RANK' | translate }} : {{ user.account.rankType.label }}</h3>
         </div>
 
-        <progress-bar [progress]="in" [total]="out"></progress-bar>
+        <progress-bar [progress]="user.account.rank.totalPoints" [total]="user.account.rankType.necessaryPoints"></progress-bar>
 
         <button ion-button block (click)="save() ">{{ 'SAVE' | translate }}</button>
         <button ion-button clear block (click)="cancel() " class="login ">{{ 'CANCEL_BUTTON' | translate }}</button>

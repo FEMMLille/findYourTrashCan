@@ -1,3 +1,5 @@
+import { RankTypeService } from './../providers/rank/rank_types';
+import { RankService } from './../providers/rank/rank';
 import { ProgressBarComponent } from './../components/progress-bar/progress-bar';
 import { AuthenticationService } from './../providers/providers';
 import { AccountDetailsService } from './../providers/providers';
@@ -67,6 +69,8 @@ export function provideSettings(storage: Storage) {
     Camera,
     SplashScreen,
     AuthenticationService,
+    RankService,
+    RankTypeService,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
