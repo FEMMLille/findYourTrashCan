@@ -6,4 +6,3 @@ export class User {
         public account?: AccountDetails) {
     }
 }
-//TODO add Rang and Rang_type, maybe not in user
