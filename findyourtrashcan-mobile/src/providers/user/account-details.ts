@@ -14,7 +14,11 @@ export class AccountDetailsService {
     constructor(public api: Api) { }
 
     signup(accountInfo: AccountDetails): Observable<any> {
-        let seq = this.api.post('user', accountInfo).share();
+        let seq = this.api.post('user', accountInfo);
         return seq;
+    }
+
+    getAccountDetailsFromUserId(id: number): Observable<any> {
+        return this.api.get('accountdetails/' + id);
     }
 }
