@@ -21,10 +21,6 @@ export class FormUser {
 
 export class InscriptionComponent implements OnInit {
 
-  /*email = new FormControl('', [Validators.required, Validators.email]);
-  login = new FormControl('', [Validators.required, Validators.minLength(4)]);
-  password = new FormControl('', [Validators.required]);*/
-
   createForm: FormGroup;
 
   form: FormUser;
@@ -71,37 +67,74 @@ export class InscriptionComponent implements OnInit {
     return this.createForm.get('login');
   }
 
+  getErrorMessageLogin() {
+    return this.login.hasError('required') ? 'You must enter a value' :
+      this.login.hasError('login') ? 'Not a valid login' : '';
+  }
+
   get password() {
     return this.createForm.get('password');
+  }
+
+  getErrorMessagePassword() {
+    return this.password.hasError('required') ? 'You must enter a value' :
+      this.password.hasError('password') ? 'Not a valid password' : '';
   }
 
   get repeatPassword() {
     return this.createForm.get('repeatPassword');
   }
 
+  getErrorMessageRepeatPassword() {
+    return this.repeatPassword.hasError('required') ? 'You must enter a value' :
+      this.repeatPassword.hasError('repeatPassword') ? 'Not a valid repeat password' : '';
+  }
+
   get email() {
     return this.createForm.get('email');
+  }
+
+  getErrorMessageMail() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+      this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   get firstName() {
     return this.createForm.get('firstName');
   }
 
+  getErrorMessageFirstName() {
+    return this.firstName.hasError('required') ? 'You must enter a value' :
+      this.firstName.hasError('firstName') ? 'Not a valid first name' : '';
+  }
+
   get lastName() {
     return this.createForm.get('lastName');
+  }
+
+  getErrorMessageLastName() {
+    return this.lastName.hasError('required') ? 'You must enter a value' :
+      this.lastName.hasError('lastName') ? 'Not a valid last name' : '';
   }
 
   get birthday() {
     return this.createForm.get('birthday');
   }
 
+  getErrorMessageBirthday() {
+    return this.birthday.hasError('required') ? 'You must enter a value' :
+      this.birthday.hasError('birthday') ? 'Not a valid birthday' : '';
+  }
+
   get gender() {
     return this.createForm.get('gender');
   }
 
-  getErrorMessage() {
-    return this.createForm.get('email').hasError('required') ? 'You must enter a value' :
-      this.createForm.get('email').hasError('email') ? 'Not a valid email' : '';
+  getErrorMessageGender() {
+    return this.gender.hasError('required') ? 'You must enter a value' :
+      this.gender.hasError('gender') ? 'Not a valid gender' : '';
   }
+
+
 
 }
