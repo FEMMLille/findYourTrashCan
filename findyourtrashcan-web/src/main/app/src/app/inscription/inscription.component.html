@@ -8,18 +8,18 @@
       <form [formGroup]="createForm">
         <mat-form-field class="full-width-item">
           <input matInput placeholder="Login" formControlName="login" required>
-          <mat-error *ngIf="login.invalid && (login.dirty || login.touched)">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="login.invalid && (login.dirty || login.touched)">{{getErrorMessageLogin()}}</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-item">
           <input matInput placeholder="Enter your password" [type]="!hide ? 'password' : 'text'" translate formControlName="password"
             required>
-          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessagePassword()}}</mat-error>
           <mat-icon matSuffix (click)="hide = !hide;">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         </mat-form-field>
         <mat-form-field class="full-width-item">
           <input matInput placeholder="Repeat your password" [type]="!hideRepeat ? 'password' : 'text'" translate formControlName="repeatPassword"
             required>
-          <mat-error *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)">{{getErrorMessageRepeatPassword()}}</mat-error>
           <mat-icon matSuffix (click)="hideRepeat = !hideRepeat;">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
         </mat-form-field>
         <table class="full-width-item" cellspacing="0">
@@ -27,13 +27,13 @@
             <td>
               <mat-form-field class="full-width-item">
                 <input matInput placeholder="First name" formControlName="firstName" required>
-                <mat-error *ngIf="firstName.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-error *ngIf="firstName.invalid">{{getErrorMessageFirstName()}}</mat-error>
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="full-width-item">
                 <input matInput placeholder="Last name" formControlName="lastName" required>
-                <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-error *ngIf="lastName.invalid">{{getErrorMessageLastName()}}</mat-error>
               </mat-form-field>
             </td>
           </tr>
@@ -52,18 +52,19 @@
                   Male
                 </mat-radio-button>
               </mat-radio-group>
+              <mat-error *ngIf="gender.invalid">{{getErrorMessageGender()}}</mat-error>
             </td>
           </tr>
         </table>
         <mat-form-field class="full-width-item">
           <input matInput [matDatepicker]="picker" placeholder="Date of birthday" formControlName="birthday" required>
-          <mat-error *ngIf="birthday.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="birthday.invalid">{{getErrorMessageBirthday()}}</mat-error>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field class="full-width-item">
           <input matInput placeholder="Enter your email" formControlName="email" required>
-          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="email.invalid">{{getErrorMessageMail()}}</mat-error>
         </mat-form-field>
       </form>
     </mat-card-content>
