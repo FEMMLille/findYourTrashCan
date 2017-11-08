@@ -1,0 +1,41 @@
+.full-width-item{
+    width: 100%;
+}
+.card-size{
+    width: 100%;
+}
+.card-margin-left{
+    margin-left: 10px;
+}
+.card-margin-right{
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+    .div-size {
+        display: block;
+        width: 50%;
+    }
+    .div-position{
+        float: right;    
+    }
+    .right-tile-size {
+        margin-left: 30%;
+        width: 70%;
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 640px) {
+    .display-tile {
+      display:none;
+      clear:both;
+    }
+    .div-size {
+        width: 100%;
+    }
+    .display{
+        display: block;
+        clear: both;
+    }
+  }
