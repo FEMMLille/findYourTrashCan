@@ -12,28 +12,21 @@
 }
 
 @media screen and (min-width: 1024px) {
-    .div-size {
-        display: block;
-        width: 50%;
-    }
     .div-position{
-        float: right;    
+        float: right !important;    
     }
-    .right-tile-size {
-        margin-left: 30%;
-        width: 70%;
-        height: 100%;
+    .display{
+        display: block;
+        clear: both;
     }
 }
 
-@media screen and (min-width: 200px) and (max-width: 640px) {
+@media screen and (min-width: 200px) and (max-width: 1023px) {
     .display-tile {
       display:none;
       clear:both;
     }
-    .div-size {
-        width: 100%;
-    }
+    
     .display{
         display: block;
         clear: both;

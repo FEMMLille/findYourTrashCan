@@ -12,6 +12,8 @@ import { I18nService } from './i18n.service';
 import { HttpService } from './http/http.service';
 import { HttpCacheService } from './http/http-cache.service';
 import { MaterialModule } from '../material.module';
+import { AuthenticationService } from './shell/header/login/authentication.service';
+import { AuthenticationGuard } from './shell/header/login/authentication.guard';
 export function createHttpService(backend: ConnectionBackend,
   defaultOptions: RequestOptions,
   httpCacheService: HttpCacheService) {
@@ -35,6 +37,8 @@ export function createHttpService(backend: ConnectionBackend,
   providers: [
     I18nService,
     HttpCacheService,
+    AuthenticationService,
+    AuthenticationGuard,
     {
       provide: Http,
       deps: [XHRBackend, RequestOptions, HttpCacheService],
