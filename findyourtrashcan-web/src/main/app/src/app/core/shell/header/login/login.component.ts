@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(credentials => {
         log.debug(`${credentials.username} successfully logged in`);
-        this.router.navigate(['/'], { replaceUrl: true });
+        this.router.navigate(['/accountdetails'], { replaceUrl: true });
       }, error => {
         log.debug(`Login error: ${error}`);
         this.error = error;
