@@ -39,6 +39,7 @@ export class AuthenticationService {
       username: context.username,
       token: '123456'
     };
+
     this.setCredentials(data, context.remember);
     return Observable.of(data);
   }

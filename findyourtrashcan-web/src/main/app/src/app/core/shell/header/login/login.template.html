@@ -19,7 +19,7 @@
             <span translate>Remember me!</span>
         </mat-slide-toggle>
         <div>
-            <button type="submit" mat-raised-button class="button-color-validate">
+            <button type="submit" [disabled]="createForm.invalid || isLoading" mat-raised-button class="button-color-validate">
                 <span translate>Sign in !</span>
             </button>
             <a class="nav-item nav-link text-uppercase" routerLink="/inscription" routerLinkActive="active">
