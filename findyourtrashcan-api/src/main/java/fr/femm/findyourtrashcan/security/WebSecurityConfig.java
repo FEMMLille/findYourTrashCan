@@ -16,6 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private static final String API_USER_URL = "/api/user";
+	private static final String API_LOGIN_URL = "/api/login";
+	private static final String USERNAME_QUERY_ATHENTIFICATION = "SELECT username, password,enabled FROM fytcuser WHERE username=?";
+	private static final String USERNAME_QUERY_AUTHORITIES = "SELECT username" + ", role FROM fytcuser WHERE username=?";
+
 	@Autowired
 	private DataSource dataSource;
 	
@@ -25,10 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    	.csrf().disable()
 	    	.authorizeRequests()
 	    		.antMatchers("/").permitAll()
-	        	.antMatchers(HttpMethod.POST, "/api/user").permitAll()
+	        	.antMatchers(HttpMethod.POST, API_USER_URL).permitAll()
 	        	.anyRequest().authenticated()
 	    	.and()
-	        .addFilterBefore(new JWTLoginFilter("/api/login", authenticationManager()),
+	        .addFilterBefore(new JWTLoginFilter(API_LOGIN_URL, authenticationManager()),
 	                UsernamePasswordAuthenticationFilter.class) // We filter the /api/user requests
 	        .addFilterBefore(new JWTAuthenticationFilter(),
 	                UsernamePasswordAuthenticationFilter.class); // And filter other requests to check the presence of JWT in header
@@ -38,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
 		.passwordEncoder(new BCryptPasswordEncoder())
-		.usersByUsernameQuery("SELECT username, password,enabled FROM fytcuser WHERE username=?")
-		.authoritiesByUsernameQuery("SELECT username" + ", role FROM fytcuser WHERE username=?");
+		.usersByUsernameQuery(USERNAME_QUERY_ATHENTIFICATION)
+		.authoritiesByUsernameQuery(USERNAME_QUERY_AUTHORITIES);
 	}
 	
 }
