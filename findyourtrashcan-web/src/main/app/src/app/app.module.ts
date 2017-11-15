@@ -16,6 +16,7 @@ import { InscriptionModule } from './inscription/inscription.module';
 
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccountDetailsModule } from './account-details/account-details.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -28,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeModule,
     AboutModule,
     InscriptionModule,
+    AccountDetailsModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule
