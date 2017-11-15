@@ -14,52 +14,52 @@ import fr.femm.findyourtrashcan.data.FYTCUser;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FYTCUserServiceTest {
-	
+
 	@Autowired
 	private FYTCUserService userService;
 	
 	@Test
 	public void createUserTest() {
-		//init
+		// init
 		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com");
-		
-		//execution
+
+		// execution
 		FYTCUser userCreated = userService.createUser(userToTest);
-		
-		//test  
-        assertNotNull(userCreated);
-        assertEquals(userCreated.getId(), userToTest.getId());
-        assertEquals(userCreated.getUsername(), userToTest.getUsername());
-        assertEquals(userCreated.getEmail(), userToTest.getEmail());
+
+		// test
+		assertNotNull(userCreated);
+		assertEquals(userCreated.getId(), userToTest.getId());
+		assertEquals(userCreated.getUsername(), userToTest.getUsername());
+		assertEquals(userCreated.getEmail(), userToTest.getEmail());
 	}
-	
+
 	@Test
 	public void getUserTest() {
-		//init
+		// init
 		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com");
-		
-		//execution
+
+		// execution
 		FYTCUser userCreated = userService.createUser(userToTest);
 		FYTCUser userGeted = userService.getUser(userCreated.getId());
-		
-		//test  
-        assertNotNull(userGeted);
-        assertEquals(userGeted.getId(), userToTest.getId());
+
+		// test
+		assertNotNull(userGeted);
+		assertEquals(userGeted.getId(), userToTest.getId());
 	}
-	
+
 	@Test
 	public void getUserTestByUsername() {
-		//init
+		// init
 		FYTCUser userToTest = new FYTCUser("mat", "skra", "popopo@gmail.com");
-		
-		//execution
+
+		// execution
 		userService.createUser(userToTest);
 		FYTCUser userGeted = userService.getUser("mat");
-		
-		//test  
-        assertNotNull(userGeted);
-        assertEquals(userGeted.getUsername(), "mat");
-        assertEquals(userGeted.getUsername(), userToTest.getUsername());
+
+		// test
+		assertNotNull(userGeted);
+		assertEquals(userGeted.getUsername(), "mat");
+		assertEquals(userGeted.getUsername(), userToTest.getUsername());
 	}
-	
+
 }

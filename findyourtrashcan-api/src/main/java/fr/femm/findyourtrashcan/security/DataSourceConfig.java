@@ -8,20 +8,26 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 public class DataSourceConfig {
 	
-	@Value("${spring.datasource.url}")
+	private static final String SPRING_DATASOURCE_URL = "${spring.datasource.url}";
+	private static final String SPRING_DATASOURCE_USERNAME = "${spring.datasource.username}";
+	private static final String SPRING_DATASOURCE_PASSWORD = "${spring.datasource.password}";
+	private static final String DATASOURCE = "dataSource";
+	private static final String DRIVER_CLASS_NAME = "org.postgresql.Driver";
+	
+	@Value(SPRING_DATASOURCE_URL)
 	private String databaseUrl;
 	
-	@Value("${spring.datasource.username}")
+	@Value(SPRING_DATASOURCE_USERNAME)
 	private String userName;
 	
-	@Value("${spring.datasource.password}")
+	@Value(SPRING_DATASOURCE_PASSWORD)
 	private String password;
 
 
-	@Bean(name="dataSource")
+	@Bean(name=DATASOURCE)
 	public DriverManagerDataSource dataSource() {
 	    DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-	    driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
+	    driverManagerDataSource.setDriverClassName(DRIVER_CLASS_NAME);
 	    driverManagerDataSource.setUrl(databaseUrl);
 	    driverManagerDataSource.setUsername(userName);
 	    driverManagerDataSource.setPassword(password);
