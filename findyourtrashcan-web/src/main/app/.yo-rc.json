@@ -1,0 +1,17 @@
+{
+  "generator-ngx-rocket": {
+    "version": "2.3.1",
+    "props": {
+      "appName": "FindYourTrashcan",
+      "target": [
+        "web"
+      ],
+      "pwa": true,
+      "ui": "bootstrap",
+      "auth": false,
+      "projectName": "find-your-trashcan",
+      "mobile": [],
+      "webview": []
+    }
+  }
+}
