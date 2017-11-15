@@ -29,12 +29,12 @@ export class AuthenticationService {
             if (res.status == 'success') {
                 this._loggedIn(res);
             }
-        }, err => {
+        }, err => {/*
+            Keep this code for test purposes
             this._loggedIn(new User(-1, "john.doe@fytc.com", "lulz",
                 new AccountDetails(-1, "John", "Doe", "john.doe@fytc.com", "../assets/img/no_avatar.png", "2017-11-04"
-                    , new Rank(-1, 1, 6000), new RankType(1, "Confirmé", 8000))));
-            new AccountDetails()
-            console.error('ERROR', err);
+                    , new Rank(-1, 1, 6000), new RankType(1, "Confirmé", 8000))));*/
+
         });
 
         return seq;
