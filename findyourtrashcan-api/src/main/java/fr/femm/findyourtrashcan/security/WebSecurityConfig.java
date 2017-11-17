@@ -18,8 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String API_USER_URL = "/api/user";
 	private static final String API_LOGIN_URL = "/api/login";
-	private static final String USERNAME_QUERY_ATHENTIFICATION = "SELECT username, password,enabled FROM fytcuser WHERE username=?";
-	private static final String USERNAME_QUERY_AUTHORITIES = "SELECT username" + ", role FROM fytcuser WHERE username=?";
+	private static final String USERNAME_QUERY_ATHENTIFICATION = "SELECT username, password,enabled FROM fytcuser f "
+			+ "join Role r on r.id = f.role_id "
+			+ "WHERE username=?";
+	private static final String USERNAME_QUERY_AUTHORITIES = "SELECT username, role_name FROM fytcuser f "
+			+ "join Role r on r.id = f.role_id "
+			+ "WHERE username=?";
 
 	@Autowired
 	private DataSource dataSource;
@@ -34,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        	.anyRequest().authenticated()
 	    	.and()
 	        .addFilterBefore(new JWTLoginFilter(API_LOGIN_URL, authenticationManager()),
-	                UsernamePasswordAuthenticationFilter.class) // We filter the /api/user requests
+	                UsernamePasswordAuthenticationFilter.class) // We filter the /api/login requests
 	        .addFilterBefore(new JWTAuthenticationFilter(),
 	                UsernamePasswordAuthenticationFilter.class); // And filter other requests to check the presence of JWT in header
 	 }

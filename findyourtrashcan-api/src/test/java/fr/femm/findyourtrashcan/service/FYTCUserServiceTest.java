@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.femm.findyourtrashcan.data.FYTCUser;
+import fr.femm.findyourtrashcan.data.Role;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,11 +18,11 @@ public class FYTCUserServiceTest {
 
 	@Autowired
 	private FYTCUserService userService;
-	
+
 	@Test
 	public void createUserTest() {
 		// init
-		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com");
+		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com", new Role(true, "USER"));
 
 		// execution
 		FYTCUser userCreated = userService.createUser(userToTest);
@@ -36,7 +37,7 @@ public class FYTCUserServiceTest {
 	@Test
 	public void getUserTest() {
 		// init
-		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com");
+		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com", new Role(true, "USER"));
 
 		// execution
 		FYTCUser userCreated = userService.createUser(userToTest);
@@ -50,7 +51,7 @@ public class FYTCUserServiceTest {
 	@Test
 	public void getUserTestByUsername() {
 		// init
-		FYTCUser userToTest = new FYTCUser("mat", "skra", "popopo@gmail.com");
+		FYTCUser userToTest = new FYTCUser("mat", "skra", "popopo@gmail.com", new Role(true, "USER"));
 
 		// execution
 		userService.createUser(userToTest);
