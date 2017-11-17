@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import fr.femm.findyourtrashcan.data.FYTCUser;
+import fr.femm.findyourtrashcan.data.Role;
 import fr.femm.findyourtrashcan.repository.FYTCUserRepository;
 
 import java.io.IOException;
@@ -66,12 +67,13 @@ public class FYTCUserControllerTest {
 
 		this.userRepository.deleteAllInBatch();
 
-		this.user = userRepository.save(new FYTCUser("wow", "amazing", "lol@nope.com"));
+		this.user = userRepository.save(new FYTCUser("wow", "amazing", "lol@nope.com", new Role(true, "USER")));
 	}
 
 	@Test
 	public void newUser() throws Exception {
-		mockMvc.perform(post(API_USER_URL).content(this.json(new FYTCUser("test", "testPass", "lol@nope.com")))
+		mockMvc.perform(post(API_USER_URL)
+				.content(this.json(new FYTCUser("test", "testPass", "lol@nope.com", new Role(true, "USER"))))
 				.contentType(contentType)).andExpect(status().isOk());
 	}
 
