@@ -1,0 +1,29 @@
+@import "src/theme/theme-variables";
+.button-color-validate{
+    background-color: $green;
+}
+.button-color-remove{
+    background-color: $danger;
+}
+.example-full-width {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.nav-link.dropdown-toggle {
+    cursor: pointer;
+}
+.example-button-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+button {
+    color: white !important;
+    font-size: 18px;
+    font-weight: bold;
+    height: 100% !important;
+}
+.form {
+    width:100%;
+    text-align: center;
+}

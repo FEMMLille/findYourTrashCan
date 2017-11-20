@@ -1,0 +1,30 @@
+<button mat-button [matMenuTriggerFor]="menu">
+    <i class="material-icons">face</i>
+    <span translate> Login</span>
+</button>
+<mat-menu #menu="matMenu">
+    <form (ngSubmit)="authenticate()" [formGroup]="createForm" novalidate>
+        <mat-form-field>
+            <input matInput placeholder="Login" (click)="stopClickPropagate($event)" formControlName="username" required translate>
+            <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">{{getErrorMessageUsername()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" (click)="stopClickPropagate($event)"
+                formControlName="password" required translate>
+            <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessagePassword()}}</mat-error>
+            <mat-icon matSuffix  (click)="hide = !hide; stopClickPropagate($event)">{{!hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="remember" (click)="stopClickPropagate($event)">
+            <span translate>Remember me!</span>
+        </mat-slide-toggle>
+        <div>
+            <button type="submit" mat-raised-button (click)="stopClickPropagate($event);" class="button-color-validate">
+                <span translate>Sign in !</span>
+            </button>
+            <a class="nav-item nav-link text-uppercase" routerLink="/inscription" routerLinkActive="active">
+                <span translate>inscription</span>
+            </a>
+        </div>
+    </form>
+</mat-menu>

@@ -1,5 +1,21 @@
+<ion-content>
+  Hello that is du contenu lelz
+</ion-content>
 <ion-tabs>
-  <ion-tab [root]="tab1Root" [tabTitle]="tab1Title" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" [tabTitle]="tab2Title" tabIcon="search"></ion-tab>
-  <ion-tab [root]="tab3Root" [tabTitle]="tab3Title" tabIcon="cog"></ion-tab>
 </ion-tabs>
+<ion-footer>
+  <div class="bar-menu">
+    <button ion-button clear type=" button ">
+      <ion-icon class="menu-icon" name="person"></ion-icon>
+    </button>
+    <button ion-button clear [class.toggled-button]="filterIsRunning" type="button" (click)="toggleFilter()">
+      <ion-icon class=" menu-icon " name="search"></ion-icon>
+    </button>
+    <button ion-button clear type="button ">
+      <ion-icon class="menu-icon " name="trophy"></ion-icon>
+    </button>
+    <button ion-button clear type="button ">
+      <ion-icon class="menu-icon " name="add-circle"></ion-icon>
+    </button>
+  </div>
+</ion-footer>

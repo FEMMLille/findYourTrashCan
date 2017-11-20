@@ -1,0 +1,35 @@
+/*
+ * Global application theme.
+ * Framework overrides and customization goes here.
+ */
+ @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-select-arrow,
+.mat-select-disabled,
+.mat-select-trigger,
+.mat-select-value{
+  color: $light !important;
+}
+
+h3,h4,h5,h6{
+  font-weight: bold;
+}
+
+html,body {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-validate {
+  background-color: $green !important;
+  color: $light !important;
+}
+.btn-reset {
+  background-color: $danger !important;
+  color: $light !important;
+}
+
+.center{
+  text-align: center;
+  margin: 0 auto;
+}
