@@ -35,6 +35,7 @@ export class AuthenticationService {
    */
   login(context: LoginContext): Observable<Credentials> {
     // Replace by proper authentication call
+    console.log(context);
     const data = {
       username: context.username,
       token: '123456'

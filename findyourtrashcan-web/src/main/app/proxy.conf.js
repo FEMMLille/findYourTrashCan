@@ -10,6 +10,12 @@ const HttpsProxyAgent = require('https-proxy-agent');
  */
 const proxyConfig = [
   {
+    context: '/api',
+    pathRewrite: { '^/api': '' },
+    target: 'https://localhost:8080',
+    changeOrigin: true,
+    secure: false
+  },{
     context: '/api/chuck',
     pathRewrite: { '^/api/chuck': '' },
     target: 'https://api.chucknorris.io',

@@ -65,7 +65,6 @@ export function provideSettings(storage: Storage) {
     Api,
     AccountDetailsService,
     Items,
-    AuthenticationService,
     Camera,
     SplashScreen,
     AuthenticationService,
