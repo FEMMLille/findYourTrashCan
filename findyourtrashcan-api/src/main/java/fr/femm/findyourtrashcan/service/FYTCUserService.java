@@ -12,6 +12,7 @@ public interface FYTCUserService {
 	
 	/**
 	 * Method to create a user
+	 * This method encrypt user password before the creation
 	 * @param user The user
 	 * @return The created user
 	 */
