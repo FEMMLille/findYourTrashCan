@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * Entity representing User in database
@@ -23,16 +24,20 @@ public class FYTCUser {
 	private String password;
 	
 	private String email;
+
+	@OneToOne
+	private Role role;
 	
 	public FYTCUser() {
 		
 	}
 	
-	public FYTCUser(String username, String password, String email) {
+	public FYTCUser(String username, String password, String email,Role role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.role = role;
 	}
 
 	public Integer getId() {
@@ -66,5 +71,13 @@ public class FYTCUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 }

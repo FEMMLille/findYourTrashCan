@@ -1,3 +1,8 @@
+import { RankTypeService } from './../providers/rank/rank_types';
+import { RankService } from './../providers/rank/rank';
+import { ProgressBarComponent } from './../components/progress-bar/progress-bar';
+import { AuthenticationService } from './../providers/providers';
+import { AccountDetailsService } from './../providers/providers';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,7 +16,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
-import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 
@@ -59,10 +63,14 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
+    AccountDetailsService,
     Items,
-    User,
+    AuthenticationService,
     Camera,
     SplashScreen,
+    AuthenticationService,
+    RankService,
+    RankTypeService,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
