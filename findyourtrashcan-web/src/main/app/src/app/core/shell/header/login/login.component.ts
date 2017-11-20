@@ -1,15 +1,15 @@
 import 'rxjs/add/operator/finally';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { I18nService } from '../../../i18n.service';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService, LoginContext } from './authentication.service';
 import { Logger } from '../../../logger.service';
 import { Router } from '@angular/router';
 
-export class FormLogin {
-  login?: string;
-  password?: string;
+export class FormLogin implements LoginContext {
+  username: string;
+  password: string;
   remember?: boolean;
 }
 
@@ -31,12 +31,15 @@ export class LoginComponent implements OnInit {
   form: FormLogin;
 
   constructor(private i18nService: I18nService, private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService, private fb: FormBuilder) { }
+
   ngOnInit() {
-    this.isLoading = true;
     this.form = new FormLogin();
-    this.createForm = new FormGroup({
-      'login': new FormControl(this.form.login, [
+    this.form.username = '';
+    this.form.password = '';
+    this.form.remember = false;
+    this.createForm = this.fb.group({
+      'username': new FormControl(this.form.username, [
         Validators.required,
       ]),
       'password': new FormControl(this.form.password, [
@@ -47,8 +50,8 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate() {
-    this.isLoading = true;
-    this.authenticationService.login(this.createForm.value)
+    console.log(this.createForm.value);
+    /*this.authenticationService.login(this.createForm.value)
       .finally(() => {
         this.createForm.markAsPristine();
         this.isLoading = false;
@@ -59,16 +62,16 @@ export class LoginComponent implements OnInit {
       }, error => {
         log.debug(`Login error: ${error}`);
         this.error = error;
-      });
+      });*/
   }
 
-  get login() {
-    return this.createForm.get('login');
+  get username() {
+    return this.createForm.get('username');
   }
 
-  getErrorMessageLogin() {
-    return this.login.hasError('required') ? 'You must enter a value' :
-      this.login.hasError('login') ? 'Not a valid login' : '';
+  getErrorMessageUsername() {
+    return this.username.hasError('required') ? 'You must enter a value' :
+      this.username.hasError('username') ? 'Not a valid login' : '';
   }
 
   get password() {

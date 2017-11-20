@@ -3,23 +3,23 @@
     <span translate> Login</span>
 </button>
 <mat-menu #menu="matMenu">
-    <form class="form" (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="authenticate()" [formGroup]="createForm" novalidate>
         <mat-form-field>
-            <input matInput placeholder="Login" (click)="stopClickPropagate($event)" formControlName="login" required translate>
-            <mat-error *ngIf="login.invalid && (login.dirty || login.touched)">{{getErrorMessageLogin()}}</mat-error>
+            <input matInput placeholder="Login" (click)="stopClickPropagate($event)" formControlName="username" required translate>
+            <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">{{getErrorMessageUsername()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" (click)="stopClickPropagate($event)"
                 formControlName="password" required translate>
             <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessagePassword()}}</mat-error>
-            <mat-icon matSuffix (click)="hide = !hide; stopClickPropagate($event)">{{!hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            <mat-icon matSuffix  (click)="hide = !hide; stopClickPropagate($event)">{{!hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         </mat-form-field>
-        <mat-slide-toggle (click)="stopClickPropagate($event)">
+        <mat-slide-toggle formControlName="remember" (click)="stopClickPropagate($event)">
             <span translate>Remember me!</span>
         </mat-slide-toggle>
         <div>
-            <button type="submit" [disabled]="createForm.invalid || isLoading" mat-raised-button class="button-color-validate">
+            <button type="submit" mat-raised-button (click)="stopClickPropagate($event);" class="button-color-validate">
                 <span translate>Sign in !</span>
             </button>
             <a class="nav-item nav-link text-uppercase" routerLink="/inscription" routerLinkActive="active">

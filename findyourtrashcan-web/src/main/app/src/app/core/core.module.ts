@@ -14,6 +14,7 @@ import { HttpCacheService } from './http/http-cache.service';
 import { MaterialModule } from '../material.module';
 import { AuthenticationService } from './shell/header/login/authentication.service';
 import { AuthenticationGuard } from './shell/header/login/authentication.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 export function createHttpService(backend: ConnectionBackend,
   defaultOptions: RequestOptions,
   httpCacheService: HttpCacheService) {
@@ -22,6 +23,7 @@ export function createHttpService(backend: ConnectionBackend,
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     HttpModule,
     TranslateModule,
@@ -30,8 +32,8 @@ export function createHttpService(backend: ConnectionBackend,
     MaterialModule
   ],
   declarations: [
-    HeaderComponent,
     LoginComponent,
+    HeaderComponent,
     ShellComponent
   ],
   providers: [

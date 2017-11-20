@@ -22,7 +22,8 @@ export class FormUser {
 export class InscriptionComponent implements OnInit {
 
   createForm: FormGroup;
-
+  hide = true;
+  hideRepeat = true;
   form: FormUser;
 
   constructor(private locationService: LocationService, private builder: FormBuilder) { }
