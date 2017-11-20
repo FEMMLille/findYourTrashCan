@@ -1,0 +1,28 @@
+@import "src/theme/theme-variables";
+
+.navbar {
+  margin-bottom: $spacer;
+  background-color: $green !important;
+  font-weight: bold;
+}
+.logo{
+  max-width: 32px;
+}
+.navbar-brand{
+  color: white !important;
+  font-weight: bold;
+}
+button {
+  color: white !important;
+  font-size: 18px;
+  font-weight: bold;
+  height: 100% !important;
+}
+.menu-language{
+  margin-right:40px;
+}
+
+.menu-language-color{
+  color:$dark !important;
+}
+
