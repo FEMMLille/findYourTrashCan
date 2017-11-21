@@ -16,15 +16,6 @@ import { InscriptionModule } from './inscription/inscription.module';
 
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './home/home.module';
-import { AboutModule } from './about/about.module';
-import { InscriptionModule } from './inscription/inscription.module';
-
-import { MaterialModule } from './material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountDetailsModule } from './account-details/account-details.module';
 @NgModule({
   imports: [
