@@ -1,9 +1,22 @@
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Logger } from '../../../logger.service';
+
+const log = new Logger('AuthentificationService');
+
+
+const routes = {
+  authentication: `/back/login`,
+};
 
 export interface Credentials {
-  // Customize received credentials here
-  username: string;
   token: string;
 }
 
@@ -24,7 +37,7 @@ export class AuthenticationService {
 
   private _credentials: Credentials;
 
-  constructor() {
+  constructor(private http: Http) {
     this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
   }
 
@@ -34,17 +47,20 @@ export class AuthenticationService {
    * @return {Observable<Credentials>} The user credentials.
    */
   login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
-    console.log(context);
     const data = {
-      username: context.username,
-      token: '123456'
+      token: ''
     };
-
-    this.setCredentials(data, context.remember);
-    return Observable.of(data);
+    return this.http.post(routes.authentication, { username: context.username, password: context.password })
+      .map((response: Response): Credentials => {
+        data.token = (response.headers.get('authorization') !== undefined) ? response.headers.get('authorization') : '';
+        this.setCredentials(data, context.remember);
+        return data;
+      });
   }
 
+  handleError(text: string) {
+    log.error(text);
+  }
   /**
    * Logs out the user and clear credentials.
    * @return {Observable<boolean>} True if the user was logged out successfully.

@@ -2,7 +2,7 @@
     <i class="material-icons">face</i>
     <span translate> Login</span>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu class="center" #menu="matMenu">
     <form (ngSubmit)="authenticate()" [formGroup]="createForm" novalidate>
         <mat-form-field>
             <input matInput placeholder="Login" (click)="stopClickPropagate($event)" formControlName="username" required translate>
