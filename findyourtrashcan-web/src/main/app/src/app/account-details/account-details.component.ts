@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AccountDetailsService } from "../../../../../../../findyourtrashcan-mobile/src/providers/user/account-details";
+// import { AccountDetailsService } from "../../../../../../../findyourtrashcan-mobile/src/providers/user/account-details";
 
 export class FormUser {
   login?: string;

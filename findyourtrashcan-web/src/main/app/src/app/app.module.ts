@@ -17,6 +17,8 @@ import { InscriptionModule } from './inscription/inscription.module';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountDetailsModule } from './account-details/account-details.module';
+import { DisplayModule } from './home/display/display.module';
+
 @NgModule({
   imports: [
     ReactiveFormsModule,
@@ -33,7 +35,8 @@ import { AccountDetailsModule } from './account-details/account-details.module';
     AccountDetailsModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DisplayModule
   ],
   declarations: [AppComponent],
   providers: [
