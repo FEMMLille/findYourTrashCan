@@ -11,8 +11,9 @@
   color: $light !important;
 }
 
-h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6{
   font-weight: bold;
+  color: $green;
 }
 
 html,body {
@@ -32,4 +33,10 @@ html,body {
 .center{
   text-align: center;
   margin: 0 auto;
+}
+
+.divider{
+  width: 100%;
+  border-top: 2px solid;
+  border-color: $green;
 }

@@ -7,6 +7,7 @@ import { InscriptionComponent } from './inscription.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { LocationService } from './location.service';
+import { InscriptionService } from './inscription.service';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { LocationService } from './location.service';
     InscriptionComponent
   ],
   providers: [
-    LocationService
+    LocationService,
+    InscriptionService
   ]
 })
 export class InscriptionModule { }

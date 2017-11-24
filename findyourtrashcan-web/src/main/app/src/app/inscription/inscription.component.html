@@ -20,7 +20,7 @@
       <mat-card class="card-size card-margin-left">
           <mat-card-title>Informations Personnelles</mat-card-title>
           <mat-card-content>
-            <form [formGroup]="createForm">
+            <form (ngSubmit)="sendValues()" [formGroup]="createForm" novalidate>
               <mat-form-field class="full-width-item">
                 <input matInput placeholder="Login" formControlName="login" required>
                 <mat-error *ngIf="login.invalid && (login.dirty || login.touched)">{{getErrorMessageLogin()}}</mat-error>
@@ -81,8 +81,8 @@
                 <input matInput placeholder="Enter your email" formControlName="email" required>
                 <mat-error *ngIf="email.invalid">{{getErrorMessageMail()}}</mat-error>
               </mat-form-field>
-              <button mat-raised-button class="btn-validate">Validate</button>
-              <button mat-raised-button class="btn-reset">Reset</button>
+              <button mat-raised-button type="submit" class="btn-validate">Validate</button>
+              <button mat-raised-button type="reset" class="btn-reset">Reset</button>
             </form>
           </mat-card-content>
           <mat-card-footer>
