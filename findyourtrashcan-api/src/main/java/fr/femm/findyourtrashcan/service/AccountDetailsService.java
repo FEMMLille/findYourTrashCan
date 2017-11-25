@@ -4,8 +4,6 @@ import fr.femm.findyourtrashcan.data.AccountDetails;
 
 /**
  * Class for operating on user
- * @author Francis Cornaire
- *
  */
 
 public interface AccountDetailsService {
@@ -16,14 +14,14 @@ public interface AccountDetailsService {
 	 *            the id of the user
 	 * @return The user account details
 	 */
-	AccountDetails getAccountDetails(final Integer id);
+	AccountDetails getAccountDetailsByUser(final Integer id);
 	
 	/**
 	 * Method to create a user with his account details
 	 * 
 	 * @param accountDetails
-	 *            The account details
+	 *            The account details [user]
 	 * @return The created account dtails + user
 	 */
-	public AccountDetails createUser(AccountDetails accountDetails);
+	public AccountDetails createAccountDetails(AccountDetails accountDetails);
 }

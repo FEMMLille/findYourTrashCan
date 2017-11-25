@@ -15,6 +15,10 @@ import fr.femm.findyourtrashcan.service.AccountDetailsService;
 @RequestMapping("/api/accountdetails")
 public class AccountDetailsController {
 
+	private static final String ID = "id";
+
+	private static final String URL_GET_BY_USER = "/{" + ID + "}";
+
 	private Logger logger = Logger.getLogger(AccountDetailsController.class);
 
 	@Autowired
@@ -25,20 +29,27 @@ public class AccountDetailsController {
 	 * 
 	 * @param id
 	 *            the id of the user we want to get the account details
-	 * @return The user founded
+	 * @return The account details found
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public AccountDetails getAccountDetails(@PathVariable("id") Integer id) {
+	@RequestMapping(value = URL_GET_BY_USER, method = RequestMethod.GET)
+	public AccountDetails getAccountDetailsByUser(@PathVariable(ID) Integer id) {
 		logger.info("WebService getAccountDetails [id : " + id + "]");
 
-		return service.getAccountDetails(id);
+		return service.getAccountDetailsByUser(id);
 	}
 
+	/**
+	 * Create account details
+	 * 
+	 * @param accountDetails
+	 *            The account details with the user in it
+	 * @return The account details and user created
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public AccountDetails createAccountDetails(@RequestBody AccountDetails accountDetails) {
 		logger.info("WebService createAccountDetails " + accountDetails);
 
-		return service.createUser(accountDetails);
+		return service.createAccountDetails(accountDetails);
 	}
 
 }

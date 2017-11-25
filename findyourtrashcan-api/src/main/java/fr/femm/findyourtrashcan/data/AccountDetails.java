@@ -10,8 +10,6 @@ import javax.persistence.OneToOne;
 
 /**
  * Entity representing AccountDetails in database
- * @author Francis Cornaire
- *
  */
 
 @Entity
@@ -37,7 +35,6 @@ public class AccountDetails {
 	}
 
 	public AccountDetails(FYTCUser user, String firstName, String lastName, Date birthday, String avatar) {
-		super();
 		this.user = user;
 		this.firstName = firstName;
 		this.lastName = lastName;

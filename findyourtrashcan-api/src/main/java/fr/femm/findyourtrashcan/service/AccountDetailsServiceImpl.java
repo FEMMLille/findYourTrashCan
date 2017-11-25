@@ -8,8 +8,6 @@ import fr.femm.findyourtrashcan.repository.AccountDetailsRepository;
 
 /**
  * Class implementation of the User service
- * @author Francis Cornaire
- *
  */
 
 @Service
@@ -22,12 +20,12 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 	private FYTCUserService userService;
 
 	@Override
-	public AccountDetails getAccountDetails(Integer id) {
+	public AccountDetails getAccountDetailsByUser(Integer id) {
 		return accountDetailsRepository.findByUserId(id);
 	}
 
 	@Override
-	public AccountDetails createUser(AccountDetails accountDetails) {
+	public AccountDetails createAccountDetails(AccountDetails accountDetails) {
 		userService.createUser(accountDetails.getUser());
 		return accountDetailsRepository.save(accountDetails);
 	}
