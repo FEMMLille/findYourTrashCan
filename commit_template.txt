@@ -5,7 +5,7 @@
 #Référence: (référence à l’issue de github)
 
 #Les type de commit:
-#<refactor> Fixation d’un bug dans la feature
+#<fix> Fixation d’un bug dans la feature
 #<style> Formatage du code
 #<docs> Changement concernant la documentation
 #<test> Ajout ou réécriture d’un test
