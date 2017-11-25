@@ -1,6 +1,7 @@
 package fr.femm.findyourtrashcan.data;
 
 import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class AccountDetails {
 	
 	@OneToOne
 	private FYTCUser user;
-	
+
 	private String firstName;
 	
 	private String lastName;
@@ -90,6 +91,12 @@ public class AccountDetails {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountDetails [id=" + id + ", user=" + user + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", birthday=" + birthday + ", avatar=" + avatar + "]";
 	}
 	
 }

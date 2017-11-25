@@ -1,6 +1,7 @@
 package fr.femm.findyourtrashcan.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import fr.femm.findyourtrashcan.data.AccountDetails;
 
 /**
@@ -10,5 +11,7 @@ import fr.femm.findyourtrashcan.data.AccountDetails;
  */
 
 public interface AccountDetailsRepository extends JpaRepository<AccountDetails, Integer> {
+
+	AccountDetails findByUserId(Integer id);
 
 }

@@ -30,7 +30,7 @@ public class FYTCUserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public FYTCUser createUser(@RequestBody FYTCUser user) {
-		logger.info("WebService createUser [username : " + user.getUsername() + ", password : " + user.getPassword() + ", mail : " + user.getEmail() + " role: " + user.getRole().getRoleName() + "]");
+		logger.info("WebService createUser " + user);
 
 		return service.createUser(user);
 	}

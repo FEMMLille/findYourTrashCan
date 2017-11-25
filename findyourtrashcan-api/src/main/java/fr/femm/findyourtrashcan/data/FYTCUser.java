@@ -80,4 +80,10 @@ public class FYTCUser {
 		this.role = role;
 	}
 
+	@Override
+	public String toString() {
+		return "FYTCUser [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", role=" + role + "]";
+	}
+
 }
