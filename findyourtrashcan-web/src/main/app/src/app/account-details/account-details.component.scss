@@ -1,34 +1,44 @@
-.full-width-item{
-    width: 100%;
-}
-.card-size{
-    width: 100%;
-}
-.card-margin-left{
-    margin-left: 10px;
-}
-.card-margin-right{
-    margin-right: 10px;
+// Header
+#profile_cover {
+  background-image: url("https://orig00.deviantart.net/9236/f/2016/281/0/9/black_goku_cover_2_by_ximjokic-dakam7j.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-@media screen and (min-width: 1024px) {
-    .div-position{
-        float: right !important;    
-    }
-    .display{
-        display: block;
-        clear: both;
-    }
+#profile_header {
+  text-align: center;
 }
 
-@media screen and (min-width: 200px) and (max-width: 1023px) {
-    .display-tile {
-      display:none;
-      clear:both;
-    }
-    
-    .display{
-        display: block;
-        clear: both;
-    }
-  }
+#profile_avatar {
+  position: relative;
+  bottom: -250px;
+}
+
+#profile_avatar img {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 5px solid rgba(255,255,255,0.5);
+}
+
+#profile_name {
+  font-size: 32px;
+  color: #657896;
+
+}
+
+// Tabs
+
+#profile_info_tab {
+  position: relative;
+  top: 115px;
+  border: 1px solid #e8e8e8;
+}
+
+.profile_info-tab-content {
+  padding: 16px;
+}

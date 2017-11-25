@@ -1,96 +1,26 @@
+<!-- Cover -->
+<mat-grid-list id="profile_header" cols="4" rowHeight="100px">
+  <mat-grid-tile id="profile_cover" colspan="4" rowspan="3">
+  </mat-grid-tile>
+  <div id="profile_avatar">
+    <img src="https://s-media-cache-ak0.pinimg.com/originals/47/85/53/47855328760893b5d369a643f1bf404f.png" alt="avatar"
+    />
+    <div id="profile_name">
+      Black Goku
+    </div>
+  </div>
 
-
-<mat-grid-list cols="6">
-  <mat-grid-tile class="display-tile" [colspan]="4" [rowspan]="1" style="background-color: rgb(34, 104, 255)">
-    <div class="center">
-      <h5>One account is all you need</h5>
-      <h6>One free account gives you access to all functionalities</h6>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile  class="display" [colspan]="2" [rowspan]="3" style="background-color: #EF2"> 
-      <mat-card class="card-margin-left">
-        <mat-card-title>Informations Personnelles</mat-card-title>
-        <mat-card-content>
-          <form [formGroup]="createForm">
-            <mat-form-field class="full-width-item">
-              <input matInput placeholder="Login" formControlName="login" required>
-              <mat-error *ngIf="login.invalid && (login.dirty || login.touched)">{{getErrorMessageLogin()}}</mat-error>
-            </mat-form-field>
-            <mat-form-field class="full-width-item">
-              <input matInput placeholder="Enter your password" [type]="!hide ? 'password' : 'text'" translate formControlName="password"
-                required>
-              <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessagePassword()}}</mat-error>
-              <mat-icon matSuffix (click)="hide = !hide;">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="full-width-item">
-              <input matInput placeholder="Repeat your password" [type]="!hideRepeat ? 'password' : 'text'" translate formControlName="repeatPassword"
-                required>
-              <mat-error *ngIf="repeatPassword.invalid && (repeatPassword.dirty || repeatPassword.touched)">{{getErrorMessageRepeatPassword()}}</mat-error>
-              <mat-icon matSuffix (click)="hideRepeat = !hideRepeat;">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
-            </mat-form-field>
-            <table class="full-width-item" cellspacing="0">
-              <tr>
-                <td>
-                  <mat-form-field class="full-width-item">
-                    <input matInput placeholder="First name" formControlName="firstName" required>
-                    <mat-error *ngIf="firstName.invalid">{{getErrorMessageFirstName()}}</mat-error>
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field class="full-width-item">
-                    <input matInput placeholder="Last name" formControlName="lastName" required>
-                    <mat-error *ngIf="lastName.invalid">{{getErrorMessageLastName()}}</mat-error>
-                  </mat-form-field>
-                </td>
-              </tr>
-            </table>
-            <table class="full-width-item" cellspacing="0">
-              <tr>
-                <td>
-                  <label>Gender</label>
-                </td>
-                <td>
-                  <mat-radio-group class="example-radio-group" formControlName="gender">
-                    <mat-radio-button class="example-radio-button" [value]="true">
-                      Female
-                    </mat-radio-button>
-                    <mat-radio-button class="example-radio-button" [value]="false">
-                      Male
-                    </mat-radio-button>
-                  </mat-radio-group>
-                  <mat-error *ngIf="gender.invalid">{{getErrorMessageGender()}}</mat-error>
-                </td>
-              </tr>
-            </table>
-            <mat-form-field class="full-width-item">
-              <input matInput [matDatepicker]="picker" placeholder="Date of birthday" formControlName="birthday" required>
-              <mat-error *ngIf="birthday.invalid">{{getErrorMessageBirthday()}}</mat-error>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field class="full-width-item">
-              <input matInput placeholder="Enter your email" formControlName="email" required>
-              <mat-error *ngIf="email.invalid">{{getErrorMessageMail()}}</mat-error>
-            </mat-form-field>
-            <button mat-raised-button class="btn-validate">Validate</button>
-            <button mat-raised-button class="btn-reset">Reset</button>
-          </form>
-        </mat-card-content>
-        <mat-card-footer>
-        </mat-card-footer>
-      </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile class="display-tile" [colspan]="4" [rowspan]="1" style="background-color: rgb(34, 255, 226)">
-    <div class="center">
-      <img alt="device" src="../assets/macbook.svg" style="width: 15% !important;" />
-      <img alt="device" src="../assets/smartphone.svg" style="width: 15% !important;" />
-      <img alt="device" src="../assets/ipad.svg" style="width: 15% !important;" />
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile class="display-tile" [colspan]="4" [rowspan]="1" style="background-color: rgb(34, 255, 226)">
-    <div class="center">
-      <h5>Take it all with you</h5>
-      <h6>Switch between devices, and pick up wherever you left off.</h6>
-    </div>
-  </mat-grid-tile>
 </mat-grid-list>
+
+<!-- Tabs  -->
+<mat-tab-group id="profile_info_tab">
+    <mat-tab label="Mes informations">
+      <div class="profile_info-tab-content">
+
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Mon compte">
+      No content
+    </mat-tab>
+  </mat-tab-group>
