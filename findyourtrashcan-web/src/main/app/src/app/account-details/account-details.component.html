@@ -3,10 +3,12 @@
   <mat-grid-tile id="profile_cover" colspan="4" rowspan="3">
   </mat-grid-tile>
   <div id="profile_avatar">
-    <img src="https://s-media-cache-ak0.pinimg.com/originals/47/85/53/47855328760893b5d369a643f1bf404f.png" alt="avatar"
-    />
+    <img src="https://s-media-cache-ak0.pinimg.com/originals/47/85/53/47855328760893b5d369a643f1bf404f.png" alt="avatar" />
     <div id="profile_name">
       Black Goku
+    </div>
+    <div id="profile_role">
+      Administrateur
     </div>
   </div>
 
@@ -14,13 +16,46 @@
 
 <!-- Tabs  -->
 <mat-tab-group id="profile_info_tab">
-    <mat-tab label="Mes informations">
-      <div class="profile_info-tab-content">
+  <mat-tab label="Mes informations">
+    <div class="account_details-tab-content">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Nom">
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <input matInput placeholder="Prénom">
+        </mat-form-field>
+        <br />
+
+        <mat-form-field class="example-full-width">
+          <input matInput [matDatepickerFilter]="birthdayFilter" [matDatepicker]="picker" placeholder="Date de naissance">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <br />
+        <mat-form-field>
+          <input matInput placeholder="E-mail">
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <input matInput placeholder="Lien vers l'avatar">
+        </mat-form-field>
+        <br />
 
       </div>
-    </mat-tab>
+    </div>
+  </mat-tab>
 
-    <mat-tab label="Mon compte">
-      No content
-    </mat-tab>
-  </mat-tab-group>
+  <mat-tab label="Mon compte">
+    <mat-form-field>
+      <input matInput placeholder="Pseudo">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput placeholder="Mot de passe">
+    </mat-form-field>
+    <br />
+  </mat-tab>
+</mat-tab-group>
