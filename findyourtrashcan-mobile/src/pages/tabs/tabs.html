@@ -1,20 +1,23 @@
 <ion-content>
-  Hello that is du contenu lelz
+  <div #map id="map"></div>
 </ion-content>
 <ion-tabs>
 </ion-tabs>
+
+TODO : Remove litteral strings
+
 <ion-footer>
   <div class="bar-menu">
-    <button ion-button clear type=" button ">
+    <button ion-button clear type=" button">
       <ion-icon class="menu-icon" name="person"></ion-icon>
     </button>
     <button ion-button clear [class.toggled-button]="filterIsRunning" type="button" (click)="toggleFilter()">
       <ion-icon class=" menu-icon " name="search"></ion-icon>
     </button>
-    <button ion-button clear type="button ">
+    <button ion-button clear type="button">
       <ion-icon class="menu-icon " name="trophy"></ion-icon>
     </button>
-    <button ion-button clear type="button ">
+    <button ion-button clear type="button">
       <ion-icon class="menu-icon " name="add-circle"></ion-icon>
     </button>
   </div>

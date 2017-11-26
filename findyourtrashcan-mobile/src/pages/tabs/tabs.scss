@@ -20,4 +20,16 @@ page-tabs {
             color:map-get($colors, light);
         }
     }
+        
+    ion-content {   
+        .scroll {
+            height: 100%!important;
+        }
+
+        #map {
+            width: 100%!important;
+            height: 100%!important;
+        }
+
+    }
 }

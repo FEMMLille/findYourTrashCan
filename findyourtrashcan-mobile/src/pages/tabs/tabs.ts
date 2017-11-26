@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 
 import { Tab1Root } from '../pages';
 import { Tab2Root } from '../pages';
 import { Tab3Root } from '../pages';
+
+declare var google;
 
 @IonicPage()
 @Component({
@@ -14,9 +17,19 @@ import { Tab3Root } from '../pages';
 export class TabsPage {
 
   filterIsRunning: boolean = false;
+  loading;
 
-  constructor(public navCtrl: NavController, public translateService: TranslateService) {
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
 
+  constructor(public navCtrl: NavController, public translateService: TranslateService, public geolocation: Geolocation
+    , public loadingCtrl: LoadingController) {
+
+  }
+
+  ionViewDidLoad() {
+    console.log("Hello Tabz");
+    this.loadMap();
   }
 
   toggleFilter() {
@@ -25,4 +38,48 @@ export class TabsPage {
     else
       this.filterIsRunning = false;
   }
+
+  loadMap() {
+    this.presentLoading();
+    this.geolocation.getCurrentPosition().then((position) => {
+      console.log(position);
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      //let latLng = new google.maps.LatLng(-40, 40);
+
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.dismissLoading();
+    }, (err) => {
+      console.log(err);
+    })
+  }
+
+  presentLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    this.loading.present();
+  }
+
+  dismissLoading() {
+    this.loading.dismiss();
+  }
+
+  /*
+  presentLoadingDefault() {
+  let loading = this.loadingCtrl.create({
+    content: 'Please wait...'
+  });
+
+  loading.present();
+
+  setTimeout(() => {
+    loading.dismiss();
+  }, 5000);
+}*/
 }
