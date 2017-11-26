@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { I18nService } from '../../i18n.service';
 import { MaterialModule } from '../../../material.module';
+import { AuthenticationService } from './login/authentication.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  providers: [AuthenticationService]
 })
 export class HeaderComponent implements OnInit {
   hide = true;
@@ -15,7 +17,7 @@ export class HeaderComponent implements OnInit {
   user = {
     username: 'test'
   };
-  constructor(private i18nService: I18nService) { }
+  constructor(private i18nService: I18nService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() { }
 
@@ -28,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get isAuthenticated(): boolean {
-    return this.authenticated;
+    return this.authenticationService.isAuthenticated();
   }
 
   get currentLanguage(): string {
