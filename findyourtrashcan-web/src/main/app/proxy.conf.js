@@ -16,12 +16,6 @@ const proxyConfig = [
     changeOrigin: true,
     secure: true
   },{
-    context: '/api/chuck',
-    pathRewrite: { '^/api/chuck': '' },
-    target: 'https://api.chucknorris.io',
-    changeOrigin: true,
-    secure: false
-  },{
     context: '/api/geo',
     pathRewrite: { '^/api/geo': '' },
     target: 'https://geo.api.gouv.fr',
