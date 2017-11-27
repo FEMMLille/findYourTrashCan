@@ -283,6 +283,7 @@ log.txt
 .versions/
 coverage/
 dist/
+www/
 node_modules/
 tmp/
 temp/

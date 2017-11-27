@@ -1,24 +1,25 @@
-// import { AccountDetails } from '../shared/model/account-details';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
 
 import { Injectable } from '@angular/core';
-
+import { AccountDetails } from '../../../../../../../findyourtrashcan-mobile/src/shared/model/account-details';
 import { AuthenticationService } from '../core/shell/header/login/authentication.service';
+import { Api } from '../../../../../../../findyourtrashcan-mobile/src/providers/api/api';
 
 
 @Injectable()
 export class AccountDetailsService {
-    // _user: any;
+    constructor(public authentService: AuthenticationService, public api: Api) { }
 
-    // constructor(public api: AuthenticationService) { }
+    create(accountDetails: AccountDetails) {
+        return this.api.post('accountdetails/', accountDetails);
+    }
 
-    // signup(accountInfo: AccountDetails): Observable<any> {
-    //     let seq = this.api.post('user', accountInfo);
-    //     return seq;
-    // }
+    getByUserId(id: number) {
+        return this.api.get('accountdetails/' + id);
+    }
 
-    // getAccountDetailsFromUserId(id: number): Observable<any> {
-    //     return this.api.get('accountdetails/' + id);
-    // }
+    update(accountDetails: AccountDetails) {
+      return this.api.put('accountdetails/', accountDetails);
+    }
 }
