@@ -1,7 +1,7 @@
 FROM openjdk:8
 
-COPY ./findyourtrashcan-api/target/*.jar /usr/src/myapp
-
-RUN java -jar "-Dspring.profiles.active=int" "ls /usr/src/myapp/findyourtrashcan-api-*.jar"
+COPY ./findyourtrashcan-api/target/findyourtrashcan-api-*.jar /home/fytc.jar
 
 EXPOSE 80
+
+CMD ["java","-jar","-Dspring.profiles.active=int","/home/fytc.jar"]

@@ -27,12 +27,7 @@ public class FYTCUserServiceImpl implements FYTCUserService {
 	@Override
 	public FYTCUser createUser(FYTCUser user){
 		//Checking for the role
-		Role roleInDB = roleRepository.findByRoleName(user.getRole().getRoleName());
-		
-		if(roleInDB == null) {
-			roleInDB = roleRepository.save(user.getRole());
-		}
-		
+		Role roleInDB = roleRepository.findByRoleName(user.getRole().getRoleName());		
 		user.setRole(roleInDB);
 		
 		//Encrypting password before saving in database
