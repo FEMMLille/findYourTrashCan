@@ -1,3 +1,5 @@
+import { WelcomePage } from './../pages';
+import { LoginPage } from './../login/login';
 import { RankTypeService } from './../../providers/rank/rank_types';
 import { RankService } from './../../providers/rank/rank';
 import { AccountDetailsService } from './../../providers/user/account-details';
@@ -67,6 +69,12 @@ export class ProfilePage {
 
     cancel() {
         this.navCtrl.pop();
+    }
+
+    logout() {
+        //TODO - important ?
+        this.auth.logout();
+        this.navCtrl.setRoot(WelcomePage);
     }
 
 }

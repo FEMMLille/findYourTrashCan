@@ -7,7 +7,7 @@
 
 <ion-footer>
   <div class="bar-menu">
-    <button ion-button clear type=" button">
+    <button ion-button clear type=" button" (click)="gotoProfile()">
       <ion-icon class="menu-icon" name="person"></ion-icon>
     </button>
     <button ion-button clear [class.toggled-button]="filterIsRunning" type="button" (click)="toggleFilter()">

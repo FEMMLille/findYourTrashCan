@@ -1,11 +1,8 @@
+import { ProfilePage } from './../pages';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController } from 'ionic-angular';
-
-import { Tab1Root } from '../pages';
-import { Tab2Root } from '../pages';
-import { Tab3Root } from '../pages';
 
 declare var google;
 
@@ -57,6 +54,10 @@ export class TabsPage {
     }, (err) => {
       console.log(err);
     })
+  }
+
+  gotoProfile() {
+    this.navCtrl.push(ProfilePage);
   }
 
   presentLoading() {
