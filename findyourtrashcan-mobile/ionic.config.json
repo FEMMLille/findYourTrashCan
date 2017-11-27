@@ -4,5 +4,15 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/api/back",
+      "proxyUrl": "http://localhost:8000/api"
+    },
+    {
+      "path": "/api/geo",
+      "proxyUrl": "https://geo.api.gouv.fr"
+    }
+  ]
 }
