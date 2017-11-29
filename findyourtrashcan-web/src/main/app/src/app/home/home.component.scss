@@ -1,9 +1,147 @@
-.logo {
-  width: 100px;
+@import "src/theme/theme-variables";
+@import "src/theme/theme";
+
+.content-home{
+  width: 100%;
+  min-height: 50vh;
+  height: 100% !important;
 }
 
-q {
-  font-style: italic;
-  font-size: 1.2rem;
-  quotes: "« " " »";
+.center-image-com{
+  display:table-cell !important; 
+  vertical-align:middle !important; 
+  text-align:center !important;
+}
+
+.margin-top-content{
+  margin-top: 10px;
+}
+
+.btn-play-store{
+  height:50px;
+}
+
+.btn-app-store{
+  height:50px;
+}
+
+.contain{
+  width: 100%;
+  min-height: 400px;
+}
+
+@media screen and (min-width: 1024px) {
+  .image-com-description{
+    max-width: 55%;
+  }
+  .block-home{
+    margin-top:20px;
+    width: 70%;
+  }
+
+  .content{
+    width: 70%;
+  }
+
+  .left-block{
+    width: 60%;
+    float: left;
+    position: relative;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .right-block{
+    width: 40%;
+    float: right;
+    position: relative;
+    height: 100%;
+  }
+
+  .content-right-block{
+    height: 400px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../assets/smartphone-green.png");
+    opacity: 0.2;
+  }
+
+  .block-colored{
+    background-color: rgba(40,167,69,0.1);
+  }
+  
+  .subcontent-right-block{
+    width: 50%;
+    float: right;
+    text-align: left;
+    min-height: 380px;
+  }
+  
+  h3{
+    text-align: left;
+    margin-top:20px;
+  }
+  p{
+    margin-top:20px;
+  }
+  
+
+  .subcontent-left-block{
+    width: 50%;
+    float: left;
+    text-align: left;
+    min-height: 380px;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 1023px) {
+  
+  .image-com-description{
+    max-width: 100%;
+  }
+
+  .content{
+    width: 90%;
+  }
+
+  .block-colored{
+    background-color: rgba(40,167,69,0.1);
+  }
+  
+  .left-block{
+    width: 100%;
+    height: 100%;
+  }
+
+  .display-tile {
+    display:none;
+    clear:both;
+  }
+
+  .subcontent-right-block{
+    float: right;
+    width: 100%;
+    text-align: justify;
+    height: 100%;
+  }
+
+  h3{
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  p{
+    margin-top:20px;
+  }
+
+  .subcontent-left-block{
+    float: left;
+    width: 100%;
+    text-align: justify;
+    height: 100%;
+  }
+
+  .block-colored{
+    background-color: rgba(40,167,69,0.1);
+  }
 }

@@ -16,7 +16,6 @@ import { CoreModule } from '../../../core.module';
   ],
   declarations: [
   ],
-  providers: [
-  ]
+  providers: []
 })
 export class LoginModule { }

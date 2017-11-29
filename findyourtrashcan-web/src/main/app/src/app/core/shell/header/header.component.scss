@@ -1,4 +1,5 @@
 @import "src/theme/theme-variables";
+@import "src/theme/theme";
 
 .navbar {
   margin-bottom: $spacer;
@@ -25,4 +26,3 @@ button {
 .menu-language-color{
   color:$dark !important;
 }
-

@@ -9,12 +9,16 @@
     <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
       <div class="navbar-nav">
         <a class="nav-item nav-link text-uppercase" routerLink="/home" routerLinkActive="active">
-          <i class="fa fa-home"></i>
+          <img src="../../../../assets/fytcIcones/icone-home.svg" class="icone-20" alt="" />
           <span translate>Home</span>
         </a>
         <a class="nav-item nav-link text-uppercase" routerLink="/about" routerLinkActive="active">
-          <i class="fa fa-question-circle"></i>
+          <img src="../../../../assets/fytcIcones/icone-about.svg" class="icone-20" alt="" />
           <span translate>About</span>
+        </a>
+        <a class="nav-item nav-link text-uppercase" routerLink="/about" routerLinkActive="active">
+          <img src="../../../../assets/fytcIcones/icone-support.svg" class="icone-20" alt="" />
+          <span translate>Support</span>
         </a>
       </div>
       <div class="navbar-nav ml-auto">
@@ -42,14 +46,15 @@
           </mat-menu>
         </div>
         <div class="nav-item" placement="bottom-right" [hidden]="!isAuthenticated">
-            <button mat-icon-button [matMenuTriggerFor]="languageMenu" class="menu-language">
-                <mat-icon>language</mat-icon><span>{{currentLanguage}}</span>
-              </button>
-              <mat-menu #languageMenu="matMenu">
-                <button mat-menu-item *ngFor="let language of languages" (click)="setLanguage(language)" class="menu-language-color">
-                  {{language}}
-                </button>
-              </mat-menu>
+          <button mat-icon-button [matMenuTriggerFor]="languageMenu" class="menu-language">
+            <mat-icon>language</mat-icon>
+            <span>{{currentLanguage}}</span>
+          </button>
+          <mat-menu #languageMenu="matMenu">
+            <button mat-menu-item *ngFor="let language of languages" (click)="setLanguage(language)" class="menu-language-color">
+              {{language}}
+            </button>
+          </mat-menu>
         </div>
       </div>
     </div>

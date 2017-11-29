@@ -1,22 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { LocationService } from './location.service';
-export class FormUser {
-  login?: string;
-  password?: string;
-  repeatPassword?: string;
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-  birthday?: Date;
-  gender?: boolean;
+import { InscriptionContext, InscriptionService } from './inscription.service';
+import { Logger } from '../core/logger.service';
+import { Router } from '@angular/router';
+
+const log = new Logger('InscriptionComponent');
+
+export class FormUser implements InscriptionContext {
+  login = '';
+  password = '';
+  repeatPassword = '';
+  email = '';
+  firstName = '';
+  lastName = '';
+  birthday = new Date();
+  gender = false; // false si c'est un mec, true si c'est une femme
 }
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.scss'],
-  providers: [LocationService]
+  providers: [LocationService, InscriptionService]
 })
 
 export class InscriptionComponent implements OnInit {
@@ -25,12 +31,14 @@ export class InscriptionComponent implements OnInit {
   hide = true;
   hideRepeat = true;
   form: FormUser;
+  message: string = null;
 
-  constructor(private locationService: LocationService, private builder: FormBuilder) { }
+  constructor(private router: Router, private locationService: LocationService,
+    private inscriptionService: InscriptionService, private builder: FormBuilder) { }
 
   ngOnInit() {
     this.form = new FormUser();
-    this.createForm = new FormGroup({
+    this.createForm = this.builder.group({
       'login': new FormControl(this.form.login, [
         Validators.required,
         Validators.minLength(4)
@@ -62,6 +70,20 @@ export class InscriptionComponent implements OnInit {
         Validators.required
       ])
     });
+  }
+
+  sendValues() {
+    this.inscriptionService.sendForm(this.createForm.value)
+      .finally(() => {
+        this.createForm.markAsPristine();
+      })
+      .subscribe(credentials => {// si ça retourne pas d'erreur c'est que c'est bon
+        log.debug(` user successfully created`);
+        this.message = 'Your account is created ! you can login now !';
+      }, error => {
+        log.debug(`creation error: ${error}`);
+        this.message = error;
+      });
   }
 
   get login() {

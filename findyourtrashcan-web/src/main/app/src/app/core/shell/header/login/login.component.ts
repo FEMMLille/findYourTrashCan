@@ -8,9 +8,9 @@ import { Logger } from '../../../logger.service';
 import { Router } from '@angular/router';
 
 export class FormLogin implements LoginContext {
-  username: string;
-  password: string;
-  remember?: boolean;
+  username = '';
+  password = '';
+  remember = false;
 }
 
 const log = new Logger('login');
@@ -35,9 +35,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormLogin();
-    this.form.username = '';
-    this.form.password = '';
-    this.form.remember = false;
     this.createForm = this.fb.group({
       'username': new FormControl(this.form.username, [
         Validators.required,
@@ -50,19 +47,18 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate() {
-    console.log(this.createForm.value);
-    /*this.authenticationService.login(this.createForm.value)
+    this.authenticationService.login(this.createForm.value)
       .finally(() => {
         this.createForm.markAsPristine();
         this.isLoading = false;
       })
-      .subscribe(credentials => {
-        log.debug(`${credentials.username} successfully logged in`);
+      .subscribe(credentials => {// si ça retourne pas d'erreur c'est que c'est bon
+        log.debug(` successfully logged in`);
         this.router.navigate(['/accountdetails'], { replaceUrl: true });
       }, error => {
         log.debug(`Login error: ${error}`);
         this.error = error;
-      });*/
+      });
   }
 
   get username() {
