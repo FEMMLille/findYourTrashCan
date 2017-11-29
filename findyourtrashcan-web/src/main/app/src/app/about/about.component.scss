@@ -1,0 +1,31 @@
+.picture-block{
+    z-index: 1;
+    margin-top: -20px;
+    width: 100%;
+    position: absolute;
+    height: 400px;
+    background-image: url("../../assets/map.png");
+}
+
+.picture-content{
+    width: 100%;
+    margin-top: 10%;
+    font-weight: bold;
+    background-color:  rgba(255, 255, 255, 0.5);
+}
+
+.texte-block{
+    width: 50%;
+    margin-top: 10%;
+    font-weight: bold;
+}
+
+.content-block{
+    z-index: 1;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.subcontent-block{
+    width: 55%;
+}
