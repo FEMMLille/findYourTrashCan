@@ -31,11 +31,11 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>findyourtrashcan-web/src/main/app/node_modules/</directory>
+							<directory>findyourtrashcan-web/src/main/app/src/node_modules/</directory>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
 						<fileset>
-							<directory>findyourtrashcan-web/src/main/app/node/</directory>
+							<directory>findyourtrashcan-web/src/main/app/src/node/</directory>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
 					</filesets>
