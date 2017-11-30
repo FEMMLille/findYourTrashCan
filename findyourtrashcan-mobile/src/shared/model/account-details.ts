@@ -1,4 +1,4 @@
-import { RankType } from './rank_type';
+import { RankType } from './rank-type';
 import { Rank } from './rank';
 export class AccountDetails {
     constructor(public id?: number,

@@ -1,6 +1,6 @@
 import { WelcomePage } from './../pages';
 import { LoginPage } from './../login/login';
-import { RankTypeService } from './../../providers/rank/rank_types';
+import { RankTypeService } from './../../providers/rank/rank-types';
 import { RankService } from './../../providers/rank/rank';
 import { AccountDetailsService } from './../../providers/user/account-details';
 import { ProgressBarComponent } from './../../components/progress-bar/progress-bar';
@@ -32,7 +32,7 @@ export class ProfilePage {
     }
 
     initProfile() {
-        if (this.auth._user.account == null) {
+        if (this.auth._user == null || this.auth._user.account == null) {
             this.acc.getAccountDetailsFromUserId(this.auth._user.id).subscribe((res) => {
                 this.auth._user.account = res;
                 this.initRank(this.auth._user.id);

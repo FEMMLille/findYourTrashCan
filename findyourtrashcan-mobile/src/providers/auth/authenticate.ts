@@ -1,4 +1,4 @@
-import { RankType } from './../../shared/model/rank_type';
+import { RankType } from './../../shared/model/rank-type';
 import { Rank } from './../../shared/model/rank';
 import { User } from './../../shared/model/user';
 import { Credentials } from './../../shared/model/credentials';
@@ -30,10 +30,10 @@ export class AuthenticationService {
                 this._loggedIn(res);
             }
         }, err => {/*
-            Keep this code for test purposes
+            Keep this code for test purposes*/
             this._loggedIn(new User(-1, "john.doe@fytc.com", "lulz",
                 new AccountDetails(-1, "John", "Doe", "john.doe@fytc.com", "../assets/img/no_avatar.png", "2017-11-04"
-                    , new Rank(-1, 1, 6000), new RankType(1, "Confirmé", 8000))));*/
+                    , new Rank(-1, 1, 6000), new RankType(1, "Confirmé", 8000))));
 
         });
 

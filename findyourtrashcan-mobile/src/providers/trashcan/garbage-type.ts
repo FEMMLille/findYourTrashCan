@@ -7,11 +7,11 @@ import { Api } from '../api/api';
 
 
 @Injectable()
-export class RankTypeService {
+export class GarbageTypeService {
 
     constructor(public api: Api) { }
 
-    getRankDetails(rankId: number): Observable<any> {
-        return this.api.get('rank_types/' + rankId);
+    getGarbageType(id: number): Observable<any> {
+        return this.api.get('garbage-type/' + id);
     }
 }

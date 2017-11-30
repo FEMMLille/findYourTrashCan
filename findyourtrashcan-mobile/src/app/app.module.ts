@@ -1,4 +1,8 @@
-import { RankTypeService } from './../providers/rank/rank_types';
+import { GarbageTypeService } from './../providers/trashcan/garbage-type';
+import { TrashcanTypeService } from './../providers/trashcan/trashcan-type';
+import { TrashcanType } from './../shared/model/trashcan-type';
+import { TrashcanService } from './../providers/trashcan/trashcan';
+import { RankTypeService } from './../providers/rank/rank-types';
 import { RankService } from './../providers/rank/rank';
 import { ProgressBarComponent } from './../components/progress-bar/progress-bar';
 import { AuthenticationService } from './../providers/providers';
@@ -76,6 +80,9 @@ export function provideSettings(storage: Storage) {
     LoadingController,
     RankTypeService,
     StatusBar,
+    TrashcanService,
+    TrashcanTypeService,
+    GarbageTypeService,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
