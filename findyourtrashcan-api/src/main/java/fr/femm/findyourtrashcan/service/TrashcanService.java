@@ -1,5 +1,7 @@
 package fr.femm.findyourtrashcan.service;
 
+import java.util.List;
+
 import fr.femm.findyourtrashcan.data.Location;
 import fr.femm.findyourtrashcan.data.Trashcan;
 
@@ -24,5 +26,7 @@ public interface TrashcanService {
 	 * @return The trashcan
 	 */
 	public Location getTrashcan(Integer id);
+
+	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon);
 	
 }
