@@ -3,8 +3,6 @@
 
 .content-home{
   width: 100%;
-  min-height: 50vh;
-  height: 100% !important;
 }
 
 .center-image-com{
@@ -17,12 +15,17 @@
   margin-top: 10px;
 }
 
+.text-deco{
+  margin-top: 25%;
+  margin-bottom:50%;
+}
+
 .btn-play-store{
-  height:50px;
+  max-height:50px;
 }
 
 .btn-app-store{
-  height:50px;
+  max-height:50px;
 }
 
 .contain{
@@ -36,18 +39,17 @@
   }
   .block-home{
     margin-top:20px;
-    width: 70%;
+    width: 60%;
   }
 
   .content{
-    width: 70%;
+    width: 60%;
   }
 
   .left-block{
     width: 60%;
     float: left;
     position: relative;
-    height: 100%;
     vertical-align: middle;
   }
 
@@ -55,7 +57,6 @@
     width: 40%;
     float: right;
     position: relative;
-    height: 100%;
   }
 
   .content-right-block{
@@ -63,7 +64,6 @@
     width: 100%;
     background-repeat: no-repeat;
     background-image: url("../../assets/smartphone-green.png");
-    opacity: 0.2;
   }
 
   .block-colored{
