@@ -29,7 +29,7 @@ public class TrashCanController {
     public List<Trashcan> getTrashcansInBounds(
 	    @RequestParam("ne_lat") float neLat, @RequestParam("ne_lon") float neLon,
 	    @RequestParam("sw_lat") float swLat, @RequestParam("sw_lon") float swLon) {
-	logger.info("WebService getTrashcanByPosition [" + "northeast : (" + neLat + ", " + neLon + "), "
+	logger.info("WebService getTrashcansInBounds [" + "northeast : (" + neLat + ", " + neLon + "), "
 		+ "southwest : (" + swLat + ", " + swLon + ")]");
 	return service.getTrashcansInBounds(neLat, neLon, swLat, swLon);
     }

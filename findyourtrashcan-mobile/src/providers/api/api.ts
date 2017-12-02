@@ -6,12 +6,13 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = '/api';
+  url: string = '/api/back';
 
   constructor(public http: HttpClient) {
   }
 
   get(endpoint: string, params?: any, reqOpts?: any) {
+    console.log("calling endpoint " + endpoint);
     if (!reqOpts) {
       reqOpts = {
         params: new HttpParams()

@@ -1,3 +1,4 @@
+import { MapBounds } from './../../shared/model/map-bounds';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Point } from './../../shared/model/point';
 import { Trashcan } from './../../shared/model/trashcan';
@@ -15,21 +16,7 @@ declare var google;
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
-  markers: Array<Trashcan> = [
-    new Trashcan(1, 1, 1, false, new Point(50.6117179, 3.1367745), 'empty', 1),
-    new Trashcan(1, 1, 2, false, new Point(50.6137179, 3.1394745), 'empty', 1),
-    new Trashcan(1, 1, 3, false, new Point(50.6117179, 3.1312745), 'empty', 1),
-    new Trashcan(1, 1, 4, false, new Point(50.6107179, 3.1323745), 'empty', 1),
-    new Trashcan(1, 1, 1, false, new Point(50.6087179, 3.1350745), 'empty', 1),
-    new Trashcan(1, 1, 2, false, new Point(50.6077179, 3.1390745), 'empty', 1),
-    new Trashcan(1, 1, 3, false, new Point(50.6217179, 3.1388745), 'empty', 1),
-    new Trashcan(1, 1, 4, false, new Point(50.6157179, 3.1399745), 'empty', 1),
-    new Trashcan(1, 2, 1, false, new Point(50.6257179, 3.1313745), 'empty', 1),
-    new Trashcan(1, 1, 2, false, new Point(50.6037179, 3.1364745), 'empty', 1),
-    new Trashcan(1, 1, 3, false, new Point(50.6127179, 3.1350745), 'empty', 1),
-    new Trashcan(1, 1, 4, false, new Point(50.6157179, 3.1312745), 'empty', 1),
-  ]
+  trashcans: Array<Trashcan> = [];
 
   filterIsRunning: boolean = false;
   loading;
@@ -43,7 +30,6 @@ export class TabsPage {
   }
 
   ionViewDidLoad() {
-    console.log("Hello Tabz");
     this.loadMap();
   }
 
@@ -58,17 +44,22 @@ export class TabsPage {
     this.presentLoading();
     this.geolocation.getCurrentPosition().then((position) => {
       let myPosition = new Point(position.coords.latitude, position.coords.longitude)
-      let latLng = new google.maps.LatLng(myPosition.lat, myPosition.lon);
-
       let mapOptions = {
-        center: latLng,
+        center: new google.maps.LatLng(myPosition.lat, myPosition.lon),
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.map.addListener('idle', () => {
+        let bounds = this.map.getBounds();
+        console.log(bounds.getNorthEast());
+        let ne = new Point(bounds.getNorthEast().lat(), bounds.getNorthEast().lng());
+        let sw = new Point(bounds.getSouthWest().lat(), bounds.getSouthWest().lng());
+        let mb = new MapBounds(ne, sw);
+        this.loadTrashcans(mb);
+      });
       this.dismissLoading();
-      this.loadMarkers(myPosition);
     }, (err) => {
       console.log(err);
     })
@@ -89,39 +80,49 @@ export class TabsPage {
     this.loading.dismiss();
   }
 
-  loadMarkers(myPosition: Point) {
-    //TODO : implement this
-    this.trashcanService.getTrashcans(myPosition).subscribe((res) => {
-      this.markers = res;
-      for (let marker of this.markers) {
-        this.addMarker(marker.coordinates);
+
+
+  loadTrashcans(mapBounds: MapBounds) {
+    //Load trashcans in server by calling the api
+    var i = 1;
+    this.trashcanService.getTrashcans(mapBounds).subscribe((res) => {
+      for (let trashcan of res) {
+        if (this.checkTrashcanArraysContains(trashcan)) {
+          break;
+        } else {
+          setTimeout(() => {
+            this.addTrashcan(trashcan);
+          }, i * 200);
+        }
+        i++;
       }
     });
-    //TODO : remove this when service is implemented
-    for (let marker of this.markers) {
-      this.addMarker(marker.coordinates);
-    }
   }
 
-  addMarker(coordinates: Point) {
-    console.log(this.map.getCenter());
+  checkTrashcanArraysContains(testedTrashcan: Trashcan): boolean {
+    for (let trashcan of this.trashcans) {
+      if (trashcan.id == testedTrashcan.id)
+        return true;
+    }
+    return false;
+  }
+
+  addTrashcan(trashcan: Trashcan) {
+    //Adding the object to our array
+    this.trashcans.push(trashcan);
+    console.log(this.getMarkerIcon(trashcan));
+    //Creating the marker
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: { lat: coordinates.lat, lng: coordinates.lon }
+      icon: this.getMarkerIcon(trashcan),
+      position: { lat: trashcan.lat, lng: trashcan.lon }
     })
   }
 
-  /*
-  presentLoadingDefault() {
-  let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
-  });
-
-  loading.present();
-
-  setTimeout(() => {
-    loading.dismiss();
-  }, 5000);
-}*/
+  getMarkerIcon(t: Trashcan) {
+    let empty: string = t.empty ? '0' : '1';
+    let path: string = '' + t.trashcanType.id + t.garbageType.id;
+    return 'assets/img/icons/processed/' + empty + path + '.png';
+  }
 }
