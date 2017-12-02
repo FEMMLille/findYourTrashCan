@@ -29,6 +29,7 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     TranslateModule.forRoot(),
     NgbModule.forRoot(),
     CoreModule,
