@@ -84,6 +84,7 @@ export class AuthenticationService {
    * @return {Credentials} The user credentials or null if the user is not authenticated.
    */
   get credentials(): Credentials {
+    console.log(this._credentials);
     return this._credentials;
   }
 

@@ -8,6 +8,8 @@ export class AccountDetails {
     public email?: string,
     public avatar?: string,
     public birthday?: Date,
-    public user?: User
+    public user: User = {
+      role: {}
+    }
   ) {}
 }

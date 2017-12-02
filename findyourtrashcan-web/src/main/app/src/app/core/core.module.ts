@@ -17,6 +17,9 @@ import { AuthenticationService } from './shell/header/login/authentication.servi
 import { AuthenticationGuard } from './shell/header/login/authentication.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountDetailsService } from '../account-details/account-details.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+
 export function createHttpService(backend: ConnectionBackend,
   defaultOptions: RequestOptions,
   httpCacheService: HttpCacheService) {
@@ -49,6 +52,11 @@ export function createHttpService(backend: ConnectionBackend,
       provide: Http,
       deps: [XHRBackend, RequestOptions, HttpCacheService],
       useFactory: createHttpService
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ]
 })

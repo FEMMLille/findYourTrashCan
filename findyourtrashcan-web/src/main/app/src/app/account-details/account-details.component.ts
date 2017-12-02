@@ -21,7 +21,7 @@ export class AccountDetailsComponent implements OnInit {
    */
   today: Date = new Date();
 
-  accountDetails: AccountDetails;
+  accountDetails: AccountDetails = new AccountDetails();
 
   accountdetailsform: FormGroup;
 
@@ -31,7 +31,7 @@ export class AccountDetailsComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    /*this.accountDetails = */ this.accountDetailsService.getByUserId(2); // TODO : Recupérer l'id du user actuel
+    // TODO : Recupérer l'id du user actuel
     this.accountdetailsform = this.fb.group({
       'username': new FormControl(this.accountDetails.user.username, [
         Validators.required,
@@ -50,8 +50,8 @@ export class AccountDetailsComponent implements OnInit {
       ]),
       'avatar': new FormControl(this.accountDetails.avatar, [
       ])
-
     });
+    this.accountDetailsService.getByUserId(2);
   }
 
   /**
