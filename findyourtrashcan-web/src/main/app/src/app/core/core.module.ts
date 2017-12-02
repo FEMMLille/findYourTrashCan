@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShellComponent } from './shell/shell.component';
 import { HeaderComponent } from './shell/header/header.component';
+import { FooterComponent } from './shell/footer/footer.component';
 import { LoginComponent } from './shell/header/login/login.component';
 import { I18nService } from './i18n.service';
 import { HttpService } from './http/http.service';
@@ -34,6 +35,7 @@ export function createHttpService(backend: ConnectionBackend,
   declarations: [
     LoginComponent,
     HeaderComponent,
+    FooterComponent,
     ShellComponent
   ],
   providers: [
