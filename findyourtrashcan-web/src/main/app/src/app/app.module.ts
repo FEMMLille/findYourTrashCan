@@ -19,6 +19,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountDetailsModule } from './account-details/account-details.module';
 import { DisplayModule } from './home/display/display.module';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+
+
 @NgModule({
   imports: [
     ReactiveFormsModule,
@@ -40,6 +44,11 @@ import { DisplayModule } from './home/display/display.module';
   ],
   declarations: [AppComponent],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -301,4 +301,4 @@ scripts/e2e/webpackEntryPoints.json
 scripts/build/e2e-generated-tsconfig.json
 *.css.ts
 
-findyourtrashcan-api/src/main/resources/application-dev.propertiesapplication-dev.properties
+findyourtrashcan-api/src/main/resources/application-dev.properties

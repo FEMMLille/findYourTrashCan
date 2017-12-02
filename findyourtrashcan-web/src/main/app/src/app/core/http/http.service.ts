@@ -2,8 +2,15 @@ import 'rxjs/add/observable/throw';
 
 import { Injectable } from '@angular/core';
 import {
-  Http, ConnectionBackend, RequestOptions, Request, Response, RequestOptionsArgs, RequestMethod, ResponseOptions
-} from '@angular/http';
+  Http,
+  ConnectionBackend,
+  RequestOptions,
+  Request,
+  Response,
+  RequestOptionsArgs,
+  RequestMethod,
+  ResponseOptions,
+  Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 import { extend } from 'lodash';
@@ -12,6 +19,7 @@ import { environment } from '../../../environments/environment';
 import { Logger } from '../logger.service';
 import { HttpCacheService } from './http-cache.service';
 import { HttpCachePolicy } from './request-options-args';
+import { AuthenticationService, Credentials } from '../shell/header/login/authentication.service';
 
 const log = new Logger('HttpService');
 
