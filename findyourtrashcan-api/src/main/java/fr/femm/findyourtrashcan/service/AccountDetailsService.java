@@ -14,7 +14,7 @@ public interface AccountDetailsService {
 	 *            the id of the user
 	 * @return The user account details
 	 */
-	AccountDetails getAccountDetailsByUser(final Integer id);
+	AccountDetails getByUser(final Integer id);
 	
 	/**
 	 * Method to create a user with his account details
@@ -23,5 +23,6 @@ public interface AccountDetailsService {
 	 *            The account details [user]
 	 * @return The created account dtails + user
 	 */
-	public AccountDetails createAccountDetails(AccountDetails accountDetails);
+	public AccountDetails create(AccountDetails accountDetails);
+
 }

@@ -20,14 +20,13 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 	private FYTCUserService userService;
 
 	@Override
-	public AccountDetails getAccountDetailsByUser(Integer id) {
+	public AccountDetails getByUser(final Integer id) {
 		return accountDetailsRepository.findByUserId(id);
 	}
 
 	@Override
-	public AccountDetails createAccountDetails(AccountDetails accountDetails) {
+	public AccountDetails create(final AccountDetails accountDetails) {
 		userService.createUser(accountDetails.getUser());
 		return accountDetailsRepository.save(accountDetails);
 	}
-	
 }

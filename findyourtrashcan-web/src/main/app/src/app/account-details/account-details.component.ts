@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountDetails } from '../../../../../../../findyourtrashcan-mobile/src/shared/model/account-details';
+import { AccountDetails } from '../shared/model/account-details';
 import { AccountDetailsService } from './account-details.service';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { User } from '../../../../../../../findyourtrashcan-mobile/src/shared/model/user';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { User } from '../shared/model/user';
+import { AuthenticationService } from '../core/shell/header/login/authentication.service';
 
 @Component({
   selector: 'app-fytc-account-details',
@@ -22,20 +23,35 @@ export class AccountDetailsComponent implements OnInit {
 
   accountDetails: AccountDetails;
 
-  createForm: FormGroup;
+  accountdetailsform: FormGroup;
 
-  constructor(private accountDetailsService: AccountDetailsService, private fb: FormBuilder) { }
+  constructor(
+    private accountDetailsService: AccountDetailsService,
+    private authenticationService: AuthenticationService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
-    // this.createForm = this.fb.group({
-    //   'username': new FormControl(this.accountDetails.user.username, [
-    //     Validators.required,
-    //   ]),
-    //   'password': new FormControl(this.form.password, [
-    //     Validators.required
-    //   ]),
-    //   'remember': new FormControl(this.form.remember, [])
-    // });
+    /*this.accountDetails = */ this.accountDetailsService.getByUserId(2); // TODO : Recupérer l'id du user actuel
+    this.accountdetailsform = this.fb.group({
+      'username': new FormControl(this.accountDetails.user.username, [
+        Validators.required,
+      ]),
+      'password': new FormControl(this.accountDetails.user.password, [
+        Validators.required
+      ]),
+      'email': new FormControl(this.accountDetails.user.email, [
+        Validators.required,
+      ]),
+      'firstName': new FormControl(this.accountDetails.firstName, []
+      ),
+      'lastName': new FormControl(this.accountDetails.lastName, [
+      ]),
+      'birthday': new FormControl(this.accountDetails.birthday, [
+      ]),
+      'avatar': new FormControl(this.accountDetails.avatar, [
+      ])
+
+    });
   }
 
   /**
@@ -43,6 +59,10 @@ export class AccountDetailsComponent implements OnInit {
    */
   birthdayFilter = (d: Date): boolean => {
     return d < this.today;
+  }
+
+  save = (): void => {
+    this.accountDetailsService.save(this.accountDetails);
   }
 
 }
