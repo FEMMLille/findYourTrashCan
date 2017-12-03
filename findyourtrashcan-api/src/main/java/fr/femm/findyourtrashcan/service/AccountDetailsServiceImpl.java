@@ -2,6 +2,7 @@ package fr.femm.findyourtrashcan.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.femm.findyourtrashcan.data.AccountDetails;
 import fr.femm.findyourtrashcan.repository.AccountDetailsRepository;
@@ -11,6 +12,7 @@ import fr.femm.findyourtrashcan.repository.AccountDetailsRepository;
  */
 
 @Service
+@Transactional
 public class AccountDetailsServiceImpl implements AccountDetailsService {
 
 	@Autowired

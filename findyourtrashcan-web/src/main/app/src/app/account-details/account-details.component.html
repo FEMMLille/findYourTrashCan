@@ -3,7 +3,7 @@
   <mat-grid-tile id="profile_cover" colspan="4" rowspan="3">
   </mat-grid-tile>
   <div id="profile_avatar">
-    <img src="https://s-media-cache-ak0.pinimg.com/originals/47/85/53/47855328760893b5d369a643f1bf404f.png" alt="avatar" />
+    <img src="{{this.accountDetails.avatar}}" alt="avatar" />
     <div id="profile_name">
       Black Goku
     </div>
@@ -15,33 +15,34 @@
 </mat-grid-list>
 
 <!-- Tabs  -->
-<form (ngSubmit)="save()" [formGroup]="accountdetailsform" novalidate>
+<form (ngSubmit)="save(accountdetailsform.value)" [formGroup]="accountdetailsform" novalidate>
   <mat-tab-group id="profile_info_tab">
     <mat-tab label="Mes informations">
       <div class="account_details-tab-content">
         <div>
           <mat-form-field>
-            <input formControlName="lastName" matInput placeholder="Nom">
+            <input formControlName="lastName" [(value)]="this.accountDetails.lastName" matInput placeholder="Nom">
           </mat-form-field>
+
           <br />
           <mat-form-field>
-            <input formControlName="firstName" matInput placeholder="Prénom">
+            <input formControlName="firstName" [(value)]="this.accountDetails.firstName" matInput placeholder="Prénom">
           </mat-form-field>
           <br />
 
           <mat-form-field class="example-full-width">
-            <input formControlName="birthday" matInput [matDatepickerFilter]="birthdayFilter" [matDatepicker]="picker" placeholder="Date de naissance">
+            <input formControlName="birthday" matInput [matDatepickerFilter]="birthdayFilter" [(value)]="this.accountDetails.birthday" [matDatepicker]="picker" placeholder="Date de naissance">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
           <br />
           <mat-form-field>
-            <input formControlName="email" matInput placeholder="E-mail">
+            <input formControlName="email" [(value)]="this.accountDetails.user.email" matInput placeholder="E-mail">
           </mat-form-field>
           <br />
           <mat-form-field>
-            <input formControlName="avatar" matInput placeholder="Lien vers l'avatar">
+            <input formControlName="avatar" [(value)]="this.accountDetails.avatar" matInput placeholder="Lien vers l'avatar">
           </mat-form-field>
           <br />
 
@@ -51,11 +52,11 @@
 
     <mat-tab label="Mon compte">
       <mat-form-field>
-        <input formControlName="username" matInput placeholder="Pseudo">
+        <input formControlName="username" [(value)]="this.accountDetails.user.username" matInput placeholder="Pseudo">
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input formControlName="password" matInput placeholder="Mot de passe">
+        <input formControlName="password" (value)="this.accountDetails.user.password" type="password" matInput placeholder="Mot de passe">
       </mat-form-field>
       <br />
     </mat-tab>

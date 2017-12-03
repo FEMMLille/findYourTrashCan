@@ -21,6 +21,7 @@ import { DisplayModule } from './home/display/display.module';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { AuthModule } from './providers/auth/auth.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-    DisplayModule
+    DisplayModule,
+    AuthModule
   ],
   declarations: [AppComponent],
   providers: [

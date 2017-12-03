@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
 
 import { Injectable } from '@angular/core';
-import { AccountDetails } from '../shared/model/account-details';
+import { AccountDetails } from '../shared/model/account-details.model';
 import { AuthenticationService } from '../core/shell/header/login/authentication.service';
 import { Api } from '../providers/api/api';
 
@@ -15,14 +15,14 @@ const routes = {
 export class AccountDetailsService {
     constructor(public authentService: AuthenticationService, private api: Http) { }
 
-    save(accountDetails: AccountDetails) {
-        return this.api.post(routes.accountdetails, accountDetails);
+    save(accountDetails: AccountDetails): Promise<AccountDetails> {
+        return this.api.post(routes.accountdetails, JSON.stringify(accountDetails))
+          .toPromise().then(response => response.json() as AccountDetails);
     }
 
-    getByUserId(id: number) {
-        return this.api.get(routes.accountdetails + id).subscribe(accountDetails => {
-          console.log(accountDetails);
-      });
+    getByUserId(id: number): Promise<AccountDetails> {
+        return this.api.get(routes.accountdetails + id)
+          .toPromise().then(response => response.json() as AccountDetails);
     }
 
     /**

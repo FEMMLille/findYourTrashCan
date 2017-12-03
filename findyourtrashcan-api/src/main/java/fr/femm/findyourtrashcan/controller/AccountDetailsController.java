@@ -13,7 +13,7 @@ import fr.femm.findyourtrashcan.data.AccountDetails;
 import fr.femm.findyourtrashcan.service.AccountDetailsService;
 
 @RestController
-@RequestMapping("/api/accountdetails")
+@RequestMapping(value="/api/accountdetails", produces = "application/json")
 public class AccountDetailsController {
 
 	private static final String ID = "id";
@@ -35,6 +35,7 @@ public class AccountDetailsController {
 	@GetMapping(URL_GET_BY_USER)
 	public AccountDetails getByUser(@PathVariable(ID) final Integer id) {
 		logger.info("WebService getAccountDetails [id : " + id + "]");
+		System.out.println(service.getByUser(id));
 
 		return service.getByUser(id);
 	}
@@ -47,9 +48,8 @@ public class AccountDetailsController {
 	 * @return The account details and user created
 	 */
 	@PostMapping
-	public AccountDetails create(@RequestBody final AccountDetails accountDetails) {
-		logger.info("WebService createAccountDetails " + accountDetails);
-
+	public AccountDetails save(@RequestBody final AccountDetails accountDetails) {
+		logger.info("WebService saveAccountDetails " + accountDetails);
 		return service.create(accountDetails);
 	}
 	
