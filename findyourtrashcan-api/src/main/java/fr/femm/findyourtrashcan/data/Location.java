@@ -18,17 +18,20 @@ public class Location {
 
 	private String label;
 	
-	private Point coordinate;
+	private Float latitude;
 	
+	private Float longitude;
+
 	public Location() {
 		
 	}
 
-	public Location(Integer code, String label, Point coordinate) {
+	public Location(Integer code, String label, Float latitude, Float longitude) {
 		super();
 		this.code = code;
 		this.label = label;
-		this.coordinate = coordinate;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public Integer getCode() {
@@ -47,12 +50,20 @@ public class Location {
 		this.label = label;
 	}
 
-	public Point getCoordinate() {
-		return coordinate;
+	public Float getLatitude() {
+		return latitude;
 	}
 
-	public void setCoordinate(Point coordinate) {
-		this.coordinate = coordinate;
+	public void setLatitude(Float latitude) {
+		this.latitude = latitude;
 	}
-	
+
+	public Float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Float longitude) {
+		this.longitude = longitude;
+	}
+
 }

@@ -29,7 +29,9 @@ public class Trashcan {
 
 	private boolean isEmpty;
 	
-	private Point coordinate;
+	private Double latitude;
+	
+	private Double longitude;
 	
 	private String picture;
 	
@@ -40,14 +42,14 @@ public class Trashcan {
 
 	}
 
-	public Trashcan(Integer id, TrashcanType trashcanType, GarbageType garbageType, boolean isEmpty,
-			Point coordinate, String picture, Location location) {
-		super();
+	public Trashcan(Integer id, TrashcanType trashcanType, GarbageType garbageType, boolean isEmpty, Double latitude,
+			Double longitude, String picture, Location location) {
 		this.id = id;
 		this.trashcanType = trashcanType;
 		this.garbageType = garbageType;
 		this.isEmpty = isEmpty;
-		this.coordinate = coordinate;
+		this.latitude = latitude;
+		this.longitude = longitude;
 		this.picture = picture;
 		this.location = location;
 	}
@@ -84,12 +86,20 @@ public class Trashcan {
 		this.isEmpty = isEmpty;
 	}
 
-	public Point getCoordinate() {
-		return coordinate;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setCoordinate(Point coordinate) {
-		this.coordinate = coordinate;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getPicture() {
