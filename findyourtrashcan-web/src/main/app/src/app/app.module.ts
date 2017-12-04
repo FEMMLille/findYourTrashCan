@@ -16,6 +16,13 @@ import { InscriptionModule } from './inscription/inscription.module';
 
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccountDetailsModule } from './account-details/account-details.module';
+import { DisplayModule } from './home/display/display.module';
+
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { AuthModule } from './providers/auth/auth.module';
+
 
 @NgModule({
   imports: [
@@ -23,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     TranslateModule.forRoot(),
     NgbModule.forRoot(),
     CoreModule,
@@ -30,12 +38,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeModule,
     AboutModule,
     InscriptionModule,
+    AccountDetailsModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DisplayModule,
+    AuthModule
   ],
   declarations: [AppComponent],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

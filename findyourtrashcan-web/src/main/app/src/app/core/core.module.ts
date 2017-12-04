@@ -16,19 +16,23 @@ import { MaterialModule } from '../material.module';
 import { AuthenticationService } from './shell/header/login/authentication.service';
 import { AuthenticationGuard } from './shell/header/login/authentication.guard';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AccountDetailsService } from '../account-details/account-details.service';
+import { HttpClient } from '@angular/common/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
-export function createHttpService(backend: ConnectionBackend,
+export function createHttpService(
+  backend: ConnectionBackend,
   defaultOptions: RequestOptions,
   httpCacheService: HttpCacheService) {
+  // return ;
   return new AuthHttp(new AuthConfig({
     tokenName: 'Authorization',
     tokenGetter: (() =>
-      JSON.parse(sessionStorage.getItem('credentials')) ?
-        JSON.parse(sessionStorage.getItem('credentials')).token.replace('Bearer ', '') : ''),
-    globalHeaders: [{ 'Content-Type': 'application/json' }],
+                JSON.parse(sessionStorage.getItem('credentials')) ?
+                JSON.parse(sessionStorage.getItem('credentials')).token.replace('Bearer ', '') : ''),
+    globalHeaders: [{'Content-Type': 'application/json'}],
     noJwtError: true
-  }), new HttpService(backend, defaultOptions, httpCacheService), defaultOptions);
+    }), new HttpService(backend, defaultOptions, httpCacheService), defaultOptions);
 }
 
 @NgModule({
@@ -51,6 +55,7 @@ export function createHttpService(backend: ConnectionBackend,
     I18nService,
     HttpCacheService,
     AuthenticationService,
+    AccountDetailsService,
     AuthenticationGuard,
     {
       provide: AuthHttp,

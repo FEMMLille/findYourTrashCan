@@ -18,6 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String API_USER_URL = "/api/user";
 	private static final String API_LOGIN_URL = "/api/login";
+	private static final String API_ACCOUNT_DETAILS_URL = "/api/accountdetails";
 	private static final String USERNAME_QUERY_ATHENTIFICATION = "SELECT username, password,enabled FROM fytcuser f "
 			+ "join Role r on r.id = f.role_id "
 			+ "WHERE username=?";
@@ -34,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    	.csrf().disable()
 	    	.authorizeRequests()
 	    		.antMatchers("/").permitAll()
+				.antMatchers(API_ACCOUNT_DETAILS_URL).permitAll()
 	        	.antMatchers(HttpMethod.POST, API_USER_URL).permitAll()
 	        	.anyRequest().authenticated()
 	    	.and()
