@@ -17,6 +17,7 @@ declare var google;
 })
 export class TabsPage {
   trashcans: Array<Trashcan> = [];
+  maxBounds: MapBounds;
 
   filterIsRunning: boolean = false;
   loading;
@@ -51,9 +52,11 @@ export class TabsPage {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      this.maxBounds = new MapBounds(new Point(myPosition.lat + 5, myPosition.lon + 3), new Point(myPosition.lat - 5, myPosition.lon - 3));
+
       this.map.addListener('idle', () => {
         let bounds = this.map.getBounds();
-        console.log(bounds.getNorthEast());
         let ne = new Point(bounds.getNorthEast().lat(), bounds.getNorthEast().lng());
         let sw = new Point(bounds.getSouthWest().lat(), bounds.getSouthWest().lng());
         let mb = new MapBounds(ne, sw);
@@ -85,7 +88,7 @@ export class TabsPage {
   loadTrashcans(mapBounds: MapBounds) {
     //Load trashcans in server by calling the api
     var i = 1;
-    this.trashcanService.getTrashcans(mapBounds).subscribe((res) => {
+    this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
       for (let trashcan of res) {
         if (this.checkTrashcanArraysContains(trashcan)) {
           break;
@@ -97,6 +100,14 @@ export class TabsPage {
         i++;
       }
     });
+  }
+
+  chooseBounds(mapBounds: MapBounds): MapBounds {
+    let neLat = (mapBounds.northEast.lat > this.maxBounds.northEast.lat) ? this.maxBounds.northEast.lat : mapBounds.northEast.lat;
+    let neLon = (mapBounds.northEast.lon > this.maxBounds.northEast.lon) ? this.maxBounds.northEast.lon : mapBounds.northEast.lon;
+    let swLat = (mapBounds.southWest.lat < this.maxBounds.southWest.lat) ? this.maxBounds.southWest.lat : mapBounds.southWest.lat;
+    let swLon = (mapBounds.southWest.lon < this.maxBounds.southWest.lon) ? this.maxBounds.southWest.lon : mapBounds.southWest.lon;
+    return new MapBounds(new Point(neLat, neLon), new Point(swLat, swLon));
   }
 
   checkTrashcanArraysContains(testedTrashcan: Trashcan): boolean {
