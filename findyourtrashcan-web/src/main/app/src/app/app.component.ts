@@ -25,10 +25,10 @@ const log = new Logger('App');
 export class AppComponent implements OnInit {
 
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private titleService: Title,
-              private translateService: TranslateService,
-              private i18nService: I18nService) { }
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title,
+    private translateService: TranslateService,
+    private i18nService: I18nService) { }
 
   ngOnInit() {
     // Setup logger
@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
       Logger.enableProductionMode();
     }
 
+    /*sessionStorage.setItem('token', '');*/
     log.debug('init');
 
     // Setup translations

@@ -4,10 +4,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+/*import { Http, Response } from '@angular/http';*/
+import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Logger } from '../../../logger.service';
+import { Response } from '@angular/http/src/static_response';
 
 const log = new Logger('AuthentificationService');
 
@@ -26,7 +28,7 @@ export interface LoginContext {
   remember?: boolean;
 }
 
-const credentialsKey = 'credentials';
+const credentialsKey = 'token';
 
 /**
  * Provides a base for authentication workflow.
@@ -36,8 +38,8 @@ const credentialsKey = 'credentials';
 export class AuthenticationService {
 
   private _credentials: Credentials;
-
-  constructor(private http: Http) {
+  private data: Credentials;
+  constructor(private http: AuthHttp) {
     this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
   }
 
@@ -47,14 +49,11 @@ export class AuthenticationService {
    * @return {Observable<Credentials>} The user credentials.
    */
   login(context: LoginContext): Observable<Credentials> {
-    const data = {
-      token: ''
-    };
     return this.http.post(routes.authentication, { username: context.username, password: context.password })
       .map((response: Response): Credentials => {
-        data.token = (response.headers.get('authorization') !== undefined) ? response.headers.get('authorization') : '';
-        this.setCredentials(data, context.remember);
-        return data;
+        this.data.token = response.headers.get('authorization');
+        this.setCredentials(this.data, context.remember);
+        return this.data;
       });
   }
 
@@ -99,7 +98,7 @@ export class AuthenticationService {
 
     if (credentials) {
       const storage = remember ? localStorage : sessionStorage;
-      storage.setItem(credentialsKey, JSON.stringify(credentials));
+      storage.setItem(credentialsKey, JSON.stringify(credentials.token));
     } else {
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);

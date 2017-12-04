@@ -16,10 +16,19 @@ import { MaterialModule } from '../material.module';
 import { AuthenticationService } from './shell/header/login/authentication.service';
 import { AuthenticationGuard } from './shell/header/login/authentication.guard';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
 export function createHttpService(backend: ConnectionBackend,
   defaultOptions: RequestOptions,
   httpCacheService: HttpCacheService) {
-  return new HttpService(backend, defaultOptions, httpCacheService);
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'Authorization',
+    tokenGetter: (() =>
+      JSON.parse(sessionStorage.getItem('credentials')) ?
+        JSON.parse(sessionStorage.getItem('credentials')).token.replace('Bearer ', '') : ''),
+    globalHeaders: [{ 'Content-Type': 'application/json' }],
+    noJwtError: true
+  }), new HttpService(backend, defaultOptions, httpCacheService), defaultOptions);
 }
 
 @NgModule({
@@ -44,7 +53,7 @@ export function createHttpService(backend: ConnectionBackend,
     AuthenticationService,
     AuthenticationGuard,
     {
-      provide: Http,
+      provide: AuthHttp,
       deps: [XHRBackend, RequestOptions, HttpCacheService],
       useFactory: createHttpService
     }
