@@ -6,7 +6,8 @@ import { ProfilePage } from './../pages';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 
 declare var google;
 
@@ -21,17 +22,52 @@ export class TabsPage {
 
   filterIsRunning: boolean = false;
   loading;
+  disconnected: boolean = false;
+  dismissMessage: boolean = false;
+  mapLoaded: boolean = false;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public translateService: TranslateService, public geolocation: Geolocation
-    , public loadingCtrl: LoadingController, public trashcanService: TrashcanService) {
+  // Our translated text strings
+  private internalErrorFindingTrashcans: string;
+  private pleaseWait: string;
+  private noNetwork: string;
+  private pleaseRetry: string;
 
+  constructor(public navCtrl: NavController, public translateService: TranslateService, public geolocation: Geolocation,
+    public loadingCtrl: LoadingController, public trashcanService: TrashcanService, public toastCtrl: ToastController,
+    public network: Network) {
+
+    this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
+      this.internalErrorFindingTrashcans = value;
+    });
+
+    this.translateService.get('PLEASE_WAIT').subscribe((value) => {
+      this.pleaseWait = value;
+    });
+
+    this.translateService.get('NO_NETWORK').subscribe((value) => {
+      this.noNetwork = value;
+    });
+
+    this.translateService.get('PLEASE_RETRY').subscribe((value) => {
+      this.pleaseRetry = value;
+    });
   }
 
   ionViewDidLoad() {
     this.loadMap();
+    this.network.onDisconnect().subscribe(() => {
+      this.disconnected = true;
+    });
+
+    this.network.onConnect().subscribe(() => {
+      this.disconnected = false;
+      this.dismissMessage = false;
+      if (!this.mapLoaded)
+        this.loadMap();
+    });
   }
 
   toggleFilter() {
@@ -50,11 +86,9 @@ export class TabsPage {
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
-
+      this.trashcans = [];
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
       this.maxBounds = new MapBounds(new Point(myPosition.lat + 5, myPosition.lon + 3), new Point(myPosition.lat - 5, myPosition.lon - 3));
-
       this.map.addListener('idle', () => {
         let bounds = this.map.getBounds();
         let ne = new Point(bounds.getNorthEast().lat(), bounds.getNorthEast().lng());
@@ -63,9 +97,16 @@ export class TabsPage {
         this.loadTrashcans(mb);
       });
       this.dismissLoading();
+      this.mapLoaded = true;
+
     }, (err) => {
-      console.log(err);
-    })
+      this.manageError(this.noNetwork + '. ' + this.pleaseRetry);
+      this.dismissLoading();
+    });
+  }
+
+  dismissNoNetworkMessage() {
+    this.dismissMessage = true;
   }
 
   gotoProfile() {
@@ -74,7 +115,7 @@ export class TabsPage {
 
   presentLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: this.pleaseWait + '...'
     });
     this.loading.present();
   }
@@ -88,18 +129,24 @@ export class TabsPage {
   loadTrashcans(mapBounds: MapBounds) {
     //Load trashcans in server by calling the api
     var i = 1;
-    this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
-      for (let trashcan of res) {
-        if (this.checkTrashcanArraysContains(trashcan)) {
-          break;
-        } else {
-          setTimeout(() => {
-            this.addTrashcan(trashcan);
-          }, i * 200);
+    if (!this.disconnected) {
+      this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
+        for (let trashcan of res) {
+          if (this.checkTrashcanArraysContains(trashcan)) {
+            break;
+          } else {
+            setTimeout(() => {
+              this.addTrashcan(trashcan);
+            }, i * 200);
+          }
+          i++;
         }
-        i++;
-      }
-    });
+      }, (err) => {
+        this.manageError(this.internalErrorFindingTrashcans);
+      });
+    } else {
+      this.manageError(this.noNetwork + '.  ' + this.pleaseRetry);
+    }
   }
 
   chooseBounds(mapBounds: MapBounds): MapBounds {
@@ -135,5 +182,15 @@ export class TabsPage {
     let empty: string = t.empty ? '0' : '1';
     let path: string = '' + t.trashcanType.id + t.garbageType.id;
     return 'assets/img/icons/processed/' + empty + path + '.png';
+  }
+
+  manageError(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+    toast.present();
   }
 }

@@ -1,3 +1,4 @@
+import { Network } from '@ionic-native/network';
 import { GarbageTypeService } from './../providers/trashcan/garbage-type';
 import { TrashcanTypeService } from './../providers/trashcan/trashcan-type';
 import { TrashcanType } from './../shared/model/trashcan-type';
@@ -82,6 +83,7 @@ export function provideSettings(storage: Storage) {
     TrashcanService,
     TrashcanTypeService,
     GarbageTypeService,
+    Network,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

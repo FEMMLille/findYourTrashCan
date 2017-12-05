@@ -21,7 +21,8 @@ page-tabs {
         }
     }
         
-    ion-content {   
+    ion-content {
+           
         .scroll {
             height: 100%!important;
         }
@@ -29,6 +30,23 @@ page-tabs {
         #map {
             width: 100%!important;
             height: 100%!important;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        #no-network-div {
+            height: 50px;
+            line-height: 50px;
+            position: absolute;
+            top:75%;
+            z-index: 300;
+            width: 100%;
+            border:1px solid  map-get($colors, danger);
+            vertical-align: align;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
     }
