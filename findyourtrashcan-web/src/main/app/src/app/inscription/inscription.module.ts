@@ -6,8 +6,7 @@ import { InscriptionRoutingModule } from './inscription-routing.module';
 import { InscriptionComponent } from './inscription.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
-import { LocationService } from './location.service';
-import { InscriptionService } from './inscription.service';
+import { InscriptionService } from '../core/providers/inscription/inscription.service';
 
 @NgModule({
   imports: [
@@ -22,7 +21,6 @@ import { InscriptionService } from './inscription.service';
     InscriptionComponent
   ],
   providers: [
-    LocationService,
     InscriptionService
   ]
 })

@@ -12,8 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../environments/environment';
-import { Logger } from './core/logger.service';
-import { I18nService } from './core/i18n.service';
+import { Logger } from './core/providers/logger/logger.service';
+import { I18nService } from './core/providers/translation/i18n.service';
 
 const log = new Logger('App');
 
@@ -35,8 +35,6 @@ export class AppComponent implements OnInit {
     if (environment.production) {
       Logger.enableProductionMode();
     }
-
-    /*sessionStorage.setItem('token', '');*/
     log.debug('init');
 
     // Setup translations

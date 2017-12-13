@@ -1,69 +1,43 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { HttpModule, Http, XHRBackend, ConnectionBackend, RequestOptions } from '@angular/http';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { ShellComponent } from './shell/shell.component';
-import { HeaderComponent } from './shell/header/header.component';
-import { FooterComponent } from './shell/footer/footer.component';
-import { LoginComponent } from './shell/header/login/login.component';
-import { I18nService } from './i18n.service';
-import { HttpService } from './http/http.service';
-import { HttpCacheService } from './http/http-cache.service';
 import { MaterialModule } from '../material.module';
-import { AuthenticationService } from './shell/header/login/authentication.service';
-import { AuthenticationGuard } from './shell/header/login/authentication.guard';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AccountDetailsService } from '../account-details/account-details.service';
-import { HttpClient } from '@angular/common/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
-export function createHttpService(
-  backend: ConnectionBackend,
-  defaultOptions: RequestOptions,
-  httpCacheService: HttpCacheService) {
-  // return ;
-  return new AuthHttp(new AuthConfig({
-    tokenName: 'Authorization',
-    tokenGetter: (() =>
-                JSON.parse(sessionStorage.getItem('credentials')) ?
-                JSON.parse(sessionStorage.getItem('credentials')).token.replace('Bearer ', '') : ''),
-    globalHeaders: [{'Content-Type': 'application/json'}],
-    noJwtError: true
-    }), new HttpService(backend, defaultOptions, httpCacheService), defaultOptions);
-}
+import { TranslateModule } from '@ngx-translate/core';
+import { I18nService } from './providers/translation/i18n.service';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { LoginComponent } from './layout/header/login/login.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationService } from './providers/auth/authentification.service';
+import { AuthentificationGuardService } from './providers/auth/authentification-guard.service';
+import { UserService } from './providers/user/user.service';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    HttpModule,
     TranslateModule,
-    NgbModule,
     RouterModule,
-    MaterialModule
+    NgbModule,
+    MaterialModule,
+    HttpClientModule
   ],
   declarations: [
-    LoginComponent,
+    LayoutComponent,
     HeaderComponent,
-    FooterComponent,
-    ShellComponent
+    LoginComponent,
+    FooterComponent
   ],
   providers: [
     I18nService,
-    HttpCacheService,
     AuthenticationService,
-    AccountDetailsService,
-    AuthenticationGuard,
-    {
-      provide: AuthHttp,
-      deps: [XHRBackend, RequestOptions, HttpCacheService],
-      useFactory: createHttpService
-    }
+    UserService,
   ]
 })
+
 export class CoreModule {
 
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

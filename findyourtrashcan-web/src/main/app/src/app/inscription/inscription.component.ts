@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { LocationService } from './location.service';
-import { InscriptionContext, InscriptionService } from './inscription.service';
-import { Logger } from '../core/logger.service';
+import { InscriptionContext, InscriptionService } from '../core/providers/inscription/inscription.service';
+import { Logger } from '../core/providers/logger/logger.service';
 import { Router } from '@angular/router';
 
 const log = new Logger('InscriptionComponent');
@@ -22,7 +21,7 @@ export class FormUser implements InscriptionContext {
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.scss'],
-  providers: [LocationService, InscriptionService]
+  providers: [InscriptionService]
 })
 
 export class InscriptionComponent implements OnInit {
@@ -33,8 +32,9 @@ export class InscriptionComponent implements OnInit {
   form: FormUser;
   message: string = null;
 
-  constructor(private router: Router, private locationService: LocationService,
-    private inscriptionService: InscriptionService, private builder: FormBuilder) { }
+  constructor(private router: Router,
+    private inscriptionService: InscriptionService,
+    private builder: FormBuilder) { }
 
   ngOnInit() {
     this.form = new FormUser();
