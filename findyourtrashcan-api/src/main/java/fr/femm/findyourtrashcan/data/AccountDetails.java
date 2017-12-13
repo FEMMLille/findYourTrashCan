@@ -1,6 +1,8 @@
 package fr.femm.findyourtrashcan.data;
 
 import java.sql.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,20 +11,18 @@ import javax.persistence.OneToOne;
 
 /**
  * Entity representing AccountDetails in database
- * @author Francis Cornaire
- *
  */
 
 @Entity
 public class AccountDetails {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private FYTCUser user;
-	
+
 	private String firstName;
 	
 	private String lastName;
@@ -36,7 +36,6 @@ public class AccountDetails {
 	}
 
 	public AccountDetails(FYTCUser user, String firstName, String lastName, Date birthday, String avatar) {
-		super();
 		this.user = user;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -90,6 +89,12 @@ public class AccountDetails {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountDetails [id=" + id + ", user=" + user + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", birthday=" + birthday + ", avatar=" + avatar + "]";
 	}
 	
 }
