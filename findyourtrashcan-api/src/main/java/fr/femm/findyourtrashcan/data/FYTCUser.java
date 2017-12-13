@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 public class FYTCUser {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer id;
 
 	private String username;

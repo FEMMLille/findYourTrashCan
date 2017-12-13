@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.femm.findyourtrashcan.data.AccountDetails;
 import fr.femm.findyourtrashcan.repository.AccountDetailsRepository;
+import fr.femm.findyourtrashcan.repository.RoleRepository;
 
 /**
  * Class implementation of the User service
@@ -21,6 +22,9 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 	@Autowired
 	private FYTCUserService userService;
 
+	@Autowired
+	private RoleRepository roleRepository;
+
 	@Override
 	public AccountDetails getByUser(final Integer id) {
 		return accountDetailsRepository.findByUserId(id);
@@ -28,7 +32,13 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 
 	@Override
 	public AccountDetails create(final AccountDetails accountDetails) {
-		userService.createUser(accountDetails.getUser());
-		return accountDetailsRepository.save(accountDetails);
+		userService.encodePassword(accountDetails.getUser());
+		return update(accountDetails);
+	}
+
+	@Override
+	public AccountDetails update(AccountDetails accountDetails) {
+		accountDetails.getUser().setRole(roleRepository.findOne(accountDetails.getUser().getRole().getId()));
+		return accountDetailsRepository.saveAndFlush(accountDetails);
 	}
 }

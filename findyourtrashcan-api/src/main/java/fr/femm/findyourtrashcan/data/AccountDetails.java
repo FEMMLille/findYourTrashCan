@@ -2,27 +2,25 @@ package fr.femm.findyourtrashcan.data;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * Entity representing AccountDetails in database
  */
 
 @Entity
-@JsonIgnoreProperties
 public class AccountDetails {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private FYTCUser user;
 
 	private String firstName;

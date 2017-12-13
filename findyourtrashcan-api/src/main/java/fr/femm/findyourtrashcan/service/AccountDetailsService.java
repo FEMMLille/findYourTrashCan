@@ -25,4 +25,6 @@ public interface AccountDetailsService {
 	 */
 	public AccountDetails create(final AccountDetails accountDetails);
 
+	public AccountDetails update(AccountDetails accountDetails);
+
 }

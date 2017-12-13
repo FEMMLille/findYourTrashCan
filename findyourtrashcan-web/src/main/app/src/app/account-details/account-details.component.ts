@@ -57,7 +57,7 @@ export class AccountDetailsComponent implements OnInit {
 
   ngOnInit() {
     // TODO : Recupérer l'id du user actuel
-    this.accountDetailsService.getByUserId(4).subscribe(accountDetails => {
+    this.accountDetailsService.getByUserId(1).subscribe(accountDetails => {
       console.log(accountDetails);
       this.accountDetails = accountDetails;
       this.accountdetailsform.patchValue({
@@ -96,8 +96,8 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   save = (accountDetails: AccountDetails): void => {
-    debugger;
-    this.accountDetailsService.save(accountDetails).subscribe(
+    accountDetails.user.role = this.accountDetails.user.role;
+    this.accountDetailsService.update(accountDetails).subscribe (
       (res) => {
         this.accountdetailsform.markAsPristine();
         this.accountDetails = res;

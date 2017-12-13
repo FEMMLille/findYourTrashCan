@@ -7,7 +7,7 @@ import { AccountDetails } from '../../model/account-details.model';
 import { Observable } from 'rxjs/Observable';
 
 const routes = {
-  accountdetails: '/back/accountdetails/',
+  accountdetails: '/api/accountdetails/',
 };
 
 @Injectable()
@@ -15,7 +15,11 @@ export class AccountDetailsService {
     constructor(public authentService: AuthenticationService, private api: HttpClient) { }
 
     save(accountDetails: AccountDetails): Observable<AccountDetails> {
-        return this.api.post<AccountDetails>(routes.accountdetails, JSON.stringify(accountDetails));
+        return this.api.post<AccountDetails>(routes.accountdetails, accountDetails);
+    }
+
+    update(accountDetails: AccountDetails): Observable<AccountDetails> {
+      return this.api.put<AccountDetails>(routes.accountdetails, accountDetails);
     }
 
     getByUserId(id: number): Observable<AccountDetails> {
