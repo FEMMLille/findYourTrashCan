@@ -36,11 +36,11 @@ import { InscriptionModule } from './inscription/inscription.module';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  /*providers: [{
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true
-  }],*/
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

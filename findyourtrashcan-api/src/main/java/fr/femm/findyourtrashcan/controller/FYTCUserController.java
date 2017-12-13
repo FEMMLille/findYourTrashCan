@@ -49,4 +49,17 @@ public class FYTCUserController {
 		return service.getUser(id);
 	}
 
+	/**
+	 * Method to find a user
+	 * 
+	 * @param id
+	 *            the id of the user we want to get
+	 * @return The user founded
+	 */
+	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+	public FYTCUser getUserByName(@PathVariable("name") String name) {
+		logger.info("WebService getUser [name : " + name + "]");
+		return service.getUser(name);
+	}
+
 }
