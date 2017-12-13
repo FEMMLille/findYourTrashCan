@@ -22,6 +22,8 @@ public class Location {
 	
 	private float lon;
 	
+	private Float longitude;
+
 	public Location() {
 		
 	}
@@ -49,7 +51,7 @@ public class Location {
 	public void setLabel(String label) {
 		this.label = label;
 	}
-
+	
 	public float getLat() {
 		return lat;
 	}

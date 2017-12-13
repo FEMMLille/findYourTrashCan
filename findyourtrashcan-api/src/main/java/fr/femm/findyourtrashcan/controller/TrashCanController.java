@@ -5,15 +5,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.femm.findyourtrashcan.data.FYTCUser;
 import fr.femm.findyourtrashcan.data.Trashcan;
-import fr.femm.findyourtrashcan.service.FYTCUserService;
 import fr.femm.findyourtrashcan.service.TrashcanService;
 
 @RestController
@@ -25,10 +23,24 @@ public class TrashCanController {
     @Autowired
     private TrashcanService service;
 
+    /**
+     * Method to create a trashcan
+     * 
+     * @param Trashcan
+     *            The trashcan send by the mobile request
+     * @return The new trashcan created
+     */
+
+    @RequestMapping(method = RequestMethod.POST)
+    public Trashcan createTrashcan(@RequestBody Trashcan trashcan) {
+	logger.info("WebService createTrashcan [trashcan : " + trashcan);
+	return service.createTrashCan(trashcan);
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Trashcan> getTrashcansInBounds(
-	    @RequestParam("ne_lat") float neLat, @RequestParam("ne_lon") float neLon,
+    public List<Trashcan> getTrashcansInBounds(@RequestParam("ne_lat") float neLat, @RequestParam("ne_lon") float neLon,
 	    @RequestParam("sw_lat") float swLat, @RequestParam("sw_lon") float swLon) {
+	
 	logger.info("WebService getTrashcansInBounds [" + "northeast : (" + neLat + ", " + neLon + "), "
 		+ "southwest : (" + swLat + ", " + swLon + ")]");
 	return service.getTrashcansInBounds(neLat, neLon, swLat, swLon);

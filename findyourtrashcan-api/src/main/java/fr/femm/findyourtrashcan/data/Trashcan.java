@@ -42,6 +42,7 @@ public class Trashcan {
 
 	}
 
+
 	public Trashcan(Integer id, TrashcanType trashcanType, GarbageType garbageType, boolean isEmpty,
 			float lat, float lon, String picture, Location location) {
 		super();

@@ -18,14 +18,14 @@ public interface TrashcanService {
 	 * @param trashcan The trashcan
 	 * @return The created trashcan
 	 */
-	public Location createTrashCan(Trashcan trashcan) ;
+	public Trashcan createTrashCan(Trashcan trashcan) ;
 	
 	/**
 	 * Method to get a trashcan
 	 * @param code the id of the trashcan
 	 * @return The trashcan
 	 */
-	public Location getTrashcan(Integer id);
+	public Trashcan getTrashcan(Integer id);
 
 	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon);
 	
