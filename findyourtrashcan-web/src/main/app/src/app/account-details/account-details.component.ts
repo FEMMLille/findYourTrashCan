@@ -97,7 +97,7 @@ export class AccountDetailsComponent implements OnInit {
 
   save = (accountDetails: AccountDetails): void => {
     accountDetails.user.role = this.accountDetails.user.role;
-    this.accountDetailsService.update(accountDetails).subscribe (
+    this.accountDetailsService.save(accountDetails).subscribe (
       (res) => {
         this.accountdetailsform.markAsPristine();
         this.accountDetails = res;

@@ -55,7 +55,7 @@
       </mat-form-field>
       <br />
       <mat-form-field formGroupName="user">
-        <input formControlName="password" (value)="this.accountDetails.user.password" type="password" matInput placeholder="Mot de passe">
+        <input formControlName="password" [value]="this.accountDetails.user.password" type="password" matInput placeholder="Mot de passe">
       </mat-form-field>
       <br />
     </mat-tab>

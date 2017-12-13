@@ -18,10 +18,6 @@ export class AccountDetailsService {
         return this.api.post<AccountDetails>(routes.accountdetails, accountDetails);
     }
 
-    update(accountDetails: AccountDetails): Observable<AccountDetails> {
-      return this.api.put<AccountDetails>(routes.accountdetails, accountDetails);
-    }
-
     getByUserId(id: number): Observable<AccountDetails> {
         return this.api.get<AccountDetails>(routes.accountdetails + id);
     }

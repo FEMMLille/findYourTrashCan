@@ -33,11 +33,6 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 	@Override
 	public AccountDetails create(final AccountDetails accountDetails) {
 		userService.encodePassword(accountDetails.getUser());
-		return update(accountDetails);
-	}
-
-	@Override
-	public AccountDetails update(AccountDetails accountDetails) {
 		accountDetails.getUser().setRole(roleRepository.findOne(accountDetails.getUser().getRole().getId()));
 		return accountDetailsRepository.saveAndFlush(accountDetails);
 	}
