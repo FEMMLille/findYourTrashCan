@@ -13,9 +13,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Interceptor } from './interceptor';
 import { InscriptionModule } from './inscription/inscription.module';
+import { AccountDetailsModule } from './account-details/account-details.module';
 
 
 @NgModule({
@@ -32,9 +33,11 @@ import { InscriptionModule } from './inscription/inscription.module';
     HomeModule,
     AboutModule,
     InscriptionModule,
+    AccountDetailsModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

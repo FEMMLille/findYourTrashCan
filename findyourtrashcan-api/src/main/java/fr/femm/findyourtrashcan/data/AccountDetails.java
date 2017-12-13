@@ -8,11 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Entity representing AccountDetails in database
  */
 
 @Entity
+@JsonIgnoreProperties
 public class AccountDetails {
 	
 	@Id
