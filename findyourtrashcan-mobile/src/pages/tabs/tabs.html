@@ -3,10 +3,24 @@
     {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
   </div>
   <div #map id="map"></div>
+  <div id="add-trashcan-popup">
+    <h2>{{ 'ADD_TRASHCAN' | translate }}</h2>
+    <div>
+      <button ion-button clear type="button" (click)="updateAddedTrashcanType(1)" class="popup-button" [class.toggled-button]="(addedTrashcan.trashcanType.id == 1)">POUBELLE</button>
+      <button ion-button clear type="button" (click)="updateAddedTrashcanType(2)" class="popup-button" [class.toggled-button]="(addedTrashcan.trashcanType.id == 2)">DECHETTERIE</button>
+    </div>
+    <div>
+      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(1)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 1)">ORDURES</button>
+      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(2)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 2)">PAPIER</button>
+      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(3)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 3)">VERRE</button>
+      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(4)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 4)">PLASTIQUE</button>
+    </div>
+    <div class="align-right">
+      <button ion-button clear type="button" (click)="dismissAddingPopup()">{{ "CANCEL" | translate }}</button>
+      <button ion-button style="width:25vw" type="button" (click)="addTrashcan()">{{ "OK" | translate }}</button>
+    </div>
+  </div>
 </ion-content>
-<ion-tabs>
-</ion-tabs>
-
 
 <ion-footer>
   <div class="bar-menu">

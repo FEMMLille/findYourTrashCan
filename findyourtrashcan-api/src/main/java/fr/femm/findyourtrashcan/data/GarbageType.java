@@ -45,4 +45,10 @@ public class GarbageType {
 		this.label = label;
 	}
 	
+	@Override
+	public String toString() {
+	    return "[ GarbageType" + getId()
+	    	+ "\nLabel : " + getLabel() + " ]";
+	}
+	
 }

@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import org.springframework.data.geo.Point;
-
 /**
  * Entity representing Trashcan in database
  * @author Francis Cornaire
@@ -118,6 +116,18 @@ public class Trashcan {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	@Override
+	public String toString() {
+	    return "[ Trashcan" + getId()
+	    	+ "\n" + getTrashcanType()
+	    	+ "\n" + getGarbageType()
+	    	+ "\nisEmpty : " + isEmpty()
+	    	+ "\nlat : " + getLat()
+	    	+ "\nlon : " + getLon()
+	    	+ "\npicture :" + getPicture()
+	    	+ "\n" + getLocation() + " ]";
 	}
 
 }

@@ -67,4 +67,12 @@ public class Location {
 	public void setLon(float lon) {
 		this.lon = lon;
 	}	
+	
+	@Override
+	public String toString() {
+	    return "[ Location" + getCode()
+	    	+ "\nLabel : " + getLabel()
+	    	+ "\nLat : " + getLat()
+	    	+ "\nLon : " + getLon() + " ]";
+	}
 }

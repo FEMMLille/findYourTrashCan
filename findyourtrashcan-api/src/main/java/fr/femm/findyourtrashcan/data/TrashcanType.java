@@ -44,5 +44,11 @@ public class TrashcanType {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+	
+	@Override
+	public String toString() {
+	    return "[ TrashcanType" + getId()
+	    	+ "\nLabel : " + getLabel() + " ]";
+	}
 
 }

@@ -1,4 +1,19 @@
 page-tabs {
+
+    h2 {
+        color: map-get($colors, primary);
+    }
+
+    .toggled-button {
+        background-color: map-get($colors, primary);
+        color:map-get($colors, light);
+    }
+
+    .popup-button {
+        border:1px solid map-get($colors, primary);
+        margin-left:0;
+        margin-right:0;
+    }
    
     .bar-menu {
         min-width: 100vw;
@@ -14,11 +29,6 @@ page-tabs {
                 font-size: 5vh
             }
         }   
-
-        .toggled-button {
-            background-color: map-get($colors, primary);
-            color:map-get($colors, light);
-        }
     }
         
     ion-content {
@@ -49,5 +59,15 @@ page-tabs {
             background-color: rgba(255, 255, 255, 0.5);
         }
 
+    }
+    #add-trashcan-popup {
+        position: absolute!important;
+        bottom:0vh!important;
+        background-color: map-get($colors, light);
+        width:90vw;
+    }
+
+    .align-right {
+        text-align: right;
     }
 }

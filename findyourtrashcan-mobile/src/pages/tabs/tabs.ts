@@ -1,3 +1,4 @@
+import { GarbageType } from './../../shared/model/garbage-type';
 import { MapBounds } from './../../shared/model/map-bounds';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Point } from './../../shared/model/point';
@@ -8,6 +9,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
+import { TrashcanType } from '../../shared/model/trashcan-type';
 
 declare var google;
 
@@ -19,6 +21,7 @@ declare var google;
 export class TabsPage {
   trashcans: Array<Trashcan> = [];
   maxBounds: MapBounds;
+  addedTrashcan: Trashcan = new Trashcan();
 
   filterIsRunning: boolean = false;
   loading;
@@ -54,6 +57,12 @@ export class TabsPage {
     this.translateService.get('PLEASE_RETRY').subscribe((value) => {
       this.pleaseRetry = value;
     });
+
+    this.addedTrashcan.empty = true;
+    this.addedTrashcan.garbageType = new GarbageType(1, "Ordures Ménagères");
+    this.addedTrashcan.picture = "";
+    this.addedTrashcan.trashcanType = new TrashcanType(1, "Poubelle");
+    console.log(this.addedTrashcan);
   }
 
   ionViewDidLoad() {
@@ -75,6 +84,36 @@ export class TabsPage {
       this.filterIsRunning = true;
     else
       this.filterIsRunning = false;
+  }
+
+  updateAddedTrashcanType(id: number) {
+    console.log("updated added trahscan : " + id);
+    switch (id) {
+      case 1:
+        this.addedTrashcan.trashcanType = new TrashcanType(1, "Poubelle");
+        break;
+      case 2:
+        this.addedTrashcan.trashcanType = new TrashcanType(2, "Dechetterie");
+        break;
+    }
+  }
+
+  updateAddedTrashcanGarbage(id: number) {
+    console.log("updated added trahscan : " + id);
+    switch (id) {
+      case 1:
+        this.addedTrashcan.garbageType = new GarbageType(1, "Ordures Ménagères");
+        break;
+      case 2:
+        this.addedTrashcan.garbageType = new GarbageType(2, "Papier");
+        break;
+      case 3:
+        this.addedTrashcan.garbageType = new GarbageType(3, "Verre");
+        break;
+      case 4:
+        this.addedTrashcan.garbageType = new GarbageType(4, "Plastique");
+        break;
+    }
   }
 
   loadMap() {
@@ -166,7 +205,27 @@ export class TabsPage {
   }
 
   addTrashcan(trashcan: Trashcan) {
+    if (!this.disconnected) {
+      /*
+      this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
+        for (let trashcan of res) {
+          if (this.checkTrashcanArraysContains(trashcan)) {
+            break;
+          } else {
+            setTimeout(() => {
+              this.addTrashcan(trashcan);
+            }, i * 200);
+          }
+          i++;
+        }
+      }, (err) => {
+        this.manageError(this.internalErrorFindingTrashcans);
+      });*/
+    } else {
+      this.manageError(this.noNetwork + '.  ' + this.pleaseRetry);
+    }
     //Adding the object to our array
+    /*
     this.trashcans.push(trashcan);
     console.log(this.getMarkerIcon(trashcan));
     //Creating the marker
@@ -175,7 +234,7 @@ export class TabsPage {
       animation: google.maps.Animation.DROP,
       icon: this.getMarkerIcon(trashcan),
       position: { lat: trashcan.lat, lng: trashcan.lon }
-    })
+    })*/
   }
 
   getMarkerIcon(t: Trashcan) {

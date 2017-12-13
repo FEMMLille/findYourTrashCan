@@ -15,5 +15,5 @@ INSERT INTO garbage_type (id,label) VALUES (4,'Plastique') ON CONFLICT (id) DO N
 INSERT INTO garbage_type (id,label) VALUES (5,'Aluminium') ON CONFLICT (id) DO NOTHING
 
 --LOCATION
-INSERT INTO location (code,label,latitude,longitude) VALUES (59000,'lille',50.62925,3.057256) ON CONFLICT (code) DO NOTHING
-INSERT INTO location (code,label,latitude,longitude) VALUES (59600,'villeneuve d ascq',50.6232523,3.1442651) ON CONFLICT (code) DO NOTHING
+INSERT INTO location (code,label,lat,lon) VALUES (59000,'lille',50.62925,3.057256) ON CONFLICT (code) DO NOTHING
+INSERT INTO location (code,label,lat,lon) VALUES (59600,'villeneuve d ascq',50.6232523,3.1442651) ON CONFLICT (code) DO NOTHING
