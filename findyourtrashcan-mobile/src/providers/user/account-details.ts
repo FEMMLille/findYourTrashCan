@@ -1,24 +1,30 @@
-import { AccountDetails } from './../../shared/model/account-details';
+import { HttpHeaders } from '@angular/common/http';
+import { POSTAccountDetails, AccountDetails } from './../../shared/model/account-details';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
 
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
+import { AuthenticationService } from '../providers';
 
 
 @Injectable()
 export class AccountDetailsService {
-    _user: any;
 
     constructor(public api: Api) { }
 
-    signup(accountInfo: AccountDetails): Observable<any> {
-        let seq = this.api.post('user', accountInfo);
+    signup(accountInfo: POSTAccountDetails): Observable<any> {
+        let seq = this.api.postNoToken('accountdetails', accountInfo);
         return seq;
     }
 
     getAccountDetailsFromUserId(id: number): Observable<any> {
+
         return this.api.get('accountdetails/' + id);
+    }
+
+    save(account: AccountDetails) {
+        return this.api.post('accountdetails/', account);
     }
 }

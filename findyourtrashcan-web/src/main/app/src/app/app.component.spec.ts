@@ -1,27 +1,66 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'hammerjs';
 
-import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
 
-describe('AppComponent', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-        CoreModule
-      ],
-      declarations: [AppComponent],
-      providers: []
-    });
-    TestBed.compileComponents();
-  });
+import { environment } from '../environments/environment';
+import { Logger } from './core/providers/logger/logger.service';
+import { I18nService } from './core/providers/translation/i18n.service';
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-});
+const log = new Logger('App');
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title,
+    private translateService: TranslateService,
+    private i18nService: I18nService) { }
+
+  ngOnInit() {
+    // Setup logger
+    if (environment.production) {
+      Logger.enableProductionMode();
+    }
+
+    /*sessionStorage.setItem('token', '');*/
+    log.debug('init');
+
+    // Setup translations
+    this.i18nService.init(environment.defaultLanguage, environment.supportedLanguages);
+
+    const onNavigationEnd = this.router.events.filter(event => event instanceof NavigationEnd);
+
+    // Change page title on navigation or language change, based on route data
+    Observable.merge(this.translateService.onLangChange, onNavigationEnd)
+      .map(() => {
+        let route = this.activatedRoute;
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
+        return route;
+      })
+      .filter(route => route.outlet === 'primary')
+      .mergeMap(route => route.data)
+      .subscribe(event => {
+        const title = event['title'];
+        if (title) {
+          this.titleService.setTitle(this.translateService.instant(title));
+        }
+      });
+  }
+
+}

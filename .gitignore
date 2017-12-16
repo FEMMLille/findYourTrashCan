@@ -283,6 +283,7 @@ log.txt
 .versions/
 coverage/
 dist/
+www/
 node_modules/
 tmp/
 temp/
@@ -301,3 +302,14 @@ scripts/build/e2e-generated-tsconfig.json
 *.css.ts
 
 findyourtrashcan-api/src/main/resources/application-dev.properties
+
+################# IONIC ##################
+*~
+*.sw[mnpcod]
+*.log
+*.lock
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { Route } from '../core/route.service';
-import { extract } from '../core/i18n.service';
+import { Route } from '../core/providers/router/route.service';
+import { extract } from '../core/providers/translation/i18n.service';
 import { InscriptionComponent } from './inscription.component';
 
 const routes: Routes = Route.withShell([

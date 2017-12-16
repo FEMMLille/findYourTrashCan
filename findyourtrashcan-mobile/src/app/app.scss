@@ -41,3 +41,8 @@
 ion-label {
     color:map-get($colors, primary);
 }
+
+.float-right {
+    display: float;
+    float: right;
+}

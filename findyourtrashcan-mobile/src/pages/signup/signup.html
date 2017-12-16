@@ -11,6 +11,12 @@
   <form (submit)="doSignup()" #registerForm="ngForm">
     <ion-list>
 
+
+      <ion-item>
+        <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
+        <ion-input required type="text" [(ngModel)]="account.user.username" name="userName"></ion-input>
+      </ion-item>
+
       <ion-item>
         <ion-label floating>{{ 'FIRST_NAME' | translate }}</ion-label>
         <ion-input required type="text" [(ngModel)]="account.firstName" name="firstName"></ion-input>
@@ -23,12 +29,12 @@
 
       <ion-item>
         <ion-label floating>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input required type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        <ion-input required type="email" [(ngModel)]="account.user.email" name="email"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating>{{ 'BIRTH_DATE' | translate }}</ion-label>
-        <ion-datetime required pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="account.birthDate" name="birthDate"
+        <ion-datetime required pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="account.birthday" name="birthday"
           cancelText="{{ 'CANCEL_BUTTON' | translate }}" doneText="{{ 'DONE_BUTTON' | translate }}"></ion-datetime>
       </ion-item>
 
@@ -43,7 +49,7 @@
 
       <ion-item>
         <ion-label floating>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input required type="password" [(ngModel)]="password" name="password"></ion-input>
+        <ion-input required type="password" [(ngModel)]="account.user.password" name="password"></ion-input>
       </ion-item>
 
       <ion-item>

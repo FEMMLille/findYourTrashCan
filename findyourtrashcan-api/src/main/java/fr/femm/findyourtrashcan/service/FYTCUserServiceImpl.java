@@ -38,6 +38,12 @@ public class FYTCUserServiceImpl implements FYTCUserService {
 	}
 
 	@Override
+	public void encodePassword(FYTCUser user) {
+		BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+		user.setPassword(passwordEncode.encode(user.getPassword()));
+	}
+
+	@Override
 	public FYTCUser getUser(Integer id) {
 		return this.userRepository.findOne(id);
 	}

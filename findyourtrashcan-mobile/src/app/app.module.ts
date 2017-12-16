@@ -1,4 +1,9 @@
-import { RankTypeService } from './../providers/rank/rank_types';
+import { Network } from '@ionic-native/network';
+import { GarbageTypeService } from './../providers/trashcan/garbage-type';
+import { TrashcanTypeService } from './../providers/trashcan/trashcan-type';
+import { TrashcanType } from './../shared/model/trashcan-type';
+import { TrashcanService } from './../providers/trashcan/trashcan';
+import { RankTypeService } from './../providers/rank/rank-types';
 import { RankService } from './../providers/rank/rank';
 import { ProgressBarComponent } from './../components/progress-bar/progress-bar';
 import { AuthenticationService } from './../providers/providers';
@@ -13,11 +18,14 @@ import { IonicStorageModule, Storage } from '@ionic/storage';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { LoadingController } from 'ionic-angular';
 
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
+import { UserService } from '../providers/user/user';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -69,8 +77,15 @@ export function provideSettings(storage: Storage) {
     SplashScreen,
     AuthenticationService,
     RankService,
+    Geolocation,
+    LoadingController,
     RankTypeService,
     StatusBar,
+    TrashcanService,
+    TrashcanTypeService,
+    GarbageTypeService,
+    Network,
+    UserService,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

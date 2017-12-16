@@ -30,7 +30,7 @@ public class FYTCUserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public FYTCUser createUser(@RequestBody FYTCUser user) {
-		logger.info("WebService createUser [username : " + user.getUsername() + ", password : " + user.getPassword() + ", mail : " + user.getEmail() + " role: " + user.getRole().getRoleName() + "]");
+		logger.info("WebService createUser " + user);
 
 		return service.createUser(user);
 	}
@@ -47,6 +47,19 @@ public class FYTCUserController {
 		logger.info("WebService getUser [id : " + id + "]");
 
 		return service.getUser(id);
+	}
+
+	/**
+	 * Method to find a user
+	 * 
+	 * @param id
+	 *            the id of the user we want to get
+	 * @return The user founded
+	 */
+	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+	public FYTCUser getUserByName(@PathVariable("name") String name) {
+		logger.info("WebService getUser [name : " + name + "]");
+		return service.getUser(name);
 	}
 
 }

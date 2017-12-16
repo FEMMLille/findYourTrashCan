@@ -32,4 +32,6 @@ public interface FYTCUserService {
 	 */
 	public FYTCUser getUser(String userName);
 
+	public void encodePassword(FYTCUser user);
+
 }
