@@ -54,6 +54,7 @@ export class AuthenticationService {
       JSON.stringify({ username: context.username, password: context.password }),
       { observe: 'response' })
       .map((response: HttpResponse<any>) => {
+        console.log(response);
         this._credentials = response.headers.get('authorization');
         this.setCredentials(this._credentials, context.remember);
         this.userService.getUserByUsername(context.username)

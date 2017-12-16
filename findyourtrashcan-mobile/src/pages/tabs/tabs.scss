@@ -62,9 +62,12 @@ page-tabs {
     }
     #add-trashcan-popup {
         position: absolute!important;
-        bottom:0vh!important;
+        bottom:2vh!important;
+        left:1.4vh;
         background-color: map-get($colors, light);
-        width:90vw;
+        width:95vw;
+        padding:2vw;
+        box-shadow: 0 0 30vh map-get($colors, dark);
     }
 
     .align-right {

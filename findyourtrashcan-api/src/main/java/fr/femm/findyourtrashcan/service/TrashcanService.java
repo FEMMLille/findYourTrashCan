@@ -27,6 +27,13 @@ public interface TrashcanService {
 	 */
 	public Trashcan getTrashcan(Integer id);
 
+	/**
+	 * Method to get trashcans in an area
+	 * @param neLat the north east bound's latitude
+	 * @param neLon the north east bound's longitude
+	 * @param swLat the south west bound's latitude
+	 * @param swLon the south west bound's longtitude
+	 */
 	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon);
 	
 }

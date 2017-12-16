@@ -23,5 +23,5 @@ public interface TrashcanRepository extends JpaRepository<Trashcan, Integer> {
 	    @Param("neLat") float neLat, 
 	    @Param("neLon") float neLon, 
 	    @Param("swLat") float swLat, 
-	    @Param("swLon")float swLon);
+	    @Param("swLon") float swLon);
 }

@@ -24,19 +24,6 @@ public class TrashCanController {
     @Autowired
     private TrashcanService service;
 
-    /**
-     * Method to create a trashcan
-     * 
-     * @param Trashcan
-     *            The trashcan send by the mobile request
-     * @return The new trashcan created
-     */
-
-    @RequestMapping(method = RequestMethod.POST)
-    public Trashcan createTrashcan(@RequestBody Trashcan trashcan) {
-	logger.info("WebService createTrashcan [trashcan : " + trashcan);
-	return service.createTrashCan(trashcan);
-    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Trashcan> getTrashcansInBounds(@RequestParam("ne_lat") float neLat, @RequestParam("ne_lon") float neLon,

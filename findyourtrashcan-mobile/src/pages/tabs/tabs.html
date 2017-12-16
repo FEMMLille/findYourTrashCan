@@ -2,18 +2,18 @@
   <div id="no-network-div" (click)="dismissNoNetworkMessage()" [class.hide]="!disconnected || dismissMessage">
     {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
   </div>
-  <div #map id="map"></div>
-  <div id="add-trashcan-popup">
+  <div #map id="map">
+  </div>
+  <div id="add-trashcan-popup" [class.hide]="!showAddTrashcanPopup">
     <h2>{{ 'ADD_TRASHCAN' | translate }}</h2>
     <div>
-      <button ion-button clear type="button" (click)="updateAddedTrashcanType(1)" class="popup-button" [class.toggled-button]="(addedTrashcan.trashcanType.id == 1)">POUBELLE</button>
-      <button ion-button clear type="button" (click)="updateAddedTrashcanType(2)" class="popup-button" [class.toggled-button]="(addedTrashcan.trashcanType.id == 2)">DECHETTERIE</button>
+      <button ion-button outline type="button" *ngFor="let item of trashcanTypes" (click)="updateAddedTrashcanType(item.id)" class="popup-button"
+        [class.toggled-button]="(addedTrashcan.trashcanType.id == item.id)">{{item.label}}</button>
     </div>
     <div>
-      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(1)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 1)">ORDURES</button>
-      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(2)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 2)">PAPIER</button>
-      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(3)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 3)">VERRE</button>
-      <button ion-button clear type="button" (click)="updateAddedTrashcanGarbage(4)" class="popup-button" [class.toggled-button]="(addedTrashcan.garbageType.id == 4)">PLASTIQUE</button>
+      <button ion-button outline type="button" *ngFor="let item of garbageTypes | slice:0:3" (click)="updateAddedTrashcanGarbage(item.id)"
+        [class.toggled-button]="(addedTrashcan.garbageType.id == item.id)" class="popup-button">{{item.label}}</button>
+      <button ion-button outline class="popup-button" type="button" (click)="showActionSheet()" [class.toggled-button]="(addedTrashcan.garbageType.id > 3)">{{ listSelectedGarbageType | slice:0:5}}{{listSelectedGarbageType.length > 5 ? '...' : ''}}</button>
     </div>
     <div class="align-right">
       <button ion-button clear type="button" (click)="dismissAddingPopup()">{{ "CANCEL" | translate }}</button>
@@ -34,7 +34,7 @@
       <ion-icon class="menu-icon " name="trophy"></ion-icon>
     </button>
     <button ion-button clear type="button">
-      <ion-icon class="menu-icon " name="add-circle" (click)="addMarker()"></ion-icon>
+      <ion-icon class="menu-icon " name="add-circle" (click)="toggleAddTrashcanPopup()"></ion-icon>
     </button>
   </div>
 </ion-footer>

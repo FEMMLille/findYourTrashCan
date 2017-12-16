@@ -8,10 +8,10 @@ INSERT INTO trashcan_type (id,label) VALUES (1,'Poubelle') ON CONFLICT (id) DO N
 INSERT INTO trashcan_type (id,label) VALUES (2,'Dechetterie') ON CONFLICT (id) DO NOTHING
 
 --GARBAGETYPE
-INSERT INTO garbage_type (id,label) VALUES (1,'Ordures ménagères') ON CONFLICT (id) DO NOTHING
+INSERT INTO garbage_type (id,label) VALUES (1,'Ordures') ON CONFLICT (id) DO NOTHING
 INSERT INTO garbage_type (id,label) VALUES (2,'Papier') ON CONFLICT (id) DO NOTHING
-INSERT INTO garbage_type (id,label) VALUES (3,'Verre') ON CONFLICT (id) DO NOTHING
-INSERT INTO garbage_type (id,label) VALUES (4,'Plastique') ON CONFLICT (id) DO NOTHING
+INSERT INTO garbage_type (id,label) VALUES (3,'Plastique') ON CONFLICT (id) DO NOTHING
+INSERT INTO garbage_type (id,label) VALUES (4,'Verre') ON CONFLICT (id) DO NOTHING
 INSERT INTO garbage_type (id,label) VALUES (5,'Aluminium') ON CONFLICT (id) DO NOTHING
 
 --LOCATION

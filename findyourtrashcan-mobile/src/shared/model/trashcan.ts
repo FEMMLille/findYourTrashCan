@@ -1,3 +1,4 @@
+import { Location } from './location';
 import { TrashcanType } from './trashcan-type';
 import { GarbageType } from './garbage-type';
 import { Point } from './point';
@@ -9,6 +10,6 @@ export class Trashcan {
         public lat?: number,
         public lon?: number,
         public picture?: string,
-        public location?: number) {
+        public location?: Location) {
     }
 }

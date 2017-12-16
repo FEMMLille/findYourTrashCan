@@ -1,4 +1,4 @@
-import {AuthenticationService} from '../core/providers/auth/authentification.service';
+import { AuthenticationService } from '../core/providers/auth/authentification.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -29,39 +29,39 @@ export class AccountDetailsComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar) {
-      this.accountdetailsform = this.fb.group({
-        'user' : this.fb.group({
-          'id': this.accountDetails.user.id,
-          'username': new FormControl(this.accountDetails.user.username, [
-            Validators.required,
-          ]),
-          'password': new FormControl(this.accountDetails.user.password, [
-            Validators.required
-          ]),
-          'email': new FormControl(this.accountDetails.user.email, [
-            Validators.required,
-          ]),
-        }),
-        'id': this.accountDetails.id,
-        'firstName': new FormControl(this.accountDetails.firstName, []
-        ),
-        'lastName': new FormControl(this.accountDetails.lastName, [
+    this.accountdetailsform = this.fb.group({
+      'user': this.fb.group({
+        'id': this.accountDetails.user.id,
+        'username': new FormControl(this.accountDetails.user.username, [
+          Validators.required,
         ]),
-        'birthday': new FormControl(this.accountDetails.birthday, [
+        'password': new FormControl(this.accountDetails.user.password, [
+          Validators.required
         ]),
-        'avatar': new FormControl(this.accountDetails.avatar, [
-        ])
-      });
+        'email': new FormControl(this.accountDetails.user.email, [
+          Validators.required,
+        ]),
+      }),
+      'id': this.accountDetails.id,
+      'firstName': new FormControl(this.accountDetails.firstName, []
+      ),
+      'lastName': new FormControl(this.accountDetails.lastName, [
+      ]),
+      'birthday': new FormControl(this.accountDetails.birthday, [
+      ]),
+      'avatar': new FormControl(this.accountDetails.avatar, [
+      ])
+    });
 
-    }
+  }
 
   ngOnInit() {
     // TODO : Recupérer l'id du user actuel
-    this.accountDetailsService.getByUserId(1).subscribe(accountDetails => {
+    this.accountDetailsService.getByUserId(32768).subscribe(accountDetails => {
       console.log(accountDetails);
       this.accountDetails = accountDetails;
       this.accountdetailsform.patchValue({
-        'user' : {
+        'user': {
           'id': this.accountDetails.user.id,
           'username': this.accountDetails.user.username,
           'password': this.accountDetails.user.password,
@@ -97,7 +97,7 @@ export class AccountDetailsComponent implements OnInit {
 
   save = (accountDetails: AccountDetails): void => {
     accountDetails.user.role = this.accountDetails.user.role;
-    this.accountDetailsService.save(accountDetails).subscribe (
+    this.accountDetailsService.save(accountDetails).subscribe(
       (res) => {
         this.accountdetailsform.markAsPristine();
         this.accountDetails = res;

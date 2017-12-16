@@ -61,5 +61,6 @@
   "NO_NETWORK": "No network",
   "PLEASE_RETRY": "Please try again",
   "RUNNING_IN_OFFLINE_MODE": "Running in offline mode",
-  "ADD_TRASHCAN": "Add a trashcan"
+  "ADD_TRASHCAN": "Add a trashcan",
+  "CHOOSE_GARBAGE_TYPE": "Choose a garbage type"
 }

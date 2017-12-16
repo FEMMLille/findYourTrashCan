@@ -1,3 +1,5 @@
+import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
+import { Location } from './../../shared/model/location';
 import { GarbageType } from './../../shared/model/garbage-type';
 import { MapBounds } from './../../shared/model/map-bounds';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
@@ -10,6 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { TrashcanType } from '../../shared/model/trashcan-type';
+import { GarbageTypeService } from '../../providers/providers';
+import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 
 declare var google;
 
@@ -22,12 +26,16 @@ export class TabsPage {
   trashcans: Array<Trashcan> = [];
   maxBounds: MapBounds;
   addedTrashcan: Trashcan = new Trashcan();
+  showAddTrashcanPopup: boolean = false;
+  listSelectedGarbageType: string = '...';
 
   filterIsRunning: boolean = false;
   loading;
   disconnected: boolean = false;
   dismissMessage: boolean = false;
   mapLoaded: boolean = false;
+  trashcanTypes: Array<TrashcanType> = [];
+  garbageTypes: Array<GarbageType> = [];
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -37,10 +45,13 @@ export class TabsPage {
   private pleaseWait: string;
   private noNetwork: string;
   private pleaseRetry: string;
+  private chooseGarbageType: string;
+  private cancelLabel: string;
 
   constructor(public navCtrl: NavController, public translateService: TranslateService, public geolocation: Geolocation,
     public loadingCtrl: LoadingController, public trashcanService: TrashcanService, public toastCtrl: ToastController,
-    public network: Network) {
+    public network: Network, public trashcanTypeService: TrashcanTypeService, public garbageTypeService: GarbageTypeService,
+    public actionSheetCtrl: ActionSheetController) {
 
     this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
       this.internalErrorFindingTrashcans = value;
@@ -58,11 +69,31 @@ export class TabsPage {
       this.pleaseRetry = value;
     });
 
+    this.translateService.get('CHOOSE_GARBAGE_TYPE').subscribe((value) => {
+      this.chooseGarbageType = value;
+    });
+
+    this.translateService.get('CANCEL_BUTTON').subscribe((value) => {
+      this.cancelLabel = value;
+    });
+
+    this.trashcanTypeService.get().subscribe((values) => {
+      console.log(values);
+      this.trashcanTypes = values;
+    });
+
+    this.garbageTypeService.get().subscribe((values) => {
+      console.log(values);
+      this.garbageTypes = values;
+    });
+
+
+
     this.addedTrashcan.empty = true;
-    this.addedTrashcan.garbageType = new GarbageType(1, "Ordures Ménagères");
+    this.addedTrashcan.garbageType = new GarbageType(1);
     this.addedTrashcan.picture = "";
-    this.addedTrashcan.trashcanType = new TrashcanType(1, "Poubelle");
-    console.log(this.addedTrashcan);
+    this.addedTrashcan.trashcanType = new TrashcanType(1);
+    this.addedTrashcan.location = new Location(59000);
   }
 
   ionViewDidLoad() {
@@ -87,33 +118,41 @@ export class TabsPage {
   }
 
   updateAddedTrashcanType(id: number) {
-    console.log("updated added trahscan : " + id);
-    switch (id) {
-      case 1:
-        this.addedTrashcan.trashcanType = new TrashcanType(1, "Poubelle");
-        break;
-      case 2:
-        this.addedTrashcan.trashcanType = new TrashcanType(2, "Dechetterie");
-        break;
-    }
+    this.addedTrashcan.trashcanType = new TrashcanType(id);
   }
 
   updateAddedTrashcanGarbage(id: number) {
-    console.log("updated added trahscan : " + id);
-    switch (id) {
-      case 1:
-        this.addedTrashcan.garbageType = new GarbageType(1, "Ordures Ménagères");
-        break;
-      case 2:
-        this.addedTrashcan.garbageType = new GarbageType(2, "Papier");
-        break;
-      case 3:
-        this.addedTrashcan.garbageType = new GarbageType(3, "Verre");
-        break;
-      case 4:
-        this.addedTrashcan.garbageType = new GarbageType(4, "Plastique");
-        break;
+    this.addedTrashcan.garbageType = new GarbageType(id);
+  }
+
+  showActionSheet() {
+    let buttons: Array<any> = [];
+
+    for (let type of this.garbageTypes) {
+      if (type.id > 3) {
+        buttons.push({
+          text: type.label,
+          handler: () => {
+            this.updateGarbageTypeFromActionSheet(type.id, type.label);
+          }
+        });
+      }
     }
+    buttons.push({
+      text: this.cancelLabel,
+      role: 'cancel'
+    })
+
+    let actionSheet = this.actionSheetCtrl.create({
+      title: this.chooseGarbageType,
+      buttons: buttons
+    });
+    actionSheet.present();
+  }
+
+  updateGarbageTypeFromActionSheet(id: number, label: string) {
+    this.updateAddedTrashcanGarbage(id);
+    this.listSelectedGarbageType = label;
   }
 
   loadMap() {
@@ -129,11 +168,7 @@ export class TabsPage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       this.maxBounds = new MapBounds(new Point(myPosition.lat + 5, myPosition.lon + 3), new Point(myPosition.lat - 5, myPosition.lon - 3));
       this.map.addListener('idle', () => {
-        let bounds = this.map.getBounds();
-        let ne = new Point(bounds.getNorthEast().lat(), bounds.getNorthEast().lng());
-        let sw = new Point(bounds.getSouthWest().lat(), bounds.getSouthWest().lng());
-        let mb = new MapBounds(ne, sw);
-        this.loadTrashcans(mb);
+        this.loadTrashcans(this.getMapBounds());
       });
       this.dismissLoading();
       this.mapLoaded = true;
@@ -142,6 +177,14 @@ export class TabsPage {
       this.manageError(this.noNetwork + '. ' + this.pleaseRetry);
       this.dismissLoading();
     });
+  }
+
+  getMapBounds(): MapBounds {
+    let bounds = this.map.getBounds();
+    let ne = new Point(bounds.getNorthEast().lat(), bounds.getNorthEast().lng());
+    let sw = new Point(bounds.getSouthWest().lat(), bounds.getSouthWest().lng());
+    let mb = new MapBounds(ne, sw);
+    return mb;
   }
 
   dismissNoNetworkMessage() {
@@ -163,10 +206,11 @@ export class TabsPage {
     this.loading.dismiss();
   }
 
-
+  toggleAddTrashcanPopup() {
+    this.showAddTrashcanPopup = !this.showAddTrashcanPopup;
+  }
 
   loadTrashcans(mapBounds: MapBounds) {
-    //Load trashcans in server by calling the api
     var i = 1;
     if (!this.disconnected) {
       this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
@@ -175,13 +219,14 @@ export class TabsPage {
             break;
           } else {
             setTimeout(() => {
-              this.addTrashcan(trashcan);
+              this.renderTrashcan(trashcan);
             }, i * 200);
           }
           i++;
         }
       }, (err) => {
         this.manageError(this.internalErrorFindingTrashcans);
+        console.log(err);
       });
     } else {
       this.manageError(this.noNetwork + '.  ' + this.pleaseRetry);
@@ -204,28 +249,8 @@ export class TabsPage {
     return false;
   }
 
-  addTrashcan(trashcan: Trashcan) {
-    if (!this.disconnected) {
-      /*
-      this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
-        for (let trashcan of res) {
-          if (this.checkTrashcanArraysContains(trashcan)) {
-            break;
-          } else {
-            setTimeout(() => {
-              this.addTrashcan(trashcan);
-            }, i * 200);
-          }
-          i++;
-        }
-      }, (err) => {
-        this.manageError(this.internalErrorFindingTrashcans);
-      });*/
-    } else {
-      this.manageError(this.noNetwork + '.  ' + this.pleaseRetry);
-    }
+  renderTrashcan(trashcan: Trashcan) {
     //Adding the object to our array
-    /*
     this.trashcans.push(trashcan);
     console.log(this.getMarkerIcon(trashcan));
     //Creating the marker
@@ -234,7 +259,30 @@ export class TabsPage {
       animation: google.maps.Animation.DROP,
       icon: this.getMarkerIcon(trashcan),
       position: { lat: trashcan.lat, lng: trashcan.lon }
-    })*/
+    })
+  }
+
+  addTrashcan(trashcan: Trashcan) {
+    if (!this.disconnected) {
+      this.geolocation.getCurrentPosition().then((position) => {
+        this.addedTrashcan.lat = position.coords.latitude;
+        this.addedTrashcan.lon = position.coords.longitude;
+        this.trashcanService.addTrashcan(this.addedTrashcan).subscribe((res) => {
+          this.loadTrashcans(this.getMapBounds());
+        }, (err) => {
+          this.manageError(this.pleaseRetry);
+        });
+      }, (err) => {
+        this.manageError(this.pleaseRetry);
+      });
+      this.dismissAddingPopup();
+    } else {
+      this.manageError(this.noNetwork + '.  ' + this.pleaseRetry);
+    }
+  }
+
+  dismissAddingPopup() {
+    this.showAddTrashcanPopup = false;
   }
 
   getMarkerIcon(t: Trashcan) {
