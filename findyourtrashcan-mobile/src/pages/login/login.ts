@@ -38,7 +38,6 @@ export class LoginPage {
       if (res) // TODO CHECK Or if auth.user != null ?
         this.navCtrl.push(MainPage);
     }, (err) => {
-      this.navCtrl.push(MainPage);
       this.showToastError(this.loginErrorString);
     });
   }

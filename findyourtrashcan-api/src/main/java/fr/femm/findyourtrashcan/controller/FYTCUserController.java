@@ -15,7 +15,7 @@ import fr.femm.findyourtrashcan.service.FYTCUserService;
 @RequestMapping("/api/user")
 public class FYTCUserController {
 
-	private Logger logger = Logger.getLogger(FYTCUserController.class);
+	private final Logger logger = Logger.getLogger(FYTCUserController.class);
 
 	@Autowired
 	private FYTCUserService service;
@@ -29,10 +29,24 @@ public class FYTCUserController {
 	 */
 
 	@RequestMapping(method = RequestMethod.POST)
-	public FYTCUser createUser(@RequestBody FYTCUser user) {
-		logger.info("WebService createUser [username : " + user.getUsername() + ", password : " + user.getPassword() + ", mail : " + user.getEmail() + " role: " + user.getRole().getRoleName() + "]");
+	public FYTCUser createUser(@RequestBody final FYTCUser user) {
+		logger.info("WebService createUser " + user);
 
 		return service.createUser(user);
+	}
+
+	/**
+	 * Method to find a user
+	 * 	
+	 * @param id
+	 *            the id of the user we want to get
+	 * @return The user founded
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public FYTCUser getUser(@PathVariable("id") final Integer id) {
+		logger.info("WebService getUser [id : " + id + "]");
+
+		return service.getUser(id);
 	}
 
 	/**
@@ -42,11 +56,10 @@ public class FYTCUserController {
 	 *            the id of the user we want to get
 	 * @return The user founded
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public FYTCUser getUser(@PathVariable("id") Integer id) {
-		logger.info("WebService getUser [id : " + id + "]");
-
-		return service.getUser(id);
+	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+	public FYTCUser getUserByName(@PathVariable("name") final String name) {
+		logger.info("WebService getUser [name : " + name + "]");
+		return service.getUser(name);
 	}
 
 }

@@ -1,4 +1,19 @@
 page-tabs {
+
+    h2 {
+        color: map-get($colors, primary);
+    }
+
+    .toggled-button {
+        background-color: map-get($colors, primary);
+        color:map-get($colors, light);
+    }
+
+    .popup-button {
+        border:1px solid map-get($colors, primary);
+        margin-left:0;
+        margin-right:0;
+    }
    
     .bar-menu {
         min-width: 100vw;
@@ -14,10 +29,48 @@ page-tabs {
                 font-size: 5vh
             }
         }   
-
-        .toggled-button {
-            background-color: map-get($colors, primary);
-            color:map-get($colors, light);
+    }
+        
+    ion-content {
+           
+        .scroll {
+            height: 100%!important;
         }
+
+        #map {
+            width: 100%!important;
+            height: 100%!important;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        #no-network-div {
+            height: 50px;
+            line-height: 50px;
+            position: absolute;
+            top:75%;
+            z-index: 300;
+            width: 100%;
+            border:1px solid  map-get($colors, danger);
+            vertical-align: align;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+    }
+    #add-trashcan-popup {
+        position: absolute!important;
+        bottom:2vh!important;
+        left:1.4vh;
+        background-color: map-get($colors, light);
+        width:95vw;
+        padding:2vw;
+        box-shadow: 0 0 30vh map-get($colors, dark);
+    }
+
+    .align-right {
+        text-align: right;
     }
 }

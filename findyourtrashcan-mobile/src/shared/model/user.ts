@@ -1,8 +1,24 @@
 import { AccountDetails } from './account-details';
+import { Role } from './role';
 export class User {
-    constructor(public id?: number,
+    constructor(
+        public id?: number,
         public email?: string,
         public username?: string,
-        public account?: AccountDetails) {
+        public password?: string,
+        public role: Role = {}
+    ) {
+        role.id = 1;
+    }
+}
+
+export class POSTUser {
+    constructor(
+        public email?: string,
+        public username?: string,
+        public password?: string,
+        public role: Role = {}
+    ) {
+        role.id = 1;
     }
 }

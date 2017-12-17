@@ -1,43 +1,47 @@
-import { RankType } from './../../shared/model/rank_type';
+import { HttpClient } from '@angular/common/http';
+import { RankType } from './../../shared/model/rank-type';
 import { Rank } from './../../shared/model/rank';
 import { User } from './../../shared/model/user';
 import { Credentials } from './../../shared/model/credentials';
-import { AccountDetails } from './../../shared/model/account-details';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
 
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
+import { HttpResponse } from '@angular/common/http/src/response';
+import { UserService } from '../user/user';
 
 
 @Injectable()
 export class AuthenticationService {
     _user: User;
 
-    constructor(public api: Api) { }
+    constructor(public api: Api, public http: HttpClient, public userService: UserService) { }
 
     /**
     * Send a POST request to our signup endpoint with the data
     * the user entered on the form.
     */
     authenticate(credentials: Credentials): Observable<any> {
-        let seq = this.api.get('authenticate', credentials).share();
+        return this.http.post(
+            'api/back/login',
+            credentials,
+            { observe: 'response' })
+            .map((response: HttpResponse<any>) => {
+                this.api.token = response.headers.get('authorization');
+                this.getUser(credentials.username);
+                return true;
+            }, err => {
+                return false;
+            });
+    }
 
-        seq.subscribe((res: any) => {
-            // If the API returned a successful response, mark the user as logged in
-            if (res.status == 'success') {
-                this._loggedIn(res);
-            }
-        }, err => {/*
-            Keep this code for test purposes
-            this._loggedIn(new User(-1, "john.doe@fytc.com", "lulz",
-                new AccountDetails(-1, "John", "Doe", "john.doe@fytc.com", "../assets/img/no_avatar.png", "2017-11-04"
-                    , new Rank(-1, 1, 6000), new RankType(1, "Confirmé", 8000))));*/
-
+    getUser(username: string) {
+        //this.token to avoid having a cyclical dependency
+        this.userService.getByUsername(username).subscribe((res) => {
+            this._user = res;
         });
-
-        return seq;
     }
 
     /**

@@ -1,10 +1,13 @@
-import { RankTypeService } from './rank/rank_types';
+import { TrashcanTypeService } from './trashcan/trashcan-type';
+import { GarbageTypeService } from './trashcan/garbage-type';
+import { RankTypeService } from './rank/rank-types';
 import { RankService } from './rank/rank';
 import { AccountDetailsService } from './user/account-details';
 import { AuthenticationService } from './auth/authenticate';
 import { Api } from './api/api';
 import { Items } from '../mocks/providers/items';
 import { Settings } from './settings/settings';
+import { TrashcanService } from './trashcan/trashcan';
 
 export {
     Api,
@@ -13,5 +16,8 @@ export {
     AuthenticationService,
     AccountDetailsService,
     RankService,
-    RankTypeService
+    RankTypeService,
+    GarbageTypeService,
+    TrashcanTypeService,
+    TrashcanService
 };

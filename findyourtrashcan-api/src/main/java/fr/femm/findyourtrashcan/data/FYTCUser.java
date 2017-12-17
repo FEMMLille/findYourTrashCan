@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 public class FYTCUser {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer id;
 
 	private String username;
@@ -78,6 +78,12 @@ public class FYTCUser {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "FYTCUser [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", role=" + role + "]";
 	}
 
 }

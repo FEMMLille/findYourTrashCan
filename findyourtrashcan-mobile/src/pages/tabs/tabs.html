@@ -1,21 +1,40 @@
 <ion-content>
-  Hello that is du contenu lelz
+  <div id="no-network-div" (click)="dismissNoNetworkMessage()" [class.hide]="!disconnected || dismissMessage">
+    {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
+  </div>
+  <div #map id="map">
+  </div>
+  <div id="add-trashcan-popup" [class.hide]="!showAddTrashcanPopup">
+    <h2>{{ 'ADD_TRASHCAN' | translate }}</h2>
+    <div>
+      <button ion-button outline type="button" *ngFor="let item of trashcanTypes" (click)="updateAddedTrashcanType(item.id)" class="popup-button"
+        [class.toggled-button]="(addedTrashcan.trashcanType.id == item.id)">{{item.label}}</button>
+    </div>
+    <div>
+      <button ion-button outline type="button" *ngFor="let item of garbageTypes | slice:0:3" (click)="updateAddedTrashcanGarbage(item.id)"
+        [class.toggled-button]="(addedTrashcan.garbageType.id == item.id)" class="popup-button">{{item.label}}</button>
+      <button ion-button outline class="popup-button" type="button" (click)="showActionSheet()" [class.toggled-button]="(addedTrashcan.garbageType.id > 3)">{{ listSelectedGarbageType | slice:0:5}}{{listSelectedGarbageType.length > 5 ? '...' : ''}}</button>
+    </div>
+    <div class="align-right">
+      <button ion-button clear type="button" (click)="dismissAddingPopup()">{{ "CANCEL" | translate }}</button>
+      <button ion-button style="width:25vw" type="button" (click)="addTrashcan()">{{ "OK" | translate }}</button>
+    </div>
+  </div>
 </ion-content>
-<ion-tabs>
-</ion-tabs>
+
 <ion-footer>
   <div class="bar-menu">
-    <button ion-button clear type=" button ">
+    <button ion-button clear type=" button" (click)="gotoProfile()">
       <ion-icon class="menu-icon" name="person"></ion-icon>
     </button>
     <button ion-button clear [class.toggled-button]="filterIsRunning" type="button" (click)="toggleFilter()">
       <ion-icon class=" menu-icon " name="search"></ion-icon>
     </button>
-    <button ion-button clear type="button ">
+    <button ion-button clear type="button">
       <ion-icon class="menu-icon " name="trophy"></ion-icon>
     </button>
-    <button ion-button clear type="button ">
-      <ion-icon class="menu-icon " name="add-circle"></ion-icon>
+    <button ion-button clear type="button">
+      <ion-icon class="menu-icon " name="add-circle" (click)="toggleAddTrashcanPopup()"></ion-icon>
     </button>
   </div>
 </ion-footer>

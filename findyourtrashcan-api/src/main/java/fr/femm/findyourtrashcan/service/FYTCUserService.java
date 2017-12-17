@@ -32,4 +32,10 @@ public interface FYTCUserService {
 	 */
 	public FYTCUser getUser(String userName);
 
+	/**
+	 * Encodes the password of a user
+	 * @param user The user to encore the password
+	 */
+	public void encodePassword(FYTCUser user);
+
 }

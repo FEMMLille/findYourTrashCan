@@ -7,13 +7,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import fr.femm.findyourtrashcan.FindyourtrashcanApplicationTests;
 import fr.femm.findyourtrashcan.data.FYTCUser;
 import fr.femm.findyourtrashcan.data.Role;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles(FindyourtrashcanApplicationTests.TEST_PROFILE)
 public class FYTCUserServiceTest {
 
 	@Autowired
@@ -22,10 +25,10 @@ public class FYTCUserServiceTest {
 	@Test
 	public void createUserTest() {
 		// init
-		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com", new Role(true, "USER"));
+		final FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com", new Role(true, "USER"));
 
 		// execution
-		FYTCUser userCreated = userService.createUser(userToTest);
+		final FYTCUser userCreated = userService.createUser(userToTest);
 
 		// test
 		assertNotNull(userCreated);
@@ -37,11 +40,11 @@ public class FYTCUserServiceTest {
 	@Test
 	public void getUserTest() {
 		// init
-		FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com", new Role(true, "USER"));
+		final FYTCUser userToTest = new FYTCUser("maws", "bg", "wo@gmail.com", new Role(true, "USER"));
 
 		// execution
-		FYTCUser userCreated = userService.createUser(userToTest);
-		FYTCUser userGeted = userService.getUser(userCreated.getId());
+		final FYTCUser userCreated = userService.createUser(userToTest);
+		final FYTCUser userGeted = userService.getUser(userCreated.getId());
 
 		// test
 		assertNotNull(userGeted);
@@ -51,11 +54,11 @@ public class FYTCUserServiceTest {
 	@Test
 	public void getUserTestByUsername() {
 		// init
-		FYTCUser userToTest = new FYTCUser("mat", "skra", "popopo@gmail.com", new Role(true, "USER"));
+		final FYTCUser userToTest = new FYTCUser("mat", "skra", "popopo@gmail.com", new Role(true, "USER"));
 
 		// execution
 		userService.createUser(userToTest);
-		FYTCUser userGeted = userService.getUser("mat");
+		final FYTCUser userGeted = userService.getUser("mat");
 
 		// test
 		assertNotNull(userGeted);

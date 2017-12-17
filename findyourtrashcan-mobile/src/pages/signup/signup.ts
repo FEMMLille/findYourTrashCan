@@ -4,7 +4,7 @@ import { User } from './../../shared/model/user';
 import { WelcomePage } from '../pages';
 import { AccountDetailsService } from './../../providers/providers';
 import { Credentials } from './../../shared/model/credentials';
-import { AccountDetails } from './../../shared/model/account-details';
+import { POSTAccountDetails } from './../../shared/model/account-details';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
@@ -19,7 +19,7 @@ export class SignupPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account = new AccountDetails();
+  account = new POSTAccountDetails();
   password: string;
   cpassword: string;
 
@@ -33,6 +33,9 @@ export class SignupPage {
     public auth: AuthenticationService,
     public accountDetails: AccountDetailsService) {
 
+    this.account.user.role.id = 1;
+    this.account.avatar = "";
+
     this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
       this.signupErrorString = value;
     })
@@ -43,15 +46,16 @@ export class SignupPage {
 
   doSignup() {
     // Attempt to login in through our User service
-    if (this.password == this.cpassword) {
+    if (this.account.user.password == this.cpassword) {
       this.accountDetails.signup(this.account).subscribe((resp) => {
-        this.auth.authenticate(new Credentials(this.account.email, this.password)).subscribe((res) => {
+        this.auth.authenticate(new Credentials(this.account.user.username, this.account.user.password)).subscribe((res) => {
           this.navCtrl.push(MainPage);
         });
       }, (err) => {
         this.showToastError(this.signupErrorString);
       });
     } else {
+      console.log(this.account.user);
       this.showToastError(this.unmatchingPasswordsErrorString);
     }
   }
