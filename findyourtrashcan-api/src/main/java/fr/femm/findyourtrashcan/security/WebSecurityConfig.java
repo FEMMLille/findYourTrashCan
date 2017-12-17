@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,24 +32,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private DataSource dataSource;
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(final HttpSecurity http) throws Exception {
 	    http
 	    	.csrf().disable()
 	    	.authorizeRequests()
-	    		.antMatchers("/").permitAll()
+	    	.antMatchers("/").permitAll()
 	    		//.antMatchers(API_TRASHCAN).permitAll()
 			.antMatchers(API_ACCOUNT_DETAILS_URL).permitAll()
-	        	//.antMatchers(HttpMethod.POST, API_USER_URL).permitAll()
-	        	.anyRequest().authenticated()
+	        .anyRequest().authenticated()
 	    	.and()
 	        .addFilterBefore(new JWTLoginFilter(API_LOGIN_URL, authenticationManager()),
 	                UsernamePasswordAuthenticationFilter.class) // We filter the /api/login requests
 	        .addFilterBefore(new JWTAuthenticationFilter(),
 	                UsernamePasswordAuthenticationFilter.class); // And filter other requests to check the presence of JWT in header
+	    
+	   
 	 }
+	
+	@Override
+	public void configure(final WebSecurity web) throws Exception {
+		 web.ignoring().antMatchers(HttpMethod.POST, API_ACCOUNT_DETAILS_URL);
+	}
 
 	@Override
-	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	  protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
 		.passwordEncoder(new BCryptPasswordEncoder())
 		.usersByUsernameQuery(USERNAME_QUERY_ATHENTIFICATION)

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,8 +48,14 @@ public class AccountDetailsController {
 	 *            The account details with the user in it
 	 * @return The account details and user created
 	 */
+	@PutMapping
+	public AccountDetails save(@RequestBody final AccountDetails accountDetails) {
+		logger.info("WebService saveAccountDetails " + accountDetails);
+		return service.create(accountDetails);
+	}
+	
 	@PostMapping
-	public AccountDetails save(@RequestBody AccountDetails accountDetails) {
+	public AccountDetails create(@RequestBody final AccountDetails accountDetails) {
 		logger.info("WebService saveAccountDetails " + accountDetails);
 		return service.create(accountDetails);
 	}

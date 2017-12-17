@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { InscriptionContext, InscriptionService } from '../core/providers/inscription/inscription.service';
+import { InscriptionContext } from '../core/providers/inscription/inscription.service';
 import { Logger } from '../core/providers/logger/logger.service';
 import { Router } from '@angular/router';
+import { AccountDetailsService } from '../core/providers/account-details/account-details.service';
+import { AccountDetails } from '../core/model/account-details.model';
 
 const log = new Logger('InscriptionComponent');
 
-export class FormUser implements InscriptionContext {
-  login = '';
-  password = '';
-  repeatPassword = '';
-  email = '';
-  firstName = '';
-  lastName = '';
-  birthday = new Date();
-  gender = false; // false si c'est un mec, true si c'est une femme
-}
+// export class FormUser implements InscriptionContext {
+//   username = '';
+//   password = '';
+//   repeatPassword = '';
+//   email = '';
+//   firstName = '';
+//   lastName = '';
+//   birthday = new Date();
+//   gender = false; // false si c'est un mec, true si c'est une femme
+// }
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
-  styleUrls: ['./inscription.component.scss'],
-  providers: [InscriptionService]
+  styleUrls: ['./inscription.component.scss']
 })
 
 export class InscriptionComponent implements OnInit {
@@ -29,70 +30,98 @@ export class InscriptionComponent implements OnInit {
   createForm: FormGroup;
   hide = true;
   hideRepeat = true;
-  form: FormUser;
+  // form: FormUser;
   message: string = null;
 
   constructor(private router: Router,
-    private inscriptionService: InscriptionService,
-    private builder: FormBuilder) { }
+    private accountDetailsService: AccountDetailsService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.form = new FormUser();
-    this.createForm = this.builder.group({
-      'login': new FormControl(this.form.login, [
-        Validators.required,
-        Validators.minLength(4)
+    // this.form = new FormUser();
+    // this.createForm = this.builder.group({
+    //   'username': new FormControl(this.form.username, [
+    //     Validators.required,
+    //     Validators.minLength(4)
+    //   ]),
+    //   'password': new FormControl(this.form.password, [
+    //     Validators.required,
+    //     Validators.minLength(8)
+    //   ]),
+    //   'repeatPassword': new FormControl(this.form.repeatPassword, [
+    //     Validators.required,
+    //     Validators.minLength(8)
+    //   ]),
+    //   'email': new FormControl(this.form.email, [
+    //     Validators.required,
+    //     Validators.email
+    //   ]),
+    //   'firstName': new FormControl(this.form.firstName, [
+    //     Validators.required,
+    //     Validators.minLength(2)
+    //   ]),
+    //   'lastName': new FormControl(this.form.lastName, [
+    //     Validators.required,
+    //     Validators.minLength(2)
+    //   ]),
+    //   'birthday': new FormControl(this.form.birthday, [
+    //     Validators.required
+    //   ]),
+    //   'gender': new FormControl(this.form.gender, [
+    //     Validators.required
+    //   ])
+    // });
+
+    this.createForm = this.fb.group({
+      'user': this.fb.group({
+        'id': '',
+        'username': new FormControl('', [
+          Validators.required,
+        ]),
+        'password': new FormControl('', [
+          Validators.required
+        ]),
+        'email': new FormControl('', [
+          Validators.required,
+        ]),
+      }),
+      'id': '',
+      'firstName': new FormControl('', []
+      ),
+      'lastName': new FormControl('', [
       ]),
-      'password': new FormControl(this.form.password, [
-        Validators.required,
-        Validators.minLength(8)
+      'birthday': new FormControl(new Date(), [
       ]),
-      'repeatPassword': new FormControl(this.form.repeatPassword, [
-        Validators.required,
-        Validators.minLength(8)
+      'repeatPassword': new FormControl('', [
       ]),
-      'email': new FormControl(this.form.email, [
-        Validators.required,
-        Validators.email
+      'gender': new FormControl(false, [
       ]),
-      'firstName': new FormControl(this.form.firstName, [
-        Validators.required,
-        Validators.minLength(2)
-      ]),
-      'lastName': new FormControl(this.form.lastName, [
-        Validators.required,
-        Validators.minLength(2)
-      ]),
-      'birthday': new FormControl(this.form.birthday, [
-        Validators.required
-      ]),
-      'gender': new FormControl(this.form.gender, [
-        Validators.required
-      ])
+
     });
+
   }
 
-  sendValues() {
-    this.inscriptionService.sendForm(this.createForm.value)
+  sendValues(accountDetails: AccountDetails) {
+    this.accountDetailsService.create(accountDetails)
       .finally(() => {
         this.createForm.markAsPristine();
       })
       .subscribe(credentials => {// si ça retourne pas d'erreur c'est que c'est bon
         log.debug(` user successfully created`);
-        this.message = 'Your account is created ! you can login now !';
+        this.message = 'Your account is created ! you can log in now !';
       }, error => {
         log.debug(`creation error: ${error}`);
         this.message = error;
       });
   }
 
-  get login() {
-    return this.createForm.get('login');
+  get username() {
+    return this.createForm.get('username');
   }
 
   getErrorMessageLogin() {
-    return this.login.hasError('required') ? 'You must enter a value' :
-      this.login.hasError('login') ? 'Not a valid login' : '';
+    return this.username.hasError('required') ? 'You must enter a value' :
+      this.username.hasError('username') ? 'Not a valid username' : '';
   }
 
   get password() {

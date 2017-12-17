@@ -15,8 +15,13 @@ export class AccountDetailsService {
     constructor(public authentService: AuthenticationService, private api: HttpClient) { }
 
     save(accountDetails: AccountDetails): Observable<AccountDetails> {
-        return this.api.post<AccountDetails>(routes.accountdetails, accountDetails);
+        return this.api.put<AccountDetails>(routes.accountdetails, accountDetails);
     }
+
+    create(accountDetails: AccountDetails): Observable<AccountDetails> {
+      return this.api.post<AccountDetails>(routes.accountdetails, accountDetails);
+  }
+
 
     getByUserId(id: number): Observable<AccountDetails> {
         return this.api.get<AccountDetails>(routes.accountdetails + id);
