@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common
 import { of } from 'rxjs/observable/of';
 import { HttpResponse } from '@angular/common/http/src/response';
 import { UserService } from '../user/user.service';
-import { User } from '../../model/User';
+import { User } from '../../model/user';
 import { Subject } from 'rxjs/Subject';
 
 const log = new Logger('AuthenticationService');

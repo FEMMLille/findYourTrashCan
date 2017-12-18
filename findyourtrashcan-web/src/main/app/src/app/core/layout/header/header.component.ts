@@ -4,7 +4,7 @@ import { MaterialModule } from '../../../material.module';
 import { AuthenticationService } from '../../providers/auth/authentification.service';
 import { AbstractClassPart } from '@angular/compiler/src/output/output_ast';
 import { UserService } from '../../providers/user/user.service';
-import { User } from '../../model/User';
+import { User } from '../../model/user';
 
 @Component({
   selector: 'app-header',
