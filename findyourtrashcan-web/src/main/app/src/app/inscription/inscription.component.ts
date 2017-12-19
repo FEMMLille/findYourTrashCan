@@ -5,6 +5,7 @@ import { Logger } from '../core/providers/logger/logger.service';
 import { Router } from '@angular/router';
 import { AccountDetailsService } from '../core/providers/account-details/account-details.service';
 import { AccountDetails } from '../core/model/account-details.model';
+import { Role } from '../core/model/role.model';
 
 const log = new Logger('InscriptionComponent');
 
@@ -102,6 +103,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   sendValues(accountDetails: AccountDetails) {
+    const role = new Role();
+    role.id = 1; // We set bu default USER
+    accountDetails.user.role = role;
     this.accountDetailsService.create(accountDetails)
       .finally(() => {
         this.createForm.markAsPristine();

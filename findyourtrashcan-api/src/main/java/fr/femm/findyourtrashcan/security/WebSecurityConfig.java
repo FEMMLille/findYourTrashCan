@@ -36,10 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    http
 	    	.csrf().disable()
 	    	.authorizeRequests()
-	    	.antMatchers("/").permitAll()
+				.antMatchers("/*").permitAll()
 	    		//.antMatchers(API_TRASHCAN).permitAll()
 			.antMatchers(API_ACCOUNT_DETAILS_URL).permitAll()
-	        .anyRequest().authenticated()
+				.antMatchers("/api/*").authenticated()
 	    	.and()
 	        .addFilterBefore(new JWTLoginFilter(API_LOGIN_URL, authenticationManager()),
 	                UsernamePasswordAuthenticationFilter.class) // We filter the /api/login requests

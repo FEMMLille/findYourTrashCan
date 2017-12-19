@@ -302,6 +302,8 @@ scripts/build/e2e-generated-tsconfig.json
 *.css.ts
 
 findyourtrashcan-api/src/main/resources/application-dev.properties
+findyourtrashcan-mobile/platforms
+findyourtrashcan-mobile/plugins
 
 ################# IONIC ##################
 *~
