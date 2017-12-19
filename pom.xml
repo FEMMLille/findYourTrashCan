@@ -38,6 +38,10 @@
 							<directory>findyourtrashcan-web/src/main/app/node</directory>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
+						<fileset>
+							<directory>findyourtrashcan-web/src/main/app/target</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
