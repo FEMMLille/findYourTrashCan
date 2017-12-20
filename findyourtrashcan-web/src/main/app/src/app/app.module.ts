@@ -17,11 +17,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Interceptor } from './interceptor';
 import { InscriptionModule } from './inscription/inscription.module';
 import { AccountDetailsModule } from './account-details/account-details.module';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './header/login/login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     ReactiveFormsModule,

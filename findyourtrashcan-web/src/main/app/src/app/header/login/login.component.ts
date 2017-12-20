@@ -2,11 +2,11 @@ import 'rxjs/add/operator/finally';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
-import { I18nService } from '../../../providers/translation/i18n.service';
-import { Logger } from '../../../providers/logger/logger.service';
+import { I18nService } from '../../core/providers/translation/i18n.service';
+import { Logger } from '../../core/providers/logger/logger.service';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../../providers/auth/authentification.service';
-import { LoginContext } from '../../../providers/auth/authentification.service';
+import { AuthenticationService } from '../../core/providers/auth/authentification.service';
+import { LoginContext } from '../../core/providers/auth/authentification.service';
 
 export class FormLogin implements LoginContext {
   username = '';
