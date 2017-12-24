@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material';
 import { AccountDetails } from '../core/model/account-details.model';
 import { AccountDetailsService } from '../core/providers/account-details/account-details.service';
+import { User } from '../core/model/user';
 
 @Component({
   selector: 'app-fytc-account-details',
@@ -19,7 +20,7 @@ export class AccountDetailsComponent implements OnInit {
    * Today date
    */
   today: Date = new Date();
-
+  user: User = new User();
   accountDetails: AccountDetails = new AccountDetails();
 
   accountdetailsform: FormGroup;
@@ -57,7 +58,8 @@ export class AccountDetailsComponent implements OnInit {
 
   ngOnInit() {
     // TODO : Recupérer l'id du user actuel
-    this.accountDetailsService.getByUserId(1).subscribe(accountDetails => {
+    this.user = this.authenticationService.currentU();
+    this.accountDetailsService.getByUserId(this.user.id).subscribe(accountDetails => {
       console.log(accountDetails);
       this.accountDetails = accountDetails;
       this.accountdetailsform.patchValue({
@@ -74,15 +76,6 @@ export class AccountDetailsComponent implements OnInit {
         'avatar': this.accountDetails.avatar
       });
       this.accountdetailsform.updateValueAndValidity();
-      // this.accountDetails.id = accountDetails.id;
-      // this.accountDetails.firstName = accountDetails.firstName;
-      // this.accountDetails.lastName = accountDetails.lastName;
-      // this.accountDetails.avatar = accountDetails.avatar;
-      // this.accountDetails.birthday = accountDetails.birthday;
-      // this.accountDetails.user.id = accountDetails.user.id;
-      // this.accountDetails.user.username = accountDetails.user.username;
-      // this.accountDetails.user.password = accountDetails.user.password;
-      // this.accountDetails.user.email = accountDetails.user.email;
     });
 
 

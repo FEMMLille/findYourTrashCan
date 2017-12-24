@@ -26,9 +26,9 @@ export class HeaderComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.authenticationService.currentUserConnected().subscribe(user =>
-      this.user = user
-    );
+    this.authenticationService.currentUserConnected().subscribe((user: User) => {
+      this.user = user;
+    });
     this.authenticationService.authenticated().subscribe(bool => {
       this.authenticated = bool;
     });

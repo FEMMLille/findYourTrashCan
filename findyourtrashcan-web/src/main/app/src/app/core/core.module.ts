@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { I18nService } from './providers/translation/i18n.service';
-import { LayoutComponent } from './layout/layout.component';
-import { FooterComponent } from './layout/footer/footer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './providers/auth/authentification.service';
 import { AuthentificationGuardService } from './providers/auth/authentification-guard.service';
@@ -23,10 +21,7 @@ import { UserService } from './providers/user/user.service';
     MaterialModule,
     HttpClientModule
   ],
-  declarations: [
-    LayoutComponent,
-    FooterComponent
-  ],
+  declarations: [],
   providers: [
     I18nService,
     AuthenticationService,
