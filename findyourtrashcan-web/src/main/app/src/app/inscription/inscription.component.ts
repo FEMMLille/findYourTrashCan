@@ -5,6 +5,8 @@ import { Logger } from '../core/providers/logger/logger.service';
 import { Router } from '@angular/router';
 import { AccountDetailsService } from '../core/providers/account-details/account-details.service';
 import { AccountDetails } from '../core/model/account-details.model';
+import { Role } from '../core/model/role.model';
+import { MatSnackBar } from '@angular/material';
 
 const log = new Logger('InscriptionComponent');
 
@@ -35,7 +37,8 @@ export class InscriptionComponent implements OnInit {
 
   constructor(private router: Router,
     private accountDetailsService: AccountDetailsService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     // this.form = new FormUser();
@@ -102,6 +105,10 @@ export class InscriptionComponent implements OnInit {
   }
 
   sendValues(accountDetails: AccountDetails) {
+    const role = new Role();
+    role.id = 1; // We set bu default USER
+    accountDetails.user.role = role;
+    accountDetails.avatar = "https://d34jodf30bmh8b.cloudfront.net/pictures/5660/5803/profile-1474295824-12115e61e43348f9f5c4c2c2f67b0496.jpg";
     this.accountDetailsService.create(accountDetails)
       .finally(() => {
         this.createForm.markAsPristine();
@@ -109,6 +116,11 @@ export class InscriptionComponent implements OnInit {
       .subscribe(credentials => {// si ça retourne pas d'erreur c'est que c'est bon
         log.debug(` user successfully created`);
         this.message = 'Your account is created ! you can log in now !';
+        this.snackBar.open('Compte créé', '',
+          {
+            duration: 2000
+          }
+        );
       }, error => {
         log.debug(`creation error: ${error}`);
         this.message = error;

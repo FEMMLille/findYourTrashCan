@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postbuild": "mkdir -p ../../../target/web && cp -R dist/* ../../../target/web"
   },
   "private": true,
   "dependencies": {

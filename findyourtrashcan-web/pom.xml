@@ -15,7 +15,7 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>target/web</directory>
+				<directory>target/web/</directory>
 				<targetPath>static</targetPath>
 			</resource>
 		</resources>
@@ -53,9 +53,18 @@
 							<arguments>run build</arguments>
 						</configuration>
 					</execution>
+					<execution>
+						<id>npm run postbuild</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run postbuild</arguments>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 </project>
