@@ -12,7 +12,7 @@ import { of } from 'rxjs/observable/of';
 import { HttpResponse } from '@angular/common/http/src/response';
 import { UserService } from '../user/user.service';
 import { User } from '../../model/user';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const log = new Logger('AuthenticationService');
 
@@ -35,41 +35,66 @@ const credentialsKey = 'token';
 @Injectable()
 export class AuthenticationService {
 
-  private currentUser = new Subject<User>();
-  private isAuthenticated = new Subject<boolean>();
+  private currentUser = new BehaviorSubject<User>(new User());
+  user: User = new User();
+  private isAuthenticated = new BehaviorSubject<boolean>(false);
   private _credentials: string;
 
   constructor(private http: HttpClient, private userService: UserService) {
     this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
+    this.user = JSON.parse(sessionStorage.getItem('user') || localStorage.getItem('user'));
+    if (this._credentials && this.user) {
+      console.log(this.user + ' | ' + this._credentials);
+      this.currentUser.next(this.user);
+      this.isAuthenticated.next(true);
+    }
   }
 
+  get getUser(): User {
+    return this.user;
+  }
   /**
    * Authenticates the user.
    * @param {LoginContext} context The login parameters.
    * @return {Observable<boolean>} The user credentials.
    */
   login(context: LoginContext): Observable<boolean> {
-    return this.http.post(
+    return this.http.post<boolean>(
       routes.authentication,
       JSON.stringify({ username: context.username, password: context.password }),
       { observe: 'response' })
       .map((response: HttpResponse<any>) => {
-        console.log(response);
         this._credentials = response.headers.get('authorization');
+        console.log(this._credentials);
         this.setCredentials(this._credentials, context.remember);
-        this.userService.getUserByUsername(context.username)
-          .subscribe((user: User) => {
-            this.currentUser.next(user);
-            this.isAuthenticated.next(true);
-          });
         return true;
       }, err => {
         return false;
       });
   }
 
+  getUserAuthenticated(context: LoginContext): Observable<boolean> {
+    return this.userService.getUserByUsername(context.username)
+      .map((user: User) => {
+        this.user = user;
+        if (context.remember) {
+          localStorage.setItem('user', JSON.stringify(this.user));
+        } else {
+          sessionStorage.setItem('user', JSON.stringify(this.user));
+        }
+        this.currentUser.next(this.user);
+        this.isAuthenticated.next(true);
+        return true;
+      }).catch(err => {
+        return of(false);
+      });
+  }
   currentUserConnected(): Observable<User> {
     return this.currentUser.asObservable();
+  }
+
+  currentU(): User {
+    return this.currentUser.getValue();
   }
   /**
    * Checks is the user is authenticated.
@@ -117,8 +142,11 @@ export class AuthenticationService {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem(credentialsKey, JSON.stringify(credentials));
     } else {
+      this.user = null;
       sessionStorage.removeItem(credentialsKey);
       localStorage.removeItem(credentialsKey);
+      sessionStorage.removeItem('user');
+      localStorage.removeItem('user');
     }
   }
 

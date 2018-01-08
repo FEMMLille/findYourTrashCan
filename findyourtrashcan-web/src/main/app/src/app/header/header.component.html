@@ -25,7 +25,7 @@
         <div class="nav-item" ngbDropdown placement="bottom-right" *ngIf="isAuthenticated() === true">
           <a id="language-dropdown" class="nav-link" ngbDropdownToggle>{{getUser.username}}</a>
           <div ngbDropdownMenu aria-labelledby="language-dropdown">
-            <button mat-button class="dropdown-item" style="color:black !important;">
+            <button routerLink="/accountdetails" mat-button class="dropdown-item" style="color:black !important;">
               Profil
             </button>
             <button mat-button class="dropdown-item" style="color:black !important;"(click)="logout()">

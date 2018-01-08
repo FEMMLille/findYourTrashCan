@@ -13,7 +13,8 @@ export class Interceptor implements HttpInterceptor {
         // Clone the request to add the new header.
         let reqE = null;
         if (!req.url.includes('login') && !(req.method === 'POST' && req.url.includes('accountdetails'))) {
-            const jt = sessionStorage.getItem('token').split(' ');
+            const token = (sessionStorage.getItem('token') || localStorage.getItem('token'));
+            const jt = token.split(' ');
             const jwt = jt[1].substring(0, jt[1].length - 1);
             reqE = req.clone({ setHeaders: { 'authorization': jwt } });
         } else {
