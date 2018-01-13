@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Route } from '../core/providers/router/route.service';
 import { extract } from '../core/providers/translation/i18n.service';
 import { InscriptionComponent } from './inscription.component';
 
-const routes: Routes = Route.withShell([
-  { path: 'inscription', component: InscriptionComponent, data: { title: extract('Inscription') } }
-]);
+const routes: Routes = [{ path: 'inscription', component: InscriptionComponent, data: { title: extract('Inscription') } }];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

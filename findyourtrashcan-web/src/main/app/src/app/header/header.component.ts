@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { I18nService } from '../../providers/translation/i18n.service';
-import { MaterialModule } from '../../../material.module';
-import { AuthenticationService } from '../../providers/auth/authentification.service';
+import { I18nService } from '../core/providers/translation/i18n.service';
+import { MaterialModule } from '../material.module';
+import { AuthenticationService } from '../core/providers/auth/authentification.service';
 import { AbstractClassPart } from '@angular/compiler/src/output/output_ast';
-import { UserService } from '../../providers/user/user.service';
-import { User } from '../../model/user';
+import { UserService } from '../core/providers/user/user.service';
+import { User } from '../core/model/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -21,12 +22,13 @@ export class HeaderComponent implements OnInit {
 
   constructor(private i18nService: I18nService,
     private authenticationService: AuthenticationService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.authenticationService.currentUserConnected().subscribe(user =>
-      this.user = user
-    );
+    this.authenticationService.currentUserConnected().subscribe((user: User) => {
+      this.user = user;
+    });
     this.authenticationService.authenticated().subscribe(bool => {
       this.authenticated = bool;
     });
@@ -34,6 +36,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authenticationService.logout();
+    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
   toggleMenu() {
