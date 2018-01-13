@@ -252,7 +252,6 @@ export class TabsPage {
   renderTrashcan(trashcan: Trashcan) {
     //Adding the object to our array
     this.trashcans.push(trashcan);
-    console.log(this.getMarkerIcon(trashcan));
     //Creating the marker
     let marker = new google.maps.Marker({
       map: this.map,
@@ -268,7 +267,7 @@ export class TabsPage {
         this.addedTrashcan.lat = position.coords.latitude;
         this.addedTrashcan.lon = position.coords.longitude;
         this.trashcanService.addTrashcan(this.addedTrashcan).subscribe((res) => {
-          this.loadTrashcans(this.getMapBounds());
+          this.renderTrashcan(this.addedTrashcan);
         }, (err) => {
           this.manageError(this.pleaseRetry);
         });

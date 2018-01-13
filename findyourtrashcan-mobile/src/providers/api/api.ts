@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = '/api/back';
+  url: string = 'http://findyourtrashcan.tk:5000/api';
   token: string;
 
   constructor(public http: HttpClient) {
