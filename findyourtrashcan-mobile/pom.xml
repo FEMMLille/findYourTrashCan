@@ -11,7 +11,7 @@
 		<artifactId>findyourtrashcan</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>findyourtrashcan-web</artifactId>
+	<artifactId>findyourtrashcan-mobile</artifactId>
 	<build>
 		<plugins>
 			<plugin>
@@ -21,22 +21,21 @@
 
 				<configuration>
 					<nodeVersion>v8.9.4</nodeVersion>
-					<yarnVersion>v1.3.2</yarnVersion>
+					<npmVersion>5.4.2</npmVersion>
 					<workingDirectory>src/main/app/</workingDirectory>
 				</configuration>
-
 				<executions>
 					<execution>
-						<id>install node and yarn</id>
+						<id>install node and npm</id>
 						<goals>
-							<goal>install-node-and-yarn</goal>
+							<goal>install-node-and-npm</goal>
 						</goals>
 					</execution>
 
 					<execution>
-						<id>yarn install</id>
+						<id>npm install</id>
 						<goals>
-							<goal>yarn</goal>
+							<goal>npm</goal>
 						</goals>
 						<configuration>
 							<arguments>install</arguments>
@@ -44,27 +43,17 @@
 					</execution>
 
 					<execution>
-						<id>yarn run build</id>
+						<id>npm run build</id>
 						<goals>
-							<goal>yarn</goal>
+							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run build</arguments>
+							<arguments>run apk</arguments>
+
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
-		
-		<resources>
-			<resource>
-				<directory>target/frontend</directory>
-				<targetPath>static</targetPath>
-			</resource>
-		</resources>
-		
 	</build>
-
-
-
 </project>
