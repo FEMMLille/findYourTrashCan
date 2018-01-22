@@ -1,13 +1,10 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from './../../shared/model/user';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Rx';
 
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
-import { AuthenticationService } from '../auth/authenticate';
-
 
 @Injectable()
 export class UserService {

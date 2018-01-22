@@ -1,5 +1,3 @@
-import { User } from './../../shared/model/user';
-import { ProfilePage } from './../pages';
 import { AuthenticationService } from './../../providers/providers';
 import { Credentials } from './../../shared/model/credentials';
 import { Component } from '@angular/core';

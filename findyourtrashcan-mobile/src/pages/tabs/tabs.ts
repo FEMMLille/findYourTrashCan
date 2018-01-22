@@ -1,23 +1,8 @@
-import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
-import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
-import { Location } from './../../shared/model/location';
-import { GarbageType } from './../../shared/model/garbage-type';
-import { MapBounds } from './../../shared/model/map-bounds';
-import { TrashcanService } from './../../providers/trashcan/trashcan';
-import { Point } from './../../shared/model/point';
-import { Trashcan } from './../../shared/model/trashcan';
 import { ProfilePage } from './../pages';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
-import { TrashcanType } from '../../shared/model/trashcan-type';
-import { GarbageTypeService } from '../../providers/providers';
-import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
-import { GoogleMapComponent } from './../../components/google-map/google-map';
-
-declare var google;
 
 @IonicPage()
 @Component({
