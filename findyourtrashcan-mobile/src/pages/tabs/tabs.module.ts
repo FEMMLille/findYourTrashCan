@@ -1,4 +1,5 @@
 import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
+import { DetailTrashcanPopupComponent } from './../components/detail-trashcan-popup/detail-trashcan-popup';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -10,7 +11,8 @@ import { GoogleMapComponent } from '../../components/google-map/google-map';
   declarations: [
     TabsPage,
     GoogleMapComponent,
-    AddTrashcanPopupComponent
+    AddTrashcanPopupComponent,
+    DetailTrashcanPopupComponent
   ],
   imports: [
     IonicPageModule.forChild(TabsPage),
