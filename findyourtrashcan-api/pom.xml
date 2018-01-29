@@ -38,7 +38,6 @@
 			<artifactId>findyourtrashcan-web</artifactId>
 			<version>${project.version}</version>
 			<scope>runtime</scope>
-			<type>war</type>
 		</dependency>
 		<dependency>
 		    <groupId>org.postgresql</groupId>

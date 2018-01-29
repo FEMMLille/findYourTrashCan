@@ -23,6 +23,7 @@
 	<modules>
 		<module>findyourtrashcan-web</module>
 		<module>findyourtrashcan-api</module>
+		<module>findyourtrashcan-mobile</module>
 	</modules>
 	<build>
 		<plugins>
