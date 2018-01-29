@@ -17,11 +17,11 @@ import fr.femm.findyourtrashcan.service.AccountDetailsService;
 @RequestMapping(value = "/api/accountdetails")
 public class AccountDetailsController {
 
-	private static final String ID = "id";
+	public static final String ID = "id";
 
-	private static final String URL_GET_BY_USER = "/{" + ID + "}";
+	public static final String URL_GET_BY_USER = "/{" + ID + "}";
 
-	private final Logger logger = Logger.getLogger(AccountDetailsController.class);
+	public final Logger logger = Logger.getLogger(AccountDetailsController.class);
 
 	@Autowired
 	private AccountDetailsService service;
