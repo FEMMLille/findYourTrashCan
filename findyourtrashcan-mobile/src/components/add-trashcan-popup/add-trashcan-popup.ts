@@ -44,14 +44,12 @@ export class AddTrashcanPopupComponent {
      * Getting the trashcan type values from webservices
      */
     this.trashcanTypeService.get().subscribe((values) => {
-      console.log(values);
       this.trashcanTypes = values;
     });
     /**
      * Getting the garbage type values from webservices
      */
     this.garbageTypeService.get().subscribe((values) => {
-      console.log(values);
       this.garbageTypes = values;
     });
 

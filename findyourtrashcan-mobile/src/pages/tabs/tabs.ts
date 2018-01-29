@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
+import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class TabsPage {
   disconnected: boolean = false;
   dismissMessage: boolean = false;
   openAddedTrashcanPopup: boolean = false;
-
+  showDetailTrashcanPopup: boolean = false;
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
 
@@ -29,9 +30,11 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public network: Network) {
-
-
+    public network: Network, public detailPopupService: DetailPopupService) {
+    this.detailPopupService.showViewObservable().subscribe(bool =>{
+      console.log(bool);
+      this.showDetailTrashcanPopup = bool;
+    });
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });
@@ -111,7 +114,6 @@ export class TabsPage {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
   }
-
   /**
    * A function handling error messages
    * @param msg the message we want to send
@@ -125,4 +127,5 @@ export class TabsPage {
     });
     toast.present();
   }
+
 }

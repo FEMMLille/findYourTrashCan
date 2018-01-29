@@ -56,5 +56,6 @@
   "RUNNING_IN_OFFLINE_MODE": "Execution en mode hors ligne",
   "ADD_TRASHCAN": "Ajouter une poubelle",
   "USERNAME": "Nom d'utilisateur",
-  "CHOOSE_GARBAGE_TYPE": "Choisissez le type d'ordures"
+  "CHOOSE_GARBAGE_TYPE": "Choisissez le type d'ordures",
+  "DETAIL_TRASHCAN": "Détails de la poubelle"
 }

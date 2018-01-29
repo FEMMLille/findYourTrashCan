@@ -1,5 +1,5 @@
-import { Component,Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
-
+import { Component, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the AddTrashcanPopupComponent component.
@@ -13,19 +13,20 @@ import { Component,Input, Output, SimpleChanges, EventEmitter } from '@angular/c
 })
 
 export class DetailTrashcanPopupComponent {
-  
-    
+
+  showDetailTrashcanPopup: boolean = false;
+
+  constructor(public translateService: TranslateService){
+   
+  }
   @Input()
   show: boolean;
-
-  showDetailTrashcanPopup: boolean = true;
-
-  constructor(){}
 
   ngOnChanges(changes: SimpleChanges) {
     // only run when property "data" changed
     if (changes['show']) {
       this.showDetailTrashcanPopup = !this.showDetailTrashcanPopup;
+      console.log(this.showDetailTrashcanPopup);
     }
   }
 
