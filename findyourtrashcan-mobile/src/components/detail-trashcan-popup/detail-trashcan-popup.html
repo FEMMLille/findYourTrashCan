@@ -1,1 +1,16 @@
-<p>show: {{openPopup}}</p>
+<div id="detail-trashcan-popup" [class.hide]="!openPopup" *ngIf="trashcan != null">
+    <h2>{{ 'DETAIL_TRASHCAN' | translate }}</h2>
+    <h3>Informations: </h3>
+    <h5>
+        <ion-icon name="trash"></ion-icon> type: {{trashcan.trashcanType.label}} {{trashcan.garbageType.label}}
+    </h5>
+    <h5>
+        <ion-icon name="locate"></ion-icon> position: {{trashcan.location.label}}
+        <br> lat: {{trashcan.location.lat}}, lon: {{trashcan.location.lon}}
+    </h5>
+    <ion-list>
+        <ion-item><button ion-button clear><ion-icon name="navigate"></ion-icon> &#32; Aller à la poubelle</button></ion-item>
+        <ion-item><button ion-button clear><ion-icon name="alert"></ion-icon> &#32; Signaler la poubelle pleine</button></ion-item>
+        <ion-item><button ion-button clear><ion-icon name="alert"></ion-icon> &#32; Signaler une poubelle inexistante</button></ion-item>
+    </ion-list>
+</div>

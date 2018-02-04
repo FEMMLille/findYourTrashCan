@@ -2,12 +2,12 @@
   <div id="no-network-div" (click)="dismissNoNetworkMessage()" [class.hide]="!disconnected || dismissMessage">
     {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
   </div>
-  <detail-trashcan-popup ></detail-trashcan-popup>
+  
 
   <google-map [newTrashcans]="newTrashcans || addedTrashcan" (error)="manageError($event)" (load)="handleLoading($event)" (updated)="newTrashcans=false"></google-map>
-
+  
   <add-trashcan-popup [show]="openAddedTrashcanPopup" (error)="manageError($event)" (added)="trashcanAdded($event)"></add-trashcan-popup>
-
+  <detail-trashcan-popup ></detail-trashcan-popup>
 </ion-content>
 
 <ion-footer>

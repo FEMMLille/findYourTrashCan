@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
-import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
-
 @IonicPage()
 @Component({
   selector: 'page-tabs',
@@ -30,7 +28,7 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public network: Network, public detailPopupService: DetailPopupService) {
+    public network: Network) {
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });

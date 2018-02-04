@@ -195,7 +195,7 @@ export class GoogleMapComponent implements OnInit{
      * add listener of marker for show popup detail
      */
     marker.addListener('click', () => {
-      this.popupService.subscribeShow(true);
+      this.popupService.subscribeShow(true, trashcan);
     });
   }
   /**
