@@ -31,10 +31,6 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
     public network: Network, public detailPopupService: DetailPopupService) {
-    this.detailPopupService.showViewObservable().subscribe(bool =>{
-      console.log(bool);
-      this.showDetailTrashcanPopup = bool;
-    });
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });
