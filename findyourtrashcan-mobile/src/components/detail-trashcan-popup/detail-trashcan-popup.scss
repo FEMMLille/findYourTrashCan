@@ -13,4 +13,11 @@ detail-trashcan-popup {
         margin-left:0;
         margin-right:0;
     }
+    .button-detail {
+        button{
+            ion-icon {
+                margin-right: 20px;
+            }
+        }
+    }
 }

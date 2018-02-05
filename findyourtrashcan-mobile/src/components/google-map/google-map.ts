@@ -125,7 +125,7 @@ export class GoogleMapComponent implements OnInit{
    * @param mapBounds the bounds of the map
    */
   loadTrashcans(mapBounds: MapBounds) {
-    this.popupService.subscribeShow(false);
+    this.popupService.subscribeShow(false,null);
     var i = 1; // A variable used to smoothe the trashcans animations
     if (!this.disconnected) {
       //We call the webservice

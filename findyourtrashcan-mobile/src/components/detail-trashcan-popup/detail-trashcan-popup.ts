@@ -15,14 +15,18 @@ import { Trashcan } from '../../shared/model/trashcan';
 })
 
 export class DetailTrashcanPopupComponent {
-
+  /**
+   * boolean for opening or not the popup
+   */
   public openPopup: boolean = true;
+  /**
+   * current trashcan opened
+   */
   public trashcan: Trashcan;
 
   constructor(public translateService: TranslateService, public changeDetectorRef: ChangeDetectorRef, public detailPopupService: DetailPopupService) {
     this.detailPopupService.showViewObservable().subscribe((bool: boolean) => {
       this.trashcan = (this.detailPopupService.currentTrashcan) ? this.detailPopupService.currentTrashcan : null;
-      console.log(this.trashcan);
       this.openPopup = bool;
       this.changeDetectorRef.detectChanges();
     });

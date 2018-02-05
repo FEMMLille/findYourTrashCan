@@ -9,8 +9,18 @@
         <br> lat: {{trashcan.location.lat}}, lon: {{trashcan.location.lon}}
     </h5>
     <ion-list>
-        <ion-item><button ion-button clear><ion-icon name="navigate"></ion-icon> &#32; Aller à la poubelle</button></ion-item>
-        <ion-item><button ion-button clear><ion-icon name="alert"></ion-icon> &#32; Signaler la poubelle pleine</button></ion-item>
-        <ion-item><button ion-button clear><ion-icon name="alert"></ion-icon> &#32; Signaler une poubelle inexistante</button></ion-item>
+        <ion-item class="button-detail">
+            <button ion-button clear>
+                <ion-icon name="navigate"></ion-icon>Aller à la poubelle
+            </button>
+        </ion-item>
+        <ion-item class="button-detail">
+            <button ion-button color="warning" clear>
+                <ion-icon name="alert"></ion-icon>Signaler la poubelle pleine</button>
+        </ion-item>
+        <ion-item class="button-detail">
+            <button ion-button color="danger" clear>
+                <ion-icon name="alert"></ion-icon>Signaler une poubelle inexistante</button>
+        </ion-item>
     </ion-list>
 </div>
