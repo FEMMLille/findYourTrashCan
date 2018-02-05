@@ -17,14 +17,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private static final String API_USER_URL = "/api/user";
-	private static final String API_LOGIN_URL = "/api/login";
-	private static final String API_TRASHCAN = "/api/trashcan/";
-	private static final String API_ACCOUNT_DETAILS_URL = "/api/accountdetails";
-	private static final String USERNAME_QUERY_ATHENTIFICATION = "SELECT username, password,enabled FROM fytcuser f "
+	public static final String API_USER_URL = "/api/user";
+	public static final String API_LOGIN_URL = "/api/login";
+	public static final String API_TRASHCAN = "/api/trashcan/";
+	public static final String API_ACCOUNT_DETAILS_URL = "/api/accountdetails";
+	public static final String USERNAME_QUERY_ATHENTIFICATION = "SELECT username, password,enabled FROM fytcuser f "
 			+ "join Role r on r.id = f.role_id "
 			+ "WHERE username=?";
-	private static final String USERNAME_QUERY_AUTHORITIES = "SELECT username, role_name FROM fytcuser f "
+	public static final String USERNAME_QUERY_AUTHORITIES = "SELECT username, role_name FROM fytcuser f "
 			+ "join Role r on r.id = f.role_id "
 			+ "WHERE username=?";
 
