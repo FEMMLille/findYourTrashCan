@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-// @EnableJpaRepositories(basePackages = "")
+// @EnableJpaRepositories(basePackages = "fr.femm.findyourtrashcan.repository")
 @PropertySource({ "classpath:application-test.properties" })
 @EnableTransactionManagement
 public class JpaConfig {
