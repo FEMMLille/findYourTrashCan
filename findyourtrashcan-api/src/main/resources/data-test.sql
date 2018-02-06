@@ -27,4 +27,3 @@ MERGE INTO fytcuser (id, role_id, username, password, email) VALUES (3, 3, 'fran
 MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (1, 1, '', '1991-01-01', 'Erwan', 'D--P')
 MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (2, 2, '', '1991-01-01', 'Mathieu', 'Saab')
 MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (3, 3, '', '1991-01-01', 'Francis', 'CornR')
-MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (4, 4, '', '1991-01-01', 'Mustapha', 'Nzr')

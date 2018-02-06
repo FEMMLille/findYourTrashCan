@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,10 +31,10 @@ import fr.femm.findyourtrashcan.security.WebSecurityConfig;
 
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { JpaConfig.class, WebSecurityConfig.class })
+// @ContextConfiguration(classes = { JpaConfig.class, WebSecurityConfig.class })
 @WebAppConfiguration
-@SpringBootTest
-// @ActiveProfiles(FindyourtrashcanApplicationTests.TEST_PROFILE)
+@SpringBootTest(classes = FindyourtrashcanApplication.class)
+@ActiveProfiles(FindyourtrashcanApplicationTests.TEST_PROFILE)
 @Ignore
 public abstract class AbstractMvcTest {
     protected MockMvc mockMvc;
@@ -42,11 +43,14 @@ public abstract class AbstractMvcTest {
     private static Set<Class> inited = new HashSet<>();
 
     @Autowired
+	private FilterChainProxy springSecurityFilterChain;
+
+	@Autowired
 	private WebApplicationContext wac;
 
     @Before
     public void setup() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(springSecurityFilterChain).build();
     }
 
     @Before
