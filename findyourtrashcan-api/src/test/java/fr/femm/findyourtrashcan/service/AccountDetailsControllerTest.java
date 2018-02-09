@@ -26,6 +26,8 @@ import fr.femm.findyourtrashcan.security.WebSecurityConfig;
 
 public class AccountDetailsControllerTest extends AbstractMvcTest {
 
+	public static final String URL_PREFIX = "/api/accountdetails";
+
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -35,10 +37,12 @@ public class AccountDetailsControllerTest extends AbstractMvcTest {
 	@Test
 	public void getByUser() throws Exception {
 		final String token = extractToken(login("maws2", "songoku").andReturn());
-		mockMvc.perform(get(AccountDetailsController.URL_GET_BY_USER, AccountDetailsController.ID)
-				.header("Authorization", "Bearer " + token))
-				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(Matchers.notNullValue()));
+		mockMvc.perform(
+				get(URL_PREFIX + AccountDetailsController.URL_GET_BY_USER, 1L)
+						.header("Authorization", token))
+				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Matchers.notNullValue()));
+
 	}
 
 	@Override
