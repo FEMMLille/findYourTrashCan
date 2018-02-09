@@ -1,6 +1,7 @@
 package fr.femm.findyourtrashcan;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -13,25 +14,26 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 
 import fr.femm.findyourtrashcan.security.AccountCredentials;
+import fr.femm.findyourtrashcan.security.TokenAuthenticationService;
 import fr.femm.findyourtrashcan.security.WebSecurityConfig;
 
-
-@RunWith(SpringRunner.class)
-// @ContextConfiguration(classes = { JpaConfig.class, WebSecurityConfig.class })
+@RunWith(SpringJUnit4ClassRunner.class)
+// @ContextConfiguration(classes = {
+// JpaConfig.class,
+// WebSecurityConfig.class })
 @WebAppConfiguration
 @SpringBootTest(classes = FindyourtrashcanApplication.class)
 @ActiveProfiles(FindyourtrashcanApplicationTests.TEST_PROFILE)
@@ -50,7 +52,9 @@ public abstract class AbstractMvcTest {
 
     @Before
     public void setup() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(springSecurityFilterChain).build();
+		this.mockMvc = webAppContextSetup(this.wac)
+				.apply(SecurityMockMvcConfigurers.springSecurity())
+				.build();
     }
 
     @Before
@@ -78,7 +82,7 @@ public abstract class AbstractMvcTest {
     }
 
     protected String extractToken(MvcResult result) throws UnsupportedEncodingException {
-        return JsonPath.read(result.getResponse().getContentAsString(), "$.token");
+		return result.getResponse().getHeader(TokenAuthenticationService.HEADER_STRING);
     }
 
 }

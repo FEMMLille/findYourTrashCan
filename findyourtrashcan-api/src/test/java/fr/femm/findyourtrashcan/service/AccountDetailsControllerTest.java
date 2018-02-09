@@ -37,7 +37,7 @@ public class AccountDetailsControllerTest extends AbstractMvcTest {
 		final String token = extractToken(login("maws2", "songoku").andReturn());
 		mockMvc.perform(get(AccountDetailsController.URL_GET_BY_USER, AccountDetailsController.ID)
 				.header("Authorization", "Bearer " + token))
-				.andExpect(status().isOk()).andExpect(content().contentType("application/json"))
+				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(Matchers.notNullValue()));
 	}
 
@@ -45,7 +45,7 @@ public class AccountDetailsControllerTest extends AbstractMvcTest {
 	protected void doInit() throws Exception {
 		Role role = new Role();
 		role.setId(1);
-		role.setRoleName("admin");
+		role.setRoleName("USER");
 		role.setEnabled(true);
 		// Role role = roleRepository.findByRoleName("admin");
 		AccountDetails details = new AccountDetails();
