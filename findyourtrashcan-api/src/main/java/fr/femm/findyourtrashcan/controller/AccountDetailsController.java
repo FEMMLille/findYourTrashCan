@@ -41,14 +41,26 @@ public class AccountDetailsController {
 
 		return service.getByUser(id);
 	}
-
+	/**
+	 * Method to find a user account details by its name
+	 * 
+	 * @param username
+	 *            the username of the user we want to get the account details
+	 * @return The account details found
+	 */
 	@GetMapping(URL_GET_BY_USER_NAME)
-	public AccountDetails getByUserName(@PathVariable(NAME) final String name) {
-		logger.info("WebService getAccountDetails [name : " + name + "]");
+	public AccountDetails getByUserName(@PathVariable(NAME) final String username) {
+		logger.info("WebService getAccountDetails [name : " + username + "]");
 
-		return service.getByUserName(name);
+		return service.getByUserName(username);
 	}
 
+	/**
+	 * Method to update a user account details
+	 * 
+	 * @param accountDetails The infos we want to update
+	 * @return The updated account details
+	 */
 	@PutMapping
 	public AccountDetails save(@RequestBody final AccountDetails accountDetails) {
 		logger.info("WebService saveAccountDetails " + accountDetails);
