@@ -36,4 +36,9 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 		accountDetails.getUser().setRole(roleRepository.findOne(accountDetails.getUser().getRole().getId()));
 		return accountDetailsRepository.saveAndFlush(accountDetails);
 	}
+	
+	@Override
+	public AccountDetails getByUserName(final String username) {
+		return accountDetailsRepository.findByUserUsername(username);
+	}
 }

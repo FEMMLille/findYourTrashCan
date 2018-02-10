@@ -36,11 +36,23 @@ public class AccountDetailsController {
 	@GetMapping(URL_GET_BY_USER)
 	public AccountDetails getByUser(@PathVariable(ID) final Integer id) {
 		logger.info("WebService getAccountDetails [id : " + id + "]");
-		System.out.println(service.getByUser(id));
 
 		return service.getByUser(id);
 	}
+	
+	@GetMapping("name/{name}")
+	public AccountDetails getByUserName(@PathVariable("name") final String name) {
+		logger.info("WebService getAccountDetails [name : " + name + "]");
 
+		return service.getByUserName(name);
+	}
+	
+	@PutMapping
+	public AccountDetails save(@RequestBody final AccountDetails accountDetails) {
+		logger.info("WebService saveAccountDetails " + accountDetails);
+		return service.create(accountDetails);
+	}
+	
 	/**
 	 * Create account details
 	 * 
@@ -48,12 +60,6 @@ public class AccountDetailsController {
 	 *            The account details with the user in it
 	 * @return The account details and user created
 	 */
-	@PutMapping
-	public AccountDetails save(@RequestBody final AccountDetails accountDetails) {
-		logger.info("WebService saveAccountDetails " + accountDetails);
-		return service.create(accountDetails);
-	}
-	
 	@PostMapping
 	public AccountDetails create(@RequestBody final AccountDetails accountDetails) {
 		logger.info("WebService saveAccountDetails " + accountDetails);

@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 
 import fr.femm.findyourtrashcan.security.AccountCredentials;
 import fr.femm.findyourtrashcan.security.TokenAuthenticationService;
@@ -41,7 +42,7 @@ import fr.femm.findyourtrashcan.security.WebSecurityConfig;
 public abstract class AbstractMvcTest {
     protected MockMvc mockMvc;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
     private static Set<Class> inited = new HashSet<>();
 
     @Autowired
@@ -67,11 +68,11 @@ public abstract class AbstractMvcTest {
 
 	protected abstract void doInit() throws Exception;
 
-    protected String json(Object o) throws IOException {
+    protected String json(final Object o) throws IOException {
         return mapper.writeValueAsString(o);
     }
 
-    protected ResultActions login(String username, String password) throws Exception {
+    protected ResultActions login(final String username, final String password) throws Exception {
 		final AccountCredentials auth = new AccountCredentials();
         auth.setUsername(username);
         auth.setPassword(password);
@@ -81,8 +82,12 @@ public abstract class AbstractMvcTest {
                         .contentType(MediaType.APPLICATION_JSON));
     }
 
-    protected String extractToken(MvcResult result) throws UnsupportedEncodingException {
+    protected String extractToken(final MvcResult result) throws UnsupportedEncodingException {
 		return result.getResponse().getHeader(TokenAuthenticationService.HEADER_STRING);
+    }
+    
+    protected String extractId(final MvcResult result) throws Exception {
+    	return JsonPath.read(result.getResponse().getContentAsString(), "$.id");
     }
 
 }

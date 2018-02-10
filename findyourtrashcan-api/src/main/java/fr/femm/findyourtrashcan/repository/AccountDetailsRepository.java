@@ -19,4 +19,11 @@ public interface AccountDetailsRepository extends JpaRepository<AccountDetails, 
 	 */
 	AccountDetails findByUserId(Integer id);
 
+	/**
+	 * Finds account details by the username
+	 * @param username The username
+	 * @return the account details
+	 */
+	AccountDetails findByUserUsername(String username);
+
 }
