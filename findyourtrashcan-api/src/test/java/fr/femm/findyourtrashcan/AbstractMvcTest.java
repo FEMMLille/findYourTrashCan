@@ -1,12 +1,10 @@
 package fr.femm.findyourtrashcan;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,8 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import fr.femm.findyourtrashcan.data.AccountDetails;
-import fr.femm.findyourtrashcan.data.FYTCUser;
-import fr.femm.findyourtrashcan.data.Role;
 import fr.femm.findyourtrashcan.repository.GarbageTypeRepository;
 import fr.femm.findyourtrashcan.repository.LocationRepository;
 import fr.femm.findyourtrashcan.repository.TrashcanRepository;
@@ -87,17 +83,7 @@ public abstract class AbstractMvcTest {
         }
     }
 
-	protected void doInit() throws Exception {
-		final Role role = new Role();
-		role.setId(1);
-		role.setRoleName("USER");
-		role.setEnabled(true);
-		// Role role = roleRepository.findByRoleName("admin");
-		final AccountDetails details = new AccountDetails();
-		details.setBirthday(new Date(1991, 2, 10));
-		details.setUser(new FYTCUser("maws2", "songoku", "mn@gmail.com", role));
-		createUser(details).andExpect(status().isOk());
-	}
+	protected abstract void doInit() throws Exception;
 
     protected String json(final Object o) throws IOException {
         return mapper.writeValueAsString(o);

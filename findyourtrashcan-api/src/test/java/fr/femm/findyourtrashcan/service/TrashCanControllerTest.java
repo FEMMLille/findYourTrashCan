@@ -128,7 +128,6 @@ public class TrashCanControllerTest extends AbstractMvcTest {
 
 	@Override
 	protected void doInit() throws Exception {
-		super.doInit();
 		final Role role = new Role();
 		role.setId(1);
 		role.setRoleName("USER");
