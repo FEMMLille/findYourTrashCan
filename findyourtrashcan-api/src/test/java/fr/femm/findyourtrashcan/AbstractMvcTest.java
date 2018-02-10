@@ -27,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
+import fr.femm.findyourtrashcan.data.AccountDetails;
 import fr.femm.findyourtrashcan.security.AccountCredentials;
 import fr.femm.findyourtrashcan.security.TokenAuthenticationService;
 import fr.femm.findyourtrashcan.security.WebSecurityConfig;
@@ -82,12 +83,16 @@ public abstract class AbstractMvcTest {
                         .contentType(MediaType.APPLICATION_JSON));
     }
 
-    protected String extractToken(final MvcResult result) throws UnsupportedEncodingException {
-		return result.getResponse().getHeader(TokenAuthenticationService.HEADER_STRING);
+    protected String extractTokenFromHeader(final MvcResult result) throws UnsupportedEncodingException {
+ 		return result.getResponse().getHeader(TokenAuthenticationService.HEADER_STRING);
     }
     
-    protected String extractId(final MvcResult result) throws Exception {
+    protected Integer extractId(final MvcResult result) throws Exception {
     	return JsonPath.read(result.getResponse().getContentAsString(), "$.id");
+    }
+    
+    protected AccountDetails extractAccountDetails(final MvcResult result) throws Exception {
+    	return mapper.readValue(result.getResponse().getContentAsString(), AccountDetails.class);
     }
 
 }

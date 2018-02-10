@@ -23,6 +23,7 @@ import fr.femm.findyourtrashcan.data.AccountDetails;
 import fr.femm.findyourtrashcan.data.FYTCUser;
 import fr.femm.findyourtrashcan.data.Role;
 import fr.femm.findyourtrashcan.repository.RoleRepository;
+import fr.femm.findyourtrashcan.security.TokenAuthenticationService;
 import fr.femm.findyourtrashcan.security.WebSecurityConfig;
 
 
@@ -38,10 +39,10 @@ public class AccountDetailsControllerTest extends AbstractMvcTest {
 
 	@Test
 	public void getByUser() throws Exception {
-		final String token = extractToken(login("maws2", "songoku").andReturn());
+		final String token = extractTokenFromHeader(login("maws2", "songoku").andReturn());
 		mockMvc.perform(
 				get(URL_PREFIX + AccountDetailsController.URL_GET_BY_USER, 1L)
-						.header("Authorization", token))
+						.header(TokenAuthenticationService.HEADER_STRING, token))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Matchers.notNullValue()));
 
@@ -50,17 +51,17 @@ public class AccountDetailsControllerTest extends AbstractMvcTest {
 	@Test
 	public void save() throws Exception {
 		final MvcResult result = login("maws2", "songoku").andReturn();
-		final String token = extractToken(result);
-		final String id = extractId(result);
-		final AccountDetails accD = new AccountDetails();
-		accD.setId(Integer.valueOf(id));
+		final String token = extractTokenFromHeader(result);
+		final Integer id = extractId(result);
+		final AccountDetails accD = extractAccountDetails(result);
+		accD.getUser().setPassword("songoku");
 		accD.setFirstName("Mustapha");
 		mockMvc.perform(
-				put(URL_PREFIX ).contentType(MediaType.APPLICATION_JSON)
+				put(URL_PREFIX).contentType(MediaType.APPLICATION_JSON)
 				.content(json(accD))
-						.header("Authorization", token))
+						.header(TokenAuthenticationService.HEADER_STRING, token))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.accountDetails.firstName").value(Matchers.notNullValue()));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value(Matchers.notNullValue()));
 	}
 
 	@Override

@@ -25,31 +25,31 @@ public class FYTCUserServiceImpl implements FYTCUserService {
 	private RoleRepository roleRepository;
 	
 	@Override
-	public FYTCUser createUser(FYTCUser user){
+	public FYTCUser createUser(final FYTCUser user) {
 		//Checking for the role
-		Role roleInDB = roleRepository.findByRoleName(user.getRole().getRoleName());		
+		final Role roleInDB = roleRepository.findByRoleName(user.getRole().getRoleName());
 		user.setRole(roleInDB);
 		
 		//Encrypting password before saving in database
-		BCryptPasswordEncoder passwordEncode =	new BCryptPasswordEncoder();
+		final BCryptPasswordEncoder passwordEncode =	new BCryptPasswordEncoder();
 		user.setPassword(passwordEncode.encode(user.getPassword()));
 		 
 		return this.userRepository.save(user);
 	}
 
 	@Override
-	public void encodePassword(FYTCUser user) {
-		BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+	public void encodePassword(final FYTCUser user) {
+		final BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
 		user.setPassword(passwordEncode.encode(user.getPassword()));
 	}
 
 	@Override
-	public FYTCUser getUser(Integer id) {
+	public FYTCUser getUser(final Integer id) {
 		return this.userRepository.findOne(id);
 	}
 
 	@Override
-	public FYTCUser getUser(String userName) {
+	public FYTCUser getUser(final String userName) {
 		return this.userRepository.findByUsername(userName);
 	}
 
