@@ -41,7 +41,18 @@ public class AccountDetailsControllerTest extends AbstractMvcTest {
 	public void getByUser() throws Exception {
 		final String token = extractTokenFromHeader(login("maws2", "songoku").andReturn());
 		mockMvc.perform(
-				get(URL_PREFIX + AccountDetailsController.URL_GET_BY_USER, 1L)
+				get(URL_PREFIX + AccountDetailsController.URL_GET_BY_USER_ID, 1L)
+						.header(TokenAuthenticationService.HEADER_STRING, token))
+				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Matchers.notNullValue()));
+
+	}
+	
+	@Test
+	public void getByUserName() throws Exception {
+		final String token = extractTokenFromHeader(login("maws2", "songoku").andReturn());
+		mockMvc.perform(
+				get(URL_PREFIX + AccountDetailsController.URL_GET_BY_USER_NAME, "maws2")
 						.header(TokenAuthenticationService.HEADER_STRING, token))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(Matchers.notNullValue()));
