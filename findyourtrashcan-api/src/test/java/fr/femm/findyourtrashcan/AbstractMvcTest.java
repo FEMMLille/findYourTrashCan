@@ -1,10 +1,12 @@
 package fr.femm.findyourtrashcan;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +30,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import fr.femm.findyourtrashcan.data.AccountDetails;
+import fr.femm.findyourtrashcan.data.FYTCUser;
+import fr.femm.findyourtrashcan.data.Role;
+import fr.femm.findyourtrashcan.repository.GarbageTypeRepository;
+import fr.femm.findyourtrashcan.repository.LocationRepository;
+import fr.femm.findyourtrashcan.repository.TrashcanRepository;
+import fr.femm.findyourtrashcan.repository.TrashcanTypeRepository;
 import fr.femm.findyourtrashcan.security.AccountCredentials;
 import fr.femm.findyourtrashcan.security.TokenAuthenticationService;
 import fr.femm.findyourtrashcan.security.WebSecurityConfig;
@@ -45,6 +53,18 @@ public abstract class AbstractMvcTest {
 
     private final ObjectMapper mapper = new ObjectMapper();
     private static Set<Class> inited = new HashSet<>();
+    
+    @Autowired
+    protected TrashcanRepository trashcanRepository;
+    
+    @Autowired
+    protected TrashcanTypeRepository trashcanTypeRepository;
+    
+    @Autowired
+    protected GarbageTypeRepository garbageTypeRepository;
+    
+    @Autowired
+    protected LocationRepository locationRepository;
 
     @Autowired
 	private FilterChainProxy springSecurityFilterChain;
@@ -67,7 +87,17 @@ public abstract class AbstractMvcTest {
         }
     }
 
-	protected abstract void doInit() throws Exception;
+	protected void doInit() throws Exception {
+		final Role role = new Role();
+		role.setId(1);
+		role.setRoleName("USER");
+		role.setEnabled(true);
+		// Role role = roleRepository.findByRoleName("admin");
+		final AccountDetails details = new AccountDetails();
+		details.setBirthday(new Date(1991, 2, 10));
+		details.setUser(new FYTCUser("maws2", "songoku", "mn@gmail.com", role));
+		createUser(details).andExpect(status().isOk());
+	}
 
     protected String json(final Object o) throws IOException {
         return mapper.writeValueAsString(o);
@@ -94,5 +124,11 @@ public abstract class AbstractMvcTest {
     protected AccountDetails extractAccountDetails(final MvcResult result) throws Exception {
     	return mapper.readValue(result.getResponse().getContentAsString(), AccountDetails.class);
     }
+    
+	protected ResultActions createUser(final AccountDetails accountDetails) throws Exception {
+		return mockMvc.perform(
+				post(WebSecurityConfig.API_ACCOUNT_DETAILS_URL).contentType(MediaType.APPLICATION_JSON)
+						.content(json(accountDetails)));
+	}
 
 }

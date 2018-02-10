@@ -20,10 +20,10 @@ MERGE INTO location (code,label,lat,lon) VALUES (59600,'villeneuve d ascq',50.62
 
 --USER
 --MERGE INTO fytcuser (id, role_id, username, password, email) VALUES (1, 1, 'erwan', '', 'erwan@gmail.com')
---MERGE INTO fytcuser (id, role_id, username, password, email) VALUES (2, 2, 'mathieu', '', 'mathieu@gmail.com')
+MERGE INTO fytcuser (id, role_id, username, password, email) VALUES (10000, 1, 'mathieu', '', 'mathieu@gmail.com')
 --MERGE INTO fytcuser (id, role_id, username, password, email) VALUES (3, 3, 'francis', '', 'francis@gmail.com')
 
 --ACCOUNT DETAILS
 --MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (1, 1, '', '1991-01-01', 'Erwan', 'D--P')
---MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (2, 2, '', '1991-01-01', 'Mathieu', 'Saab')
+MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (10000, 10000, '$2a$10$ThxDOSWxfEsCTI060AZZAuduBEM.PyUGaIsS3SAhpPIMUC6DzhQf6', '1991-01-01', 'Mathieu', 'Saab')
 --MERGE INTO account_details (id, user_id, avatar, birthday, first_name, last_name) VALUES (3, 3, '', '1991-01-01', 'Francis', 'CornR')
