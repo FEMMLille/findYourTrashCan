@@ -67,4 +67,5 @@
   "EMAIL_SHOULD_FOLLOW_PATTERN": "Emails should follow the pattern 'john@doe.com'",
   "REQUIRED_FIELD": "This field is required",
   "DIRECTIONS_REQUEST_FAILED": "Directions request failed due to :"
+  "DETAIL_TRASHCAN": "Trashcan details"
 }

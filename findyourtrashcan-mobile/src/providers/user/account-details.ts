@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { POSTAccountDetails, AccountDetails } from './../../shared/model/account-details';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
@@ -6,7 +5,6 @@ import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
-import { AuthenticationService } from '../providers';
 
 
 @Injectable()

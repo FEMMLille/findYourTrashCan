@@ -1,6 +1,6 @@
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Location } from './../../shared/model/location';
-import { Component, Output, EventEmitter, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { Trashcan } from '../../shared/model/trashcan';
 import { TrashcanType } from '../../shared/model/trashcan-type';
 import { GarbageType } from '../../shared/model/garbage-type';
@@ -44,14 +44,12 @@ export class AddTrashcanPopupComponent {
      * Getting the trashcan type values from webservices
      */
     this.trashcanTypeService.get().subscribe((values) => {
-      console.log(values);
       this.trashcanTypes = values;
     });
     /**
      * Getting the garbage type values from webservices
      */
     this.garbageTypeService.get().subscribe((values) => {
-      console.log(values);
       this.garbageTypes = values;
     });
 

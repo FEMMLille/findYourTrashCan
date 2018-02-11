@@ -61,4 +61,5 @@
   "EMAIL_SHOULD_FOLLOW_PATTERN": "Les mails doivent suivre le format 'pierre@dupont.com'",
   "REQUIRED_FIELD": "Ce champ est obligatoire",
   "DIRECTIONS_REQUEST_FAILED": "La requête pour la direction a échoué à cause de :"
+  "DETAIL_TRASHCAN": "Détails de la poubelle"
 }
