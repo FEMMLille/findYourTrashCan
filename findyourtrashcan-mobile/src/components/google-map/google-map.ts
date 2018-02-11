@@ -25,10 +25,13 @@ export class GoogleMapComponent {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  directionsService: any;
+  directionsDisplay: any;
   trashcans: Array<Trashcan> = [];
   maxBounds: MapBounds;
   private noNetwork: string;
   private pleaseRetry: string;
+  private directionsRequestFailed: string;
   private internalErrorFindingTrashcans: string;
   mapLoaded = false;
   disconnected: boolean = false;
@@ -69,6 +72,10 @@ export class GoogleMapComponent {
     this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
       this.internalErrorFindingTrashcans = value;
     });
+
+    this.translateService.get('DIRECTIONS_REQUEST_FAILED').subscribe((value) => {
+      this.directionsRequestFailed = value;
+    });
   }
 
   /**
@@ -86,8 +93,12 @@ export class GoogleMapComponent {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
       this.trashcans = [];
+      //We intialize the service and display of te directionss
+      this.directionsService = new google.maps.DirectionsService;
+      this.directionsDisplay = new google.maps.DirectionsRenderer;
       //We initialize the map
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.directionsDisplay.setMap(this.map);
       //We set the max bounds
       this.maxBounds = new MapBounds(new Point(myPosition.lat + 5, myPosition.lon + 3), new Point(myPosition.lat - 5, myPosition.lon - 3));
       //We set a listener whenever the map idles (after a zoom or a swipe) to load trashcans in the new bounds
@@ -185,6 +196,9 @@ export class GoogleMapComponent {
       icon: this.getMarkerIcon(trashcan),
       position: { lat: trashcan.lat, lng: trashcan.lon }
     })
+    marker.addListener('click', () => {
+      this.showRouteTo(trashcan);
+    });
   }
 
   /**
@@ -195,6 +209,30 @@ export class GoogleMapComponent {
     let empty: string = t.empty ? '0' : '1';
     let path: string = '' + t.trashcanType.id + t.garbageType.id;
     return 'assets/img/icons/processed/' + empty + path + '.png';
+  }
+
+  /**
+   * A function used to show the route to go to a trashcan
+   * @param trashcan The trashcan where which we want to go to
+   */
+  showRouteTo(trashcan: Trashcan) {
+    // We get the location of the user
+    this.geolocation.getCurrentPosition().then((position) => {
+      let routeOrigin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      let routeDestination = new google.maps.LatLng(trashcan.lat, trashcan.lon);
+
+      this.directionsService.route({
+        origin: routeOrigin,
+        destination: routeDestination,
+        travelMode: 'WALKING'
+      }, (response, status) => {
+        if (status === 'OK') {
+          this.directionsDisplay.setDirections(response)
+        } else {
+          this.error.emit(this.directionsRequestFailed + status)
+        }
+      });
+    });
   }
 
   @Input()
