@@ -1,19 +1,15 @@
 import { WelcomePage } from './../pages';
-import { LoginPage } from './../login/login';
 import { RankTypeService } from './../../providers/rank/rank-types';
 import { RankService } from './../../providers/rank/rank';
 import { AccountDetailsService } from './../../providers/user/account-details';
-import { ProgressBarComponent } from './../../components/progress-bar/progress-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from './../../shared/model/user';
 import { AuthenticationService } from './../../providers/auth/authenticate';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
-import { Item } from '../../models/item';
 import { Items } from '../../providers/providers';
 import { AccountDetails } from '../../shared/model/account-details';
-import { Toast } from 'ionic-angular/components/toast/toast';
 
 @IonicPage()
 @Component({

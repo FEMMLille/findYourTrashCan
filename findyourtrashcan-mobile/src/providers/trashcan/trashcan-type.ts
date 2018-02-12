@@ -1,5 +1,4 @@
 import { AuthenticationService } from './../auth/authenticate';
-import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
 

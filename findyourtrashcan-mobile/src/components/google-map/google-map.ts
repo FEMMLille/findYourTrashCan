@@ -1,12 +1,12 @@
-import { TrashcanService } from './../../providers/trashcan/trashcan';
+import { TrashcanService } from './../../providers/trashcan/trashcan'
 import { Network } from '@ionic-native/network';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, ViewChild, Input, Output, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, Input, Output, ElementRef, EventEmitter, SimpleChanges, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Point } from '../../shared/model/point';
 import { Trashcan } from '../../shared/model/trashcan';
 import { MapBounds } from '../../shared/model/map-bounds';
-
+import { DetailPopupService }from '../../providers/detailpopup/detailpopup';
 
 /**
  * Generated class for the GoogleMapComponent component.
@@ -21,7 +21,7 @@ declare var google;
   selector: 'google-map',
   templateUrl: 'google-map.html'
 })
-export class GoogleMapComponent {
+export class GoogleMapComponent implements OnInit{
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -32,6 +32,29 @@ export class GoogleMapComponent {
   private internalErrorFindingTrashcans: string;
   mapLoaded = false;
   disconnected: boolean = false;
+
+  
+  constructor(public geolocation: Geolocation, 
+    public translateService: TranslateService, 
+    public network: Network, 
+    public trashcanService: TrashcanService,
+    public popupService: DetailPopupService) {
+
+    /**
+     * Getting translations from service
+     */
+    this.translateService.get('NO_NETWORK').subscribe((value) => {
+      this.noNetwork = value;
+    });
+
+    this.translateService.get('PLEASE_RETRY').subscribe((value) => {
+      this.pleaseRetry = value;
+    });
+
+    this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
+      this.internalErrorFindingTrashcans = value;
+    });
+  }
 
   ngOnInit() {
     /**
@@ -51,24 +74,6 @@ export class GoogleMapComponent {
     });
     //First map loading
     this.loadMap();
-  }
-
-  constructor(public geolocation: Geolocation, public translateService: TranslateService, public network: Network, public trashcanService: TrashcanService) {
-
-    /**
-     * Getting translations from service
-     */
-    this.translateService.get('NO_NETWORK').subscribe((value) => {
-      this.noNetwork = value;
-    });
-
-    this.translateService.get('PLEASE_RETRY').subscribe((value) => {
-      this.pleaseRetry = value;
-    });
-
-    this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
-      this.internalErrorFindingTrashcans = value;
-    });
   }
 
   /**
@@ -120,6 +125,7 @@ export class GoogleMapComponent {
    * @param mapBounds the bounds of the map
    */
   loadTrashcans(mapBounds: MapBounds) {
+    this.popupService.subscribeShow(false,null);
     var i = 1; // A variable used to smoothe the trashcans animations
     if (!this.disconnected) {
       //We call the webservice
@@ -185,8 +191,13 @@ export class GoogleMapComponent {
       icon: this.getMarkerIcon(trashcan),
       position: { lat: trashcan.lat, lng: trashcan.lon }
     })
+    /**
+     * add listener of marker for show popup detail
+     */
+    marker.addListener('click', () => {
+      this.popupService.subscribeShow(true, trashcan);
+    });
   }
-
   /**
    * A function used to get the marker that simbolises a single trashcan
    * @param t the trashcan for which we attend to get the icon

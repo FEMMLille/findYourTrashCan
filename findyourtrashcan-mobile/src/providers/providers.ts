@@ -8,6 +8,7 @@ import { Api } from './api/api';
 import { Items } from '../mocks/providers/items';
 import { Settings } from './settings/settings';
 import { TrashcanService } from './trashcan/trashcan';
+import { DetailPopupService } from './detailpopup/detailpopup';
 
 export {
     Api,
@@ -19,5 +20,6 @@ export {
     RankTypeService,
     GarbageTypeService,
     TrashcanTypeService,
-    TrashcanService
+    TrashcanService,
+    DetailPopupService
 };

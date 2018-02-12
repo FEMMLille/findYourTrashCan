@@ -1,7 +1,4 @@
 import { AuthenticationService } from './../../providers/providers';
-import { User } from './../../shared/model/user';
-
-import { WelcomePage } from '../pages';
 import { AccountDetailsService } from './../../providers/providers';
 import { Credentials } from './../../shared/model/credentials';
 import { POSTAccountDetails } from './../../shared/model/account-details';
