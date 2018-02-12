@@ -9,3 +9,9 @@ page-signup {
 .datetime-md {
     padding-left: 2%;
 }
+
+.error {
+    margin-left:5%;
+    margin-right: 5%;
+    color:map-get($colors, danger)
+}
