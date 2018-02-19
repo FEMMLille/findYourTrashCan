@@ -30,6 +30,9 @@ export class DetailTrashcanPopupComponent {
       this.openPopup = bool;
     });
   }
+  dismissPopup() {
+    this.detailPopupService.subscribeShow(false, null);
+  }
 
   @Output()
   showRouteToTrashcan = new EventEmitter();

@@ -9,6 +9,7 @@ import { Items } from '../mocks/providers/items';
 import { Settings } from './settings/settings';
 import { TrashcanService } from './trashcan/trashcan';
 import { DetailPopupService } from './detailpopup/detailpopup';
+import { GeolocationService } from './geo/geo';
 
 export {
     Api,
@@ -21,5 +22,6 @@ export {
     GarbageTypeService,
     TrashcanTypeService,
     TrashcanService,
-    DetailPopupService
+    DetailPopupService,
+    GeolocationService
 };
