@@ -1,4 +1,4 @@
-<div id="detail-trashcan-popup" [class.hide]="!openPopup" *ngIf="trashcan != null">
+<div id="detail-trashcan-popup" [class.hide]="!trashcan == undefined" *ngIf="trashcan != null">
     <h2>{{ 'DETAIL_TRASHCAN' | translate }}</h2>
     <h5>
         <ion-icon name="trash"></ion-icon> {{trashcan.trashcanType.label}} {{trashcan.garbageType.label}}
@@ -9,7 +9,7 @@
     </h5>
     <ion-list>
         <ion-item class="button-detail">
-            <button ion-button clear (click)="showRouteToTrashcan.emit(trashcan)">
+            <button ion-button clear (click)="goTo()">
                 <ion-icon name="navigate"></ion-icon>Aller à la poubelle
             </button>
         </ion-item>
@@ -21,6 +21,6 @@
             <button ion-button color="danger" clear>
                 <ion-icon name="alert"></ion-icon>Signaler une poubelle inexistante</button>
         </ion-item>
-    </ion-list> 
+    </ion-list>
     <button ion-button color="primary" outline block (click)="dismissPopup()">CANCEL</button>
 </div>

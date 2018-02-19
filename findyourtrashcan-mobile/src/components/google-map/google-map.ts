@@ -205,7 +205,7 @@ export class GoogleMapComponent implements OnInit {
      * add listener of marker for show popup detail
      */
     marker.addListener('click', () => {
-      this.popupService.subscribeShow(true, trashcan);
+      this.openTrashcanDetails.emit(trashcan);
     });
   }
   /**
@@ -223,23 +223,27 @@ export class GoogleMapComponent implements OnInit {
    * @param trashcan The trashcan where which we want to go to
    */
   showRouteTo(trashcan: Trashcan) {
-    // We get the location of the user
-    this.geolocation.getCurrentPosition().then((position) => {
-      let routeOrigin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      let routeDestination = new google.maps.LatLng(trashcan.lat, trashcan.lon);
+    if (!this.disconnected) {
+      // We get the location of the user
+      this.geolocation.getCurrentPosition().then((position) => {
+        let routeOrigin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        let routeDestination = new google.maps.LatLng(trashcan.lat, trashcan.lon);
 
-      this.directionsService.route({
-        origin: routeOrigin,
-        destination: routeDestination,
-        travelMode: 'WALKING'
-      }, (response, status) => {
-        if (status === 'OK') {
-          this.directionsDisplay.setDirections(response)
-        } else {
-          this.error.emit(this.directionsRequestFailed + status)
-        }
+        this.directionsService.route({
+          origin: routeOrigin,
+          destination: routeDestination,
+          travelMode: 'WALKING'
+        }, (response, status) => {
+          if (status === 'OK') {
+            this.directionsDisplay.setDirections(response);
+          } else {
+            this.error.emit(this.directionsRequestFailed + status);
+          }
+        });
       });
-    });
+    } else {
+      this.error.emit(this.noNetwork + ". " + this.pleaseRetry);
+    }
   }
 
   @Input()
@@ -267,6 +271,9 @@ export class GoogleMapComponent implements OnInit {
 
   @Output()
   updated = new EventEmitter();
+
+  @Output()
+  openTrashcanDetails = new EventEmitter();
 
 
 

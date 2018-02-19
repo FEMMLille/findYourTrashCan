@@ -52,7 +52,6 @@ export class SignupPage {
         this.showToastError(this.signupErrorString);
       });
     } else {
-      console.log(this.account.user);
       this.showToastError(this.unmatchingPasswordsErrorString);
     }
   }

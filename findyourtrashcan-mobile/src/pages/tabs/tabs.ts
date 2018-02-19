@@ -1,5 +1,5 @@
 import { ProfilePage } from './../pages';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
@@ -19,6 +19,7 @@ export class TabsPage {
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
   directionTrashcan: Trashcan = new Trashcan();
+  showingTrashcan: Trashcan = undefined;
 
 
 
@@ -27,7 +28,7 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public network: Network) {
+    public network: Network, public changesDetectorRef: ChangeDetectorRef) {
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });
@@ -122,11 +123,15 @@ export class TabsPage {
   }
 
   updateDirection(trashcan: Trashcan) {
-    this.directionTrashcan = trashcan;
+    if (trashcan != null)
+      this.directionTrashcan = trashcan;
+    this.showingTrashcan = undefined;
+    this.changesDetectorRef.detectChanges();
   }
 
-  showMeDaWae() {
-
+  displayPopup(trashcan: Trashcan) {
+    this.showingTrashcan = trashcan;
+    this.changesDetectorRef.detectChanges();
   }
 
 }

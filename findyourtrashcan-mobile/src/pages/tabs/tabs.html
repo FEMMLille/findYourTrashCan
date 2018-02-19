@@ -5,10 +5,10 @@
 
 
   <google-map [newTrashcans]="newTrashcans || addedTrashcan" [routeTrashcan]="directionTrashcan" (error)="manageError($event)"
-    (load)="handleLoading($event)" (updated)="newTrashcans=false"></google-map>
+    (load)="handleLoading($event)" (updated)="newTrashcans=false" (openTrashcanDetails)="displayPopup($event)"></google-map>
 
   <add-trashcan-popup [show]="openAddedTrashcanPopup" (error)="manageError($event)" (added)="trashcanAdded($event)"></add-trashcan-popup>
-  <detail-trashcan-popup (showRouteToTrashcan)="directionTrashcan = $event"></detail-trashcan-popup>
+  <detail-trashcan-popup [showedTrashcan]="showingTrashcan" (showRouteToTrashcan)="updateDirection($event)"></detail-trashcan-popup>
 </ion-content>
 
 <ion-footer>
