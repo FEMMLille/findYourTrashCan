@@ -194,7 +194,6 @@ export class GoogleMapComponent implements OnInit {
   renderTrashcan(trashcan: Trashcan) {
     //Adding the object to our array
     this.trashcans.push(trashcan);
-    console.log(this.getMarkerIcon(trashcan));
     //Creating the marker
     let marker = new google.maps.Marker({
       map: this.map,
@@ -202,16 +201,11 @@ export class GoogleMapComponent implements OnInit {
       icon: this.getMarkerIcon(trashcan),
       position: { lat: trashcan.lat, lng: trashcan.lon }
     })
-<<<<<<< HEAD
-    marker.addListener('click', () => {
-      this.showRouteTo(trashcan);
-=======
     /**
      * add listener of marker for show popup detail
      */
     marker.addListener('click', () => {
       this.popupService.subscribeShow(true, trashcan);
->>>>>>> 7209d524d639c7a60cf06fef166fdc13b4ad4927
     });
   }
   /**
@@ -251,12 +245,17 @@ export class GoogleMapComponent implements OnInit {
   @Input()
   newTrashcans: boolean;
 
+  @Input()
+  routeTrashcan: Trashcan;
+
   ngOnChanges(changes: SimpleChanges) {
     // only run when newTrashcans changed, if we have new trashcans we should reload the trashcans
     if (changes['newTrashcans']) {
       if (this.mapLoaded)
         this.loadTrashcans(this.getMapBounds());
       this.updated.emit(true);
+    } else if (changes['routeTrashcan']) {
+      this.showRouteTo(changes['routeTrashcan'].currentValue);
     }
   }
 

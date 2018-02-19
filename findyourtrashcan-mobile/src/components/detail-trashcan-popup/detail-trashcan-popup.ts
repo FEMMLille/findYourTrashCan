@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
 import { Trashcan } from '../../shared/model/trashcan';
@@ -24,11 +24,13 @@ export class DetailTrashcanPopupComponent {
    */
   public trashcan: Trashcan;
 
-  constructor(public translateService: TranslateService, public changeDetectorRef: ChangeDetectorRef, public detailPopupService: DetailPopupService) {
+  constructor(public translateService: TranslateService, public detailPopupService: DetailPopupService) {
     this.detailPopupService.showViewObservable().subscribe((bool: boolean) => {
       this.trashcan = (this.detailPopupService.currentTrashcan) ? this.detailPopupService.currentTrashcan : null;
       this.openPopup = bool;
-      this.changeDetectorRef.detectChanges();
     });
   }
+
+  @Output()
+  showRouteToTrashcan = new EventEmitter();
 }

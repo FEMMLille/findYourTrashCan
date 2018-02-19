@@ -2,12 +2,13 @@
   <div id="no-network-div" (click)="dismissNoNetworkMessage()" [class.hide]="!disconnected || dismissMessage">
     {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
   </div>
-  
 
-  <google-map [newTrashcans]="newTrashcans || addedTrashcan" (error)="manageError($event)" (load)="handleLoading($event)" (updated)="newTrashcans=false"></google-map>
-  
+
+  <google-map [newTrashcans]="newTrashcans || addedTrashcan" [routeTrashcan]="directionTrashcan" (error)="manageError($event)"
+    (load)="handleLoading($event)" (updated)="newTrashcans=false"></google-map>
+
   <add-trashcan-popup [show]="openAddedTrashcanPopup" (error)="manageError($event)" (added)="trashcanAdded($event)"></add-trashcan-popup>
-  <detail-trashcan-popup ></detail-trashcan-popup>
+  <detail-trashcan-popup (showRouteToTrashcan)="directionTrashcan = $event"></detail-trashcan-popup>
 </ion-content>
 
 <ion-footer>
@@ -21,8 +22,8 @@
     <button ion-button clear type="button">
       <ion-icon class="menu-icon " name="trophy"></ion-icon>
     </button>
-    <button ion-button clear type="button">
-      <ion-icon class="menu-icon " name="add-circle" (click)="openAddedTrashcanPopup=true"></ion-icon>
+    <button ion-button clear type="button" (click)="openAddedTrashcanPopup=true">
+      <ion-icon class="menu-icon " name="add-circle"></ion-icon>
     </button>
   </div>
 </ion-footer>

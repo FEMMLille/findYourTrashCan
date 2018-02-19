@@ -3,15 +3,13 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
+import { Trashcan } from '../../shared/model/trashcan';
 @IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
-
-
   filterIsRunning: boolean = false;
   loading;
   disconnected: boolean = false;
@@ -20,6 +18,7 @@ export class TabsPage {
   showDetailTrashcanPopup: boolean = false;
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
+  directionTrashcan: Trashcan = new Trashcan();
 
 
 
@@ -120,6 +119,14 @@ export class TabsPage {
       dismissOnPageChange: true
     });
     toast.present();
+  }
+
+  updateDirection(trashcan: Trashcan) {
+    this.directionTrashcan = trashcan;
+  }
+
+  showMeDaWae() {
+
   }
 
 }

@@ -25,7 +25,6 @@ import { Settings } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 import { UserService } from '../providers/user/user';
-import { EqualValidatorDirective } from '../directives/equal-validator/equal-validator';
 import { TabsPageModule } from '../pages/tabs/tabs.module';
 
 // The translate loader needs to know where to load i18n files
