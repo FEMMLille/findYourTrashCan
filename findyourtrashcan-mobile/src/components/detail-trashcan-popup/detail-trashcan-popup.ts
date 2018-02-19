@@ -31,4 +31,8 @@ export class DetailTrashcanPopupComponent {
       this.changeDetectorRef.detectChanges();
     });
   }
+
+  dismissPopup(){
+    this.detailPopupService.subscribeShow(false,null);
+  }
 }
