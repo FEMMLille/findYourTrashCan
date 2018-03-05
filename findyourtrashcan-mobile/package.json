@@ -30,7 +30,7 @@
     "@ionic/storage": "2.0.1",
     "@ngx-translate/core": "8.0.0",
     "@ngx-translate/http-loader": "^2.0.0",
-    "cordova-android": "6.4.0",
+    "cordova-android": "^6.4.0",
     "cordova-browser": "~5.0.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^1.1.7",
@@ -64,8 +64,8 @@
       "cordova-plugin-network-information": {}
     },
     "platforms": [
-      "browser",
       "android"
+      "browser"
     ]
   }
 }

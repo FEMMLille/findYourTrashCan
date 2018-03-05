@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
 import { Trashcan } from '../../shared/model/trashcan';
@@ -24,15 +24,42 @@ export class DetailTrashcanPopupComponent {
    */
   public trashcan: Trashcan;
 
-  constructor(public translateService: TranslateService, public changeDetectorRef: ChangeDetectorRef, public detailPopupService: DetailPopupService) {
+  public showDetailsPopup: boolean = false;
+  public showingTrashcan: Trashcan = undefined;
+
+  constructor(public translateService: TranslateService, public detailPopupService: DetailPopupService, public changesDetectorRef: ChangeDetectorRef) {
     this.detailPopupService.showViewObservable().subscribe((bool: boolean) => {
       this.trashcan = (this.detailPopupService.currentTrashcan) ? this.detailPopupService.currentTrashcan : null;
       this.openPopup = bool;
-      this.changeDetectorRef.detectChanges();
+      this.changesDetectorRef.detectChanges();
     });
   }
 
-  dismissPopup(){
-    this.detailPopupService.subscribeShow(false,null);
+  dismissPopup() {
+    this.trashcan = undefined;
+    this.changesDetectorRef.detectChanges();
+    this.showRouteToTrashcan.emit(null);
   }
+
+  @Input()
+  showedTrashcan: Trashcan;
+
+  ngOnChanges(changes: SimpleChanges) {
+    // only run when property "data" changed
+    if (changes['showedTrashcan']) {
+      this.showDetailsPopup = (this.showingTrashcan != undefined);
+      this.trashcan = changes['showedTrashcan'].currentValue;
+    }
+
+  }
+
+  @Output()
+  showRouteToTrashcan = new EventEmitter();
+
+  goTo() {
+    this.showRouteToTrashcan.emit(this.trashcan);
+    this.dismissPopup();
+  }
+
+
 }
