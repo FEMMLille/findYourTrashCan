@@ -1,41 +1,25 @@
-import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
-import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
-import { Location } from './../../shared/model/location';
-import { GarbageType } from './../../shared/model/garbage-type';
-import { MapBounds } from './../../shared/model/map-bounds';
-import { TrashcanService } from './../../providers/trashcan/trashcan';
-import { Point } from './../../shared/model/point';
-import { Trashcan } from './../../shared/model/trashcan';
 import { ProfilePage } from './../pages';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
-import { TrashcanType } from '../../shared/model/trashcan-type';
-import { GarbageTypeService } from '../../providers/providers';
-import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
-import { GoogleMapComponent } from './../../components/google-map/google-map';
-
-declare var google;
-
+import { Trashcan } from '../../shared/model/trashcan';
 @IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
-
-
   filterIsRunning: boolean = false;
   loading;
   disconnected: boolean = false;
   dismissMessage: boolean = false;
   openAddedTrashcanPopup: boolean = false;
-
+  showDetailTrashcanPopup: boolean = false;
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
+  directionTrashcan: Trashcan = new Trashcan();
+  showingTrashcan: Trashcan = undefined;
 
 
 
@@ -44,9 +28,7 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public network: Network) {
-
-
+    public network: Network, public changesDetectorRef: ChangeDetectorRef) {
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });
@@ -126,7 +108,6 @@ export class TabsPage {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
   }
-
   /**
    * A function handling error messages
    * @param msg the message we want to send
@@ -140,4 +121,17 @@ export class TabsPage {
     });
     toast.present();
   }
+
+  updateDirection(trashcan: Trashcan) {
+    if (trashcan != null)
+      this.directionTrashcan = trashcan;
+    this.showingTrashcan = undefined;
+    this.changesDetectorRef.detectChanges();
+  }
+
+  displayPopup(trashcan: Trashcan) {
+    this.showingTrashcan = trashcan;
+    this.changesDetectorRef.detectChanges();
+  }
+
 }

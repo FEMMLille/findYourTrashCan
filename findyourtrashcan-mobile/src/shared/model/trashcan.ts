@@ -1,7 +1,6 @@
 import { Location } from './location';
 import { TrashcanType } from './trashcan-type';
 import { GarbageType } from './garbage-type';
-import { Point } from './point';
 export class Trashcan {
     constructor(public id?: number,
         public trashcanType?: TrashcanType,

@@ -60,7 +60,6 @@ export class AccountDetailsComponent implements OnInit {
     // TODO : Recupérer l'id du user actuel
     this.user = this.authenticationService.currentU();
     this.accountDetailsService.getByUserId(this.user.id).subscribe(accountDetails => {
-      console.log(accountDetails);
       this.accountDetails = accountDetails;
       this.accountdetailsform.patchValue({
         'user': {

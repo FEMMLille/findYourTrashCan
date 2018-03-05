@@ -1,6 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { RankType } from './../../shared/model/rank-type';
-import { Rank } from './../../shared/model/rank';
 import { User } from './../../shared/model/user';
 import { Credentials } from './../../shared/model/credentials';
 import 'rxjs/add/operator/toPromise';

@@ -44,7 +44,6 @@ export class AuthenticationService {
     this._credentials = JSON.parse(sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey));
     this.user = JSON.parse(sessionStorage.getItem('user') || localStorage.getItem('user'));
     if (this._credentials && this.user) {
-      console.log(this.user + ' | ' + this._credentials);
       this.currentUser.next(this.user);
       this.isAuthenticated.next(true);
     }
@@ -65,7 +64,6 @@ export class AuthenticationService {
       { observe: 'response' })
       .map((response: HttpResponse<any>) => {
         this._credentials = response.headers.get('authorization');
-        console.log(this._credentials);
         this.setCredentials(this._credentials, context.remember);
         return true;
       }, err => {
