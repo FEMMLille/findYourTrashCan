@@ -1,6 +1,6 @@
 package fr.femm.findyourtrashcan.data;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,20 +34,12 @@ public class AccountDetails {
 	public AccountDetails() {
 		
 	}
-
-	public AccountDetails(FYTCUser user, String firstName, String lastName, Date birthday, String avatar) {
-		this.user = user;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthday = birthday;
-		this.avatar = avatar;
-	}
-
+	
 	public FYTCUser getUser() {
 		return user;
 	}
 
-	public void setUser(FYTCUser user) {
+	public void setUser(final FYTCUser user) {
 		this.user = user;
 	}
 
@@ -55,7 +47,7 @@ public class AccountDetails {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -63,7 +55,7 @@ public class AccountDetails {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -71,7 +63,7 @@ public class AccountDetails {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(final Date birthday) {
 		this.birthday = birthday;
 	}
 
@@ -79,7 +71,7 @@ public class AccountDetails {
 		return avatar;
 	}
 
-	public void setAvatar(String avatar) {
+	public void setAvatar(final String avatar) {
 		this.avatar = avatar;
 	}
 
@@ -87,7 +79,7 @@ public class AccountDetails {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
