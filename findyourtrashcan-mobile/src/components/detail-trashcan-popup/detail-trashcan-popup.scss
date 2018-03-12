@@ -8,6 +8,10 @@ detail-trashcan-popup {
         padding:2vw;
         box-shadow: 0 0 30vh map-get($colors, dark);
     }
+    #picture {
+        width: 100% !important;
+        height: auto !important;
+    }
     .popup-button {
         border:1px solid map-get($colors, primary);
         margin-left:0;

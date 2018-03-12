@@ -60,6 +60,6 @@
   "DETAIL_TRASHCAN": "Détails de la poubelle",
   "PASSWORD_DOES_NOT_MATCH": "Les mots de passe ne correspondent pas",
   "EMAIL_SHOULD_FOLLOW_PATTERN": "Les mails doivent suivre le format 'pierre@dupont.com'",
-  "REQUIRED_FIELD": "Ce champ est obligatoire"
-  "DIRECTIONS_REQUEST_FAILED": "La requête pour la direction a échoué à cause de :",
+  "REQUIRED_FIELD": "Ce champ est obligatoire",
+  "DIRECTIONS_REQUEST_FAILED": "La requête pour la direction a échoué à cause de :"
 }

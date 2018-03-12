@@ -1,4 +1,5 @@
 <div id="detail-trashcan-popup" [class.hide]="!trashcan == undefined" *ngIf="trashcan != null">
+    <img id="picture" src="../../assets/img/badu-live.png" (click)="takePicture()" alt="image du lieu de la poubelle"/>
     <h2>{{ 'DETAIL_TRASHCAN' | translate }}</h2>
     <h5>
         <ion-icon name="trash"></ion-icon> {{trashcan.trashcanType.label}} {{trashcan.garbageType.label}}
