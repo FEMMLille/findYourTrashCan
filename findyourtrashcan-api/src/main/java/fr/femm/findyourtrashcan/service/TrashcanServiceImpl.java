@@ -53,5 +53,10 @@ public class TrashcanServiceImpl implements TrashcanService {
 	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon) {
 	    return this.trashcanRepository.findInBounds(neLat, neLon, swLat, swLon);
 	}
+	
+	@Override
+	public Trashcan updateTrashcan(Trashcan trashcan) {
+	    return trashcanRepository.save(trashcan);
+	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +47,12 @@ public class TrashCanController {
 	public Trashcan addTrashcan(@RequestBody final Trashcan trashcan) {
 		logger.info("WebService addTrashcan [ + " + trashcan + " ]");
 		return service.createTrashCan(trashcan);
-
+	}
+	
+	@PutMapping
+	public Trashcan updateTrashcan(@RequestBody final Trashcan trashcan) {
+	    logger.info("WebService updateTrashcan [" + trashcan + " ]");
+	    return service.updateTrashcan(trashcan);
+	    
 	}
 }
