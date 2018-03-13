@@ -29,4 +29,8 @@ export class TrashcanService {
     addTrashcan(trashcan: Trashcan) {
         return this.api.post('trashcan/', trashcan);
     }
+
+    updateTrashcan(trashcan: Trashcan) {
+        return this.api.put('trashcan/', trashcan);
+    }
 }

@@ -64,7 +64,7 @@
       "cordova-plugin-network-information": {}
     },
     "platforms": [
-      "android"
+      "android",
       "browser"
     ]
   }

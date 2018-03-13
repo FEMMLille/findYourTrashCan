@@ -1,3 +1,4 @@
+import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Component, ChangeDetectorRef, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
@@ -27,7 +28,7 @@ export class DetailTrashcanPopupComponent {
   public showDetailsPopup: boolean = false;
   public showingTrashcan: Trashcan = undefined;
 
-  constructor(public translateService: TranslateService, public detailPopupService: DetailPopupService, public changesDetectorRef: ChangeDetectorRef) {
+  constructor(public trashcanService: TrashcanService, public translateService: TranslateService, public detailPopupService: DetailPopupService, public changesDetectorRef: ChangeDetectorRef) {
     this.detailPopupService.showViewObservable().subscribe((bool: boolean) => {
       this.trashcan = (this.detailPopupService.currentTrashcan) ? this.detailPopupService.currentTrashcan : null;
       this.openPopup = bool;
@@ -39,6 +40,14 @@ export class DetailTrashcanPopupComponent {
     this.trashcan = undefined;
     this.changesDetectorRef.detectChanges();
     this.showRouteToTrashcan.emit(null);
+  }
+
+  filledTrashcan() {
+    this.trashcan.empty = false;
+    this.trashcanService.updateTrashcan(this.trashcan).subscribe((res) => {
+      this.reloadTrashcans.emit();
+      console.log("reloadTrashcans emitted");
+    });
   }
 
   @Input()
@@ -55,6 +64,9 @@ export class DetailTrashcanPopupComponent {
 
   @Output()
   showRouteToTrashcan = new EventEmitter();
+
+  @Output()
+  reloadTrashcans = new EventEmitter();
 
   goTo() {
     this.showRouteToTrashcan.emit(this.trashcan);

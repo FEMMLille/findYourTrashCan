@@ -20,6 +20,7 @@ export class TabsPage {
   addedTrashcan: boolean = false;
   directionTrashcan: Trashcan = new Trashcan();
   showingTrashcan: Trashcan = undefined;
+  reloadTrashcans: boolean = false;
 
 
 
@@ -108,6 +109,14 @@ export class TabsPage {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
   }
+
+  orderReloadTrashcans() {
+    console.log("order reload trashcans");
+    this.reloadTrashcans = true;
+    this.showDetailTrashcanPopup = false;
+    this.changesDetectorRef.detectChanges();
+  }
+
   /**
    * A function handling error messages
    * @param msg the message we want to send

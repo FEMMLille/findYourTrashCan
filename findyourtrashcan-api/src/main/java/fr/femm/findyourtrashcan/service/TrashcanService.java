@@ -36,4 +36,6 @@ public interface TrashcanService {
 	 */
 	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon);
 	
+	public Trashcan updateTrashcan(Trashcan trashcan);
+	
 }
