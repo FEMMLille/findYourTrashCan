@@ -55,4 +55,8 @@ export class AuthenticationService {
     _loggedIn(resp: User) {
         this._user = resp;
     }
+
+    isTownStaff() {
+        return this._user.username == "agent";
+    }
 }

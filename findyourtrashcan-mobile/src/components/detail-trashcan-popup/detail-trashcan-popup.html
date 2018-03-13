@@ -14,8 +14,12 @@
             </button>
         </ion-item>
         <ion-item class="button-detail">
-            <button ion-button color="warning" clear (click)="filledTrashcan()">
+            <button ion-button color="warning" clear (click)="updateTrashcanEmptyState(false)">
                 <ion-icon name="alert"></ion-icon>Signaler la poubelle pleine</button>
+        </ion-item>
+        <ion-item *ngIf="userIsTownStaff" class="button-detail">
+            <button ion-button color="agentfeature" clear (click)="updateTrashcanEmptyState(true)">
+                <ion-icon name="alert"></ion-icon>La poubelle a été vidée</button>
         </ion-item>
         <ion-item class="button-detail">
             <button ion-button color="danger" clear>
