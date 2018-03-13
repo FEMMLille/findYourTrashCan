@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { AuthenticationService } from './../../providers/auth/authenticate';
+=======
+>>>>>>> eb736ea6a7f5d212883b839a9d4223fa061beba4
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Component, ChangeDetectorRef, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
