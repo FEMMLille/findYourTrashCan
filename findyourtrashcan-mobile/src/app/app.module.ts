@@ -2,8 +2,8 @@ import { Network } from '@ionic-native/network';
 import { GarbageTypeService } from './../providers/trashcan/garbage-type';
 import { TrashcanTypeService } from './../providers/trashcan/trashcan-type';
 import { TrashcanService } from './../providers/trashcan/trashcan';
-import { RankTypeService } from './../providers/rank/rank-types';
-import { RankService } from './../providers/rank/rank';
+import { RangTypeService } from './../providers/rang/rang-types';
+import { RangService } from './../providers/rang/rang';
 import { AuthenticationService } from './../providers/providers';
 import { AccountDetailsService } from './../providers/providers';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -19,6 +19,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LoadingController } from 'ionic-angular';
 import { DetailPopupService } from './../providers/detailpopup/detailpopup';
+import { DatePipe } from '@angular/common';
 
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
@@ -75,13 +76,14 @@ export function provideSettings(storage: Storage) {
     AccountDetailsService,
     Items,
     Camera,
+    DatePipe,
     SplashScreen,
     AuthenticationService,
-    RankService,
+    RangService,
     Geolocation,
     DetailPopupService,
     LoadingController,
-    RankTypeService,
+    RangTypeService,
     StatusBar,
     TrashcanService,
     TrashcanTypeService,

@@ -70,4 +70,13 @@ public class Rang {
 		this.id = id;
 	}
 
+	public void increment(int i) {
+	    setTotalPoint(getTotalPoint() + i);
+	    if(getRangType().getId() != RangType.AMBASSADOR.getId()) {
+        	    if(getTotalPoint() >= getRangType().getNecessaryPoint()) {
+        		setRangType(RangType.getNextRankType(getRangType().getId()));
+        	    }
+	    }
+	}
+
 }

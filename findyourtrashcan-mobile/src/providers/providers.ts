@@ -1,7 +1,7 @@
 import { TrashcanTypeService } from './trashcan/trashcan-type';
 import { GarbageTypeService } from './trashcan/garbage-type';
-import { RankTypeService } from './rank/rank-types';
-import { RankService } from './rank/rank';
+import { RangTypeService } from './rang/rang-types';
+import { RangService } from './rang/rang';
 import { AccountDetailsService } from './user/account-details';
 import { AuthenticationService } from './auth/authenticate';
 import { Api } from './api/api';
@@ -17,8 +17,8 @@ export {
     Settings,
     AuthenticationService,
     AccountDetailsService,
-    RankService,
-    RankTypeService,
+    RangService,
+    RangTypeService,
     GarbageTypeService,
     TrashcanTypeService,
     TrashcanService,

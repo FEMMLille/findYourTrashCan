@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * Entity representing AccountDetails in database
  */
@@ -27,6 +29,7 @@ public class AccountDetails {
 	
 	private String lastName;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date birthday;
 	
 	private String avatar;

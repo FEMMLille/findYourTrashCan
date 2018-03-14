@@ -41,6 +41,7 @@ public class TrashcanServiceImpl implements TrashcanService {
 	    trashcan.setGarbageType(garbageTypeRepository.findOne(trashcan.getGarbageType().getId()));
 	    trashcan.setTrashcanType(trashcanTypeRepository.findOne(trashcan.getTrashcanType().getId()));
 	    trashcan.setLocation(locationRepository.findOne(trashcan.getLocation().getCode()));
+	    trashcan.setTrustworthy(true);
 	    return trashcanRepository.save(trashcan);
 	}
 

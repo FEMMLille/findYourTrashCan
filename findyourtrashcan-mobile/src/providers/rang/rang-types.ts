@@ -7,11 +7,11 @@ import { Api } from '../api/api';
 
 
 @Injectable()
-export class RankService {
+export class RangTypeService {
 
     constructor(public api: Api) { }
 
-    getRankForUser(userId: number): Observable<any> {
-        return this.api.get('rank/' + userId);
+    getRankDetails(rankId: number): Observable<any> {
+        return this.api.get('rank-type/' + rankId);
     }
 }
