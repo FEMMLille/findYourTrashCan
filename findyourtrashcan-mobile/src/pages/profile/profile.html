@@ -31,12 +31,12 @@
             <ion-label floating color="disabled">Email</ion-label>
             <ion-input disabled type="email" [(ngModel)]="user.email" name="email"></ion-input>
         </ion-item>
-        <div *ngIf="rankType != undefined">
+        <div *ngIf="rank.rangType != undefined">
             <div class="rank-title" padding>
-                <h3 class="color-primary">{{ 'RANK' | translate }} : {{ rankType.label }}</h3>
+                <h3 class="color-primary">{{ 'RANK' | translate }} : {{ rank.rangType.label }}</h3>
             </div>
 
-            <progress-bar [progress]="rank.totalPoint" [total]="rankType.necessaryPoint"></progress-bar>
+            <progress-bar [progress]="rank.totalPoint" [total]=" rank.rangType.necessaryPoint"></progress-bar>
         </div>
         <button ion-button block (click)="save() ">{{ 'SAVE' | translate }}</button>
         <button ion-button clear block (click)="cancel() " class="login ">{{ 'CANCEL_BUTTON' | translate }}</button>

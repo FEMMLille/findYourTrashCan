@@ -26,7 +26,6 @@ export class ProfilePage {
     account: AccountDetails = new AccountDetails();
     rank: Rang
     displayedBirthdate: string;
-    rankType: RangType;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public items: Items, public acc: AccountDetailsService,
@@ -34,6 +33,7 @@ export class ProfilePage {
         public auth: AuthenticationService, public translateService: TranslateService,
         public toast: ToastController, public datePipe: DatePipe) {
         this.baseUser = this.user = auth._user;
+        this.rank = this.auth._rank;
         this.initProfile();
     }
 
@@ -41,33 +41,6 @@ export class ProfilePage {
         if (this.auth._user != null) {
             this.acc.getAccountDetailsFromUserId(this.auth._user.id).subscribe((res) => {
                 this.account = res;
-                //console.log(res);
-                this.initRank(this.auth._user.id);
-            }, (err) => {
-
-            })
-        } else {
-            this.initRank(this.auth._user.id);
-        }
-    }
-
-    initRank(userId: number) {
-        if (this.rank == null) {
-            this.rService.getRankForUser(userId).subscribe((res) => {
-                this.rank = res;
-                this.initRankType(this.rank.rangType.id);
-            }, (err) => {
-
-            })
-        } else {
-            this.initRankType(this.rank.rangType.id);
-        }
-    }
-
-    initRankType(rankId: number) {
-        if (this.rankType == null) {
-            this.rtService.getRankDetails(this.rank.rangType.id).subscribe((res) => {
-                this.rankType = res;
             }, (err) => {
 
             })

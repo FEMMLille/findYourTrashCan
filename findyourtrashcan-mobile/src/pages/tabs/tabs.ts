@@ -128,19 +128,10 @@ export class TabsPage {
   }
 
   addPointsToRank(score: number) {
-    if (this.userRank == undefined) {
-      this.rangService.getRankForUser(this.auth._user.id).subscribe((res) => {
-        this.userRank = res;
-        this.addPointsToRank(score);
-      });
-    } else {
-      let oldRankTypeId = this.userRank.rangType.id;
-      this.rangService.incrementScore(this.userRank.id, score).subscribe((res) => {
-        if (res.rangType.id > oldRankTypeId) {
-          this.manageError("Félicitations !  Vous venez de passer au rang supérieur, allez voir les avantages qui vous sont accessibles sur la page des récompenses !");
-          this.userRank = res;
-        }
-      });
+    let oldRankTypeId = this.auth._rank.rangType.id;
+    let newRankTypeId = this.auth.addPointsToRank(score);
+    if (newRankTypeId > oldRankTypeId) {
+      this.manageError("Félicitations !  Vous venez de passer au rang supérieur, allez voir les avantages qui vous sont accessibles sur la page des récompenses !");
     }
   }
 

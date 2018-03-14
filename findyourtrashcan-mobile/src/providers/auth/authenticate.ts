@@ -1,3 +1,5 @@
+import { Rang } from './../../shared/model/rank';
+import { RangService } from './../rang/rang';
 import { HttpClient } from '@angular/common/http';
 import { User } from './../../shared/model/user';
 import { Credentials } from './../../shared/model/credentials';
@@ -14,8 +16,9 @@ import { UserService } from '../user/user';
 @Injectable()
 export class AuthenticationService {
     _user: User;
+    _rank: Rang;
 
-    constructor(public api: Api, public http: HttpClient, public userService: UserService) { }
+    constructor(public api: Api, public http: HttpClient, public userService: UserService, public rankService: RangService) { }
 
     /**
     * Send a POST request to our signup endpoint with the data
@@ -29,6 +32,7 @@ export class AuthenticationService {
             .map((response: HttpResponse<any>) => {
                 this.api.token = response.headers.get('authorization');
                 this.getUser(credentials.username);
+                this.getRank();
                 return true;
             }, err => {
                 return false;
@@ -41,6 +45,39 @@ export class AuthenticationService {
             this._user = res;
         });
     }
+
+    getRank() {
+        this.rankService.getRankForUser(this._user.id).subscribe((res) => {
+            this._rank = res;
+        });
+    }
+
+    addPointsToRank(score: number) {
+        this.rankService.incrementScore(this._rank.id, score).subscribe((res) => {
+            this._rank = res;
+        });
+        return this._rank.totalPoint + score >= this._rank.rangType.necessaryPoint ? this._rank.rangType.id + 1 : this._rank.rangType.id;
+    }
+
+    /**
+     * getRank() {
+        if (this.rank == undefined) {
+            this.getRankForUser(this.auth._user.id).subscribe((res) => {
+                this.rank = res;
+                return this.rank;
+            });
+        } else {
+            return this.rank;
+        }
+    }
+
+    addPointsToRank(score: number) {
+        this.incrementScore(this.getRank().id, score).subscribe((res) => {
+            this.rank = res;
+            return this.rank.id;
+        });
+    }
+     */
 
     /**
     * Log the user out, which forgets the session

@@ -166,12 +166,10 @@ export class AddTrashcanPopupComponent {
       this.geolocation.getCurrentPosition().then((position) => {
         this.addedTrashcan.lat = position.coords.latitude;
         this.addedTrashcan.lon = position.coords.longitude;
-        this.rankService.getRankForUser(this.auth._user.id).subscribe((rank) => {
-          this.trashcanService.addTrashcan(this.addedTrashcan, rank.rangType.id >= 3).subscribe((res) => {
-            this.added.emit("true");
-          }, (err) => {
-            this.error.emit(this.pleaseRetry);
-          });
+        this.trashcanService.addTrashcan(this.addedTrashcan, this.auth._rank.rangType.id >= 3).subscribe((res) => {
+          this.added.emit("true");
+        }, (err) => {
+          this.error.emit(this.pleaseRetry);
         });
       }, (err) => {
         this.error.emit(this.pleaseRetry);
