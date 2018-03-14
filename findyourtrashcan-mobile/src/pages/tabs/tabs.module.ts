@@ -15,8 +15,8 @@ import { DetailPopupService } from '../../providers/providers';
     TabsPage,
     GoogleMapComponent,
     AddTrashcanPopupComponent,
-    FilterTrashcanPopupComponent
-    DetailTrashcanPopupComponent
+    FilterTrashcanPopupComponent,
+    DetailTrashcanPopupComponent,
   ],
   imports: [
     IonicPageModule.forChild(TabsPage),
