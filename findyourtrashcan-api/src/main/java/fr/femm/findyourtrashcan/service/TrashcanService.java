@@ -2,7 +2,6 @@ package fr.femm.findyourtrashcan.service;
 
 import java.util.List;
 
-import fr.femm.findyourtrashcan.data.Location;
 import fr.femm.findyourtrashcan.data.Trashcan;
 
 /**
@@ -35,5 +34,11 @@ public interface TrashcanService {
 	 * @param swLon the south west bound's longtitude
 	 */
 	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon);
+
+	/**
+	 * Mthod to find trashcan with his type and garbage type
+	 * @return List of trashcan who match these 2 filters
+	 */
+	public List<Trashcan> filterTrashcan(Trashcan trashcan);
 	
 }

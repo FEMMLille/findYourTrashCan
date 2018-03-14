@@ -32,4 +32,8 @@ export class TrashcanService {
     addTrashcan(trashcan: Trashcan) {
         return this.api.post('trashcan/', trashcan);
     }
+
+    filterTrashcan(trashcan: Trashcan) {
+        return this.api.post('trashcan/filter', trashcan);
+    }
 }

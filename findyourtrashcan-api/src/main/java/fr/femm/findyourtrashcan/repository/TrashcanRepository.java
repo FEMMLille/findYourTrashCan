@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import fr.femm.findyourtrashcan.data.GarbageType;
 import fr.femm.findyourtrashcan.data.Trashcan;
+import fr.femm.findyourtrashcan.data.TrashcanType;
 
 /**
  * Interface for DB operation on Trashcan data
@@ -24,4 +26,6 @@ public interface TrashcanRepository extends JpaRepository<Trashcan, Integer> {
 	    @Param("neLon") float neLon, 
 	    @Param("swLat") float swLat, 
 	    @Param("swLon") float swLon);
+    
+    public List<Trashcan> findByTrashcanTypeAndGarbageType(TrashcanType trashcanType, GarbageType garbageType);
 }

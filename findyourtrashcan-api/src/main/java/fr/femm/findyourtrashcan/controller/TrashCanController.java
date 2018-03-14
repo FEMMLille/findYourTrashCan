@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +37,13 @@ public class TrashCanController {
     public Trashcan addTrashcan(@RequestBody Trashcan trashcan) {
 	logger.info("WebService addTrashcan [ + " + trashcan + " ]");
 	return service.createTrashCan(trashcan);
+	
+    }
+    
+    @RequestMapping(value="/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Trashcan> filterTrashcan(@RequestBody Trashcan trashcan ) {
+	logger.info("WebService findTrashcan [trashcanType " + trashcan + " ]");
+	return service.filterTrashcan(trashcan);
 	
     }
 }

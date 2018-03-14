@@ -4,6 +4,7 @@
   </div>
   <google-map [newTrashcans]="newTrashcans || addedTrashcan" (error)="manageError($event)" (load)="handleLoading($event)" (updated)="newTrashcans=false"></google-map>
   <add-trashcan-popup [show]="openAddedTrashcanPopup" (error)="manageError($event)" (added)="trashcanAdded($event)"></add-trashcan-popup>
+  <filter-trashcan-popup [showFilter]="openFilterTrashcanPopup" (error)="manageError($event)"></filter-trashcan-popup>  
 </ion-content>
 
 <ion-footer>
@@ -11,7 +12,7 @@
     <button ion-button clear type=" button" (click)="gotoProfile()">
       <ion-icon class="menu-icon" name="person"></ion-icon>
     </button>
-    <button ion-button clear [class.toggled-button]="filterIsRunning" type="button" (click)="toggleFilter()">
+    <button ion-button clear [class.toggled-button]="filterIsRunning" type="button" (click)="toggleFilterPopup()">
       <ion-icon class=" menu-icon " name="search"></ion-icon>
     </button>
     <button ion-button clear type="button">

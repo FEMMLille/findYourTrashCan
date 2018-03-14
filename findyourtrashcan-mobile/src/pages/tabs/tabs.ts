@@ -1,4 +1,5 @@
 import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
+import { FilterTrashcanPopupComponent } from './../../components/filter-trashcan-popup/filter-trashcan-popup';
 import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
 import { Location } from './../../shared/model/location';
 import { GarbageType } from './../../shared/model/garbage-type';
@@ -33,6 +34,7 @@ export class TabsPage {
   disconnected: boolean = false;
   dismissMessage: boolean = false;
   openAddedTrashcanPopup: boolean = false;
+  openFilterTrashcanPopup: boolean = false;
 
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
@@ -90,6 +92,13 @@ export class TabsPage {
    */
   toggleFilter() {
     this.filterIsRunning = !this.filterIsRunning;
+  }
+
+  /**
+   * A function that open filter popup
+   */
+  toggleFilterPopup() {
+    this.openFilterTrashcanPopup = !this.openFilterTrashcanPopup;
   }
 
   /**
