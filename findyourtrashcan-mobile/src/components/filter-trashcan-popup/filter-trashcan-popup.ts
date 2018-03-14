@@ -22,7 +22,8 @@ import { Geolocation } from '@ionic-native/geolocation';
   templateUrl: 'filter-trashcan-popup.html',
 })
 export class FilterTrashcanPopupComponent {
-  showFilterTrashcanPopup: boolean = true;
+  fakeGreen: boolean = false;
+  showFilterTrashcanPopup: boolean = false;
   filteredTrashcan: Trashcan = new Trashcan();
   trashcanTypes: Array<TrashcanType> = [];
   garbageTypes: Array<GarbageType> = [];
@@ -104,7 +105,14 @@ export class FilterTrashcanPopupComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['showFilter']) {
-      this.showFilterTrashcanPopup = !this.showFilterTrashcanPopup;
+
+      this.showFilterTrashcanPopup = this.showFilter;
+
+      if(!this.showFilterTrashcanPopup && this.fakeGreen) {
+        this.showFilterGreen.emit(false);
+        this.fakeGreen = false;
+      }
+
     }
   }
 
@@ -170,7 +178,12 @@ export class FilterTrashcanPopupComponent {
   filterTrashcan() {
     if (!this.disconnected) {
         this.trashcanService.filterTrashcan(this.filteredTrashcan).subscribe((res) => {
-          this.added.emit("true");
+          this.filtered.emit(res); 
+          this.showFilterTrashcanPopup = false;
+          this.fakeGreen = true;
+          this.showFilterGreen.emit(true);
+
+
         }, (err) => {
           this.error.emit(this.pleaseRetry);
         });
@@ -189,5 +202,10 @@ export class FilterTrashcanPopupComponent {
 
   @Output()
   added = new EventEmitter();
+
+  @Output()
+  filtered = new EventEmitter();
+
+  @Output() showFilterGreen = new EventEmitter();
 
 }

@@ -35,6 +35,9 @@ export class TabsPage {
   directionTrashcan: Trashcan = new Trashcan();
   showingTrashcan: Trashcan = undefined;
   reloadTrashcans: boolean = false;
+  reloadTrashcansFiltered: Array<Trashcan> = [];
+
+
   userRank: Rang;
 
 
@@ -132,6 +135,14 @@ export class TabsPage {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
     this.addPointsToRank(2000);
+  }
+
+  /**
+   * A function called when we close the "fiter a trashcan" popup
+   * @param filtered The trashcans filtered
+   */
+  trashcanFiltered(filtered: Array<Trashcan>) {
+    this.reloadTrashcansFiltered = filtered;
   }
 
   orderReloadTrashcans() {
