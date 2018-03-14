@@ -18,7 +18,7 @@ public interface TrashcanService {
 	 * @param trashcan The trashcan
 	 * @return The created trashcan
 	 */
-	public Trashcan createTrashCan(Trashcan trashcan) ;
+	public Trashcan createTrashCan(Trashcan trashcan, boolean force) ;
 	
 	/**
 	 * Method to get a trashcan

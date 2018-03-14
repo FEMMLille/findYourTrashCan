@@ -1,3 +1,4 @@
+import { RangService } from './../../providers/rang/rang';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Location } from './../../shared/model/location';
 import { Component, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
@@ -5,7 +6,7 @@ import { Trashcan } from '../../shared/model/trashcan';
 import { TrashcanType } from '../../shared/model/trashcan-type';
 import { GarbageType } from '../../shared/model/garbage-type';
 import { TrashcanTypeService } from '../../providers/trashcan/trashcan-type';
-import { GarbageTypeService } from '../../providers/providers';
+import { GarbageTypeService, AuthenticationService } from '../../providers/providers';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { Network } from '@ionic-native/network';
@@ -38,7 +39,8 @@ export class AddTrashcanPopupComponent {
 
   constructor(public trashcanTypeService: TrashcanTypeService, public garbageTypeService: GarbageTypeService,
     public translateService: TranslateService, public actionSheetCtrl: ActionSheetController, public network: Network,
-    public trashcanService: TrashcanService, public geolocation: Geolocation) {
+    public trashcanService: TrashcanService, public geolocation: Geolocation, public rankService: RangService,
+    public auth: AuthenticationService) {
 
     /**
      * Getting the trashcan type values from webservices
@@ -164,10 +166,12 @@ export class AddTrashcanPopupComponent {
       this.geolocation.getCurrentPosition().then((position) => {
         this.addedTrashcan.lat = position.coords.latitude;
         this.addedTrashcan.lon = position.coords.longitude;
-        this.trashcanService.addTrashcan(this.addedTrashcan).subscribe((res) => {
-          this.added.emit("true");
-        }, (err) => {
-          this.error.emit(this.pleaseRetry);
+        this.rankService.getRankForUser(this.auth._user.id).subscribe((rank) => {
+          this.trashcanService.addTrashcan(this.addedTrashcan, rank.rangType.id >= 3).subscribe((res) => {
+            this.added.emit("true");
+          }, (err) => {
+            this.error.emit(this.pleaseRetry);
+          });
         });
       }, (err) => {
         this.error.emit(this.pleaseRetry);

@@ -44,9 +44,9 @@ public class TrashCanController {
 	}
 
 	@PostMapping
-	public Trashcan addTrashcan(@RequestBody final Trashcan trashcan) {
+	public Trashcan addTrashcan(@RequestBody final Trashcan trashcan, @RequestParam("force") boolean force) {
 		logger.info("WebService addTrashcan [ + " + trashcan + " ]");
-		return service.createTrashCan(trashcan);
+		return service.createTrashCan(trashcan, force);
 	}
 	
 	@PutMapping

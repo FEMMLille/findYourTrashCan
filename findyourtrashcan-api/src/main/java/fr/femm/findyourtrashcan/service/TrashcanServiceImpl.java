@@ -37,11 +37,11 @@ public class TrashcanServiceImpl implements TrashcanService {
 	
 	@Override
 	@Transactional
-	public Trashcan createTrashCan(Trashcan trashcan) {
+	public Trashcan createTrashCan(Trashcan trashcan, boolean force) {
 	    trashcan.setGarbageType(garbageTypeRepository.findOne(trashcan.getGarbageType().getId()));
 	    trashcan.setTrashcanType(trashcanTypeRepository.findOne(trashcan.getTrashcanType().getId()));
 	    trashcan.setLocation(locationRepository.findOne(trashcan.getLocation().getCode()));
-	    trashcan.setTrustworthy(true);
+	    trashcan.setTrustworthy(force);
 	    return trashcanRepository.save(trashcan);
 	}
 

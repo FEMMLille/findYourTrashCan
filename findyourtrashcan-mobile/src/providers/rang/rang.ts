@@ -12,7 +12,7 @@ export class RangService {
 
     constructor(public api: Api) { }
 
-    getRankForUser(userId: number): Observable<any> {
+    getRankForUser(userId: number): Observable<Rang> {
         return this.api.get('rank/user/' + userId);
     }
 

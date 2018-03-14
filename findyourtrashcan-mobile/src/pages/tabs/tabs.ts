@@ -138,6 +138,7 @@ export class TabsPage {
       this.rangService.incrementScore(this.userRank.id, score).subscribe((res) => {
         if (res.rangType.id > oldRankTypeId) {
           this.manageError("Félicitations !  Vous venez de passer au rang supérieur, allez voir les avantages qui vous sont accessibles sur la page des récompenses !");
+          this.userRank = res;
         }
       });
     }

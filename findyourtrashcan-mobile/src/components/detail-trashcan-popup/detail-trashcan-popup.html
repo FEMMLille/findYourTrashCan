@@ -12,7 +12,7 @@
         <br> lat: {{trashcan.location.lat}}, lon: {{trashcan.location.lon}}
     </h6>
     <ion-list>
-        <ion-item *ngIf="trashcan.trustworthy==false" class="button-detail warning" (click)="signalAsTrustworthy(true)">
+        <ion-item *ngIf="this.trashcan.trustworthy == false && signalable" class="button-detail warning" (click)="signalAsTrustworthy(true)">
             <button ion-button color="primary" clear>
                 <ion-icon name="alert"></ion-icon>La poubelle existe bien</button>
         </ion-item>
@@ -29,7 +29,7 @@
             <button ion-button color="agentfeature" clear>
                 <ion-icon name="alert"></ion-icon>La poubelle a été vidée</button>
         </ion-item>
-        <ion-item class="button-detail" (click)="signalAsTrustworthy(false)">
+        <ion-item *ngIf="signalable" class="button-detail" (click)="signalAsTrustworthy(false)">
             <button ion-button color="danger" clear>
                 <ion-icon name="alert"></ion-icon>Signaler une poubelle inexistante</button>
         </ion-item>

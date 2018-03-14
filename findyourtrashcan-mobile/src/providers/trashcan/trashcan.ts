@@ -26,8 +26,8 @@ export class TrashcanService {
             + '&sw_lon=' + bounds.southWest.lon);
     }
 
-    addTrashcan(trashcan: Trashcan) {
-        return this.api.post('trashcan/', trashcan);
+    addTrashcan(trashcan: Trashcan, force: boolean = false) {
+        return this.api.post('trashcan/?force=' + force, trashcan);
     }
 
     updateTrashcan(trashcan: Trashcan) {

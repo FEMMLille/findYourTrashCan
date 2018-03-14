@@ -1,9 +1,11 @@
+import { RangService } from './../../providers/rang/rang';
 import { AuthenticationService } from './../../providers/auth/authenticate';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Component, ChangeDetectorRef, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
 import { Trashcan } from '../../shared/model/trashcan';
+import { Rang } from '../../shared/model/rank';
 
 /**
  * Generated class for the AddTrashcanPopupComponent component.
@@ -29,15 +31,17 @@ export class DetailTrashcanPopupComponent {
   public showDetailsPopup: boolean = false;
   public showingTrashcan: Trashcan = undefined;
   public userIsTownStaff: boolean = false;
+  public signalable: boolean = false;
 
   constructor(public trashcanService: TrashcanService, public translateService: TranslateService,
     public detailPopupService: DetailPopupService, public changesDetectorRef: ChangeDetectorRef,
-    public auth: AuthenticationService) {
+    public auth: AuthenticationService, public rankService: RangService) {
     this.detailPopupService.showViewObservable().subscribe((bool: boolean) => {
       this.trashcan = (this.detailPopupService.currentTrashcan) ? this.detailPopupService.currentTrashcan : null;
       this.openPopup = bool;
       this.changesDetectorRef.detectChanges();
       this.userIsTownStaff = this.auth.isTownStaff() ? true : false
+      this.checkSignalable();
     });
   }
 
@@ -62,6 +66,12 @@ export class DetailTrashcanPopupComponent {
       this.reloadTrashcans.emit();
       this.dismissPopup;
       console.log("reloadTrashcans emitted");
+    });
+  }
+
+  checkSignalable() {
+    this.rankService.getRankForUser(this.auth._user.id).subscribe((res) => {
+      this.signalable = (res.rangType.id >= 1 || this.userIsTownStaff)
     });
   }
 
