@@ -8,17 +8,10 @@ import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Point } from './../../shared/model/point';
 import { Trashcan } from './../../shared/model/trashcan';
 import { ProfilePage } from './../pages';
-import { Geolocation } from '@ionic-native/geolocation';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
-import { TrashcanType } from '../../shared/model/trashcan-type';
-import { GarbageTypeService } from '../../providers/providers';
-import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
-import { GoogleMapComponent } from './../../components/google-map/google-map';
-
-declare var google;
 
 @IonicPage()
 @Component({
@@ -26,9 +19,6 @@ declare var google;
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
-
-
   filterIsRunning: boolean = false;
   loading;
   disconnected: boolean = false;
@@ -36,8 +26,11 @@ export class TabsPage {
   openAddedTrashcanPopup: boolean = false;
   openFilterTrashcanPopup: boolean = false;
 
+  showDetailTrashcanPopup: boolean = false;
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
+  directionTrashcan: Trashcan = new Trashcan();
+  showingTrashcan: Trashcan = undefined;
 
 
 
@@ -46,9 +39,7 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public network: Network) {
-
-
+    public network: Network, public changesDetectorRef: ChangeDetectorRef) {
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });
@@ -135,7 +126,6 @@ export class TabsPage {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
   }
-
   /**
    * A function handling error messages
    * @param msg the message we want to send
@@ -149,4 +139,17 @@ export class TabsPage {
     });
     toast.present();
   }
+
+  updateDirection(trashcan: Trashcan) {
+    if (trashcan != null)
+      this.directionTrashcan = trashcan;
+    this.showingTrashcan = undefined;
+    this.changesDetectorRef.detectChanges();
+  }
+
+  displayPopup(trashcan: Trashcan) {
+    this.showingTrashcan = trashcan;
+    this.changesDetectorRef.detectChanges();
+  }
+
 }

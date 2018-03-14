@@ -1,12 +1,12 @@
-import { TrashcanService } from './../../providers/trashcan/trashcan';
+import { TrashcanService } from './../../providers/trashcan/trashcan'
 import { Network } from '@ionic-native/network';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, ViewChild, Input, Output, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, Input, Output, ElementRef, EventEmitter, SimpleChanges, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Point } from '../../shared/model/point';
 import { Trashcan } from '../../shared/model/trashcan';
 import { MapBounds } from '../../shared/model/map-bounds';
-
+import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
 
 /**
  * Generated class for the GoogleMapComponent component.
@@ -21,17 +21,47 @@ declare var google;
   selector: 'google-map',
   templateUrl: 'google-map.html'
 })
-export class GoogleMapComponent {
+export class GoogleMapComponent implements OnInit {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  directionsService: any;
+  directionsDisplay: any;
   trashcans: Array<Trashcan> = [];
   maxBounds: MapBounds;
   private noNetwork: string;
   private pleaseRetry: string;
+  private directionsRequestFailed: string;
   private internalErrorFindingTrashcans: string;
   mapLoaded = false;
   disconnected: boolean = false;
+
+
+  constructor(public geolocation: Geolocation,
+    public translateService: TranslateService,
+    public network: Network,
+    public trashcanService: TrashcanService,
+    public popupService: DetailPopupService) {
+
+    /**
+     * Getting translations from service
+     */
+    this.translateService.get('NO_NETWORK').subscribe((value) => {
+      this.noNetwork = value;
+    });
+
+    this.translateService.get('PLEASE_RETRY').subscribe((value) => {
+      this.pleaseRetry = value;
+    });
+
+    this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
+      this.internalErrorFindingTrashcans = value;
+    });
+
+    this.translateService.get('DIRECTIONS_REQUEST_FAILED').subscribe((value) => {
+      this.directionsRequestFailed = value;
+    });
+  }
 
   ngOnInit() {
     /**
@@ -53,24 +83,6 @@ export class GoogleMapComponent {
     this.loadMap();
   }
 
-  constructor(public geolocation: Geolocation, public translateService: TranslateService, public network: Network, public trashcanService: TrashcanService) {
-
-    /**
-     * Getting translations from service
-     */
-    this.translateService.get('NO_NETWORK').subscribe((value) => {
-      this.noNetwork = value;
-    });
-
-    this.translateService.get('PLEASE_RETRY').subscribe((value) => {
-      this.pleaseRetry = value;
-    });
-
-    this.translateService.get('INTERNAL_ERROR_FIND_TRASHCANS').subscribe((value) => {
-      this.internalErrorFindingTrashcans = value;
-    });
-  }
-
   /**
    * Load google map
    */
@@ -86,8 +98,12 @@ export class GoogleMapComponent {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
       this.trashcans = [];
+      //We intialize the service and display of te directionss
+      this.directionsService = new google.maps.DirectionsService;
+      this.directionsDisplay = new google.maps.DirectionsRenderer;
       //We initialize the map
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.directionsDisplay.setMap(this.map);
       //We set the max bounds
       this.maxBounds = new MapBounds(new Point(myPosition.lat + 5, myPosition.lon + 3), new Point(myPosition.lat - 5, myPosition.lon - 3));
       //We set a listener whenever the map idles (after a zoom or a swipe) to load trashcans in the new bounds
@@ -120,6 +136,7 @@ export class GoogleMapComponent {
    * @param mapBounds the bounds of the map
    */
   loadTrashcans(mapBounds: MapBounds) {
+    this.popupService.subscribeShow(false, null);
     var i = 1; // A variable used to smoothe the trashcans animations
     if (!this.disconnected) {
       //We call the webservice
@@ -177,7 +194,6 @@ export class GoogleMapComponent {
   renderTrashcan(trashcan: Trashcan) {
     //Adding the object to our array
     this.trashcans.push(trashcan);
-    console.log(this.getMarkerIcon(trashcan));
     //Creating the marker
     let marker = new google.maps.Marker({
       map: this.map,
@@ -185,8 +201,13 @@ export class GoogleMapComponent {
       icon: this.getMarkerIcon(trashcan),
       position: { lat: trashcan.lat, lng: trashcan.lon }
     })
+    /**
+     * add listener of marker for show popup detail
+     */
+    marker.addListener('click', () => {
+      this.openTrashcanDetails.emit(trashcan);
+    });
   }
-
   /**
    * A function used to get the marker that simbolises a single trashcan
    * @param t the trashcan for which we attend to get the icon
@@ -197,8 +218,39 @@ export class GoogleMapComponent {
     return 'assets/img/icons/processed/' + empty + path + '.png';
   }
 
+  /**
+   * A function used to show the route to go to a trashcan
+   * @param trashcan The trashcan where which we want to go to
+   */
+  showRouteTo(trashcan: Trashcan) {
+    if (!this.disconnected) {
+      // We get the location of the user
+      this.geolocation.getCurrentPosition().then((position) => {
+        let routeOrigin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        let routeDestination = new google.maps.LatLng(trashcan.lat, trashcan.lon);
+
+        this.directionsService.route({
+          origin: routeOrigin,
+          destination: routeDestination,
+          travelMode: 'WALKING'
+        }, (response, status) => {
+          if (status === 'OK') {
+            this.directionsDisplay.setDirections(response);
+          } else {
+            this.error.emit(this.directionsRequestFailed + status);
+          }
+        });
+      });
+    } else {
+      this.error.emit(this.noNetwork + ". " + this.pleaseRetry);
+    }
+  }
+
   @Input()
   newTrashcans: boolean;
+
+  @Input()
+  routeTrashcan: Trashcan;
 
   ngOnChanges(changes: SimpleChanges) {
     // only run when newTrashcans changed, if we have new trashcans we should reload the trashcans
@@ -206,6 +258,8 @@ export class GoogleMapComponent {
       if (this.mapLoaded)
         this.loadTrashcans(this.getMapBounds());
       this.updated.emit(true);
+    } else if (changes['routeTrashcan']) {
+      this.showRouteTo(changes['routeTrashcan'].currentValue);
     }
   }
 
@@ -217,6 +271,9 @@ export class GoogleMapComponent {
 
   @Output()
   updated = new EventEmitter();
+
+  @Output()
+  openTrashcanDetails = new EventEmitter();
 
 
 

@@ -62,5 +62,10 @@
   "PLEASE_RETRY": "Please try again",
   "RUNNING_IN_OFFLINE_MODE": "Running in offline mode",
   "ADD_TRASHCAN": "Add a trashcan",
-  "CHOOSE_GARBAGE_TYPE": "Choose a garbage type"
+  "CHOOSE_GARBAGE_TYPE": "Choose a garbage type",
+  "DETAIL_TRASHCAN": "Trashcan details",
+  "PASSWORD_DOES_NOT_MATCH": "Passwords don't match",
+  "EMAIL_SHOULD_FOLLOW_PATTERN": "Emails should follow the pattern 'john@doe.com'",
+  "REQUIRED_FIELD": "This field is required"
+  "DIRECTIONS_REQUEST_FAILED": "Directions request failed due to :",
 }

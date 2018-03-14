@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /**
@@ -13,20 +13,6 @@ export class Api {
   }
 
   get(endpoint: string, params?: any, reqOpts?: any) {
-    /*
-    if (!reqOpts) {
-      reqOpts = {
-        params: new HttpParams()
-      };
-    }
-
-    if (params) {
-      reqOpts.params = new HttpParams();
-      for (let k in params) {
-        reqOpts.params.set(k, params[k]);
-      }
-    }*/
-
     var headers = new HttpHeaders({ 'Authorization': this.token });
     return this.http.get(this.url + '/' + endpoint, { headers: headers });
   }
@@ -44,7 +30,7 @@ export class Api {
     var headers = new HttpHeaders({ 'Authorization': this.token });
     return this.http.put(this.url + '/' + endpoint, body, { headers: headers });
   }
-
+  
   delete(endpoint: string, reqOpts?: any) {
     var headers = new HttpHeaders({ 'Authorization': this.token });
     return this.http.delete(this.url + '/' + endpoint, { headers: headers });
@@ -53,5 +39,9 @@ export class Api {
   patch(endpoint: string, body: any, reqOpts?: any) {
     var headers = new HttpHeaders({ 'Authorization': this.token });
     return this.http.put(this.url + '/' + endpoint, body, { headers: headers });
+  }
+
+  getGeolocationStreet(lat:number, lon:number){
+   return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon+'&key=AIzaSyB9k1slfRsMptrUKzKL4JmLhcCHNE5W2Iw');
   }
 }

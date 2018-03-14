@@ -29,3 +29,4 @@ public interface TrashcanRepository extends JpaRepository<Trashcan, Integer> {
     
     public List<Trashcan> findByTrashcanTypeAndGarbageType(TrashcanType trashcanType, GarbageType garbageType);
 }
+

@@ -1,7 +1,4 @@
 import { AuthenticationService } from './../../providers/providers';
-import { User } from './../../shared/model/user';
-
-import { WelcomePage } from '../pages';
 import { AccountDetailsService } from './../../providers/providers';
 import { Credentials } from './../../shared/model/credentials';
 import { POSTAccountDetails } from './../../shared/model/account-details';
@@ -55,7 +52,6 @@ export class SignupPage {
         this.showToastError(this.signupErrorString);
       });
     } else {
-      console.log(this.account.user);
       this.showToastError(this.unmatchingPasswordsErrorString);
     }
   }

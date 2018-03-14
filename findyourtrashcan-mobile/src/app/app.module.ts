@@ -1,11 +1,9 @@
 import { Network } from '@ionic-native/network';
 import { GarbageTypeService } from './../providers/trashcan/garbage-type';
 import { TrashcanTypeService } from './../providers/trashcan/trashcan-type';
-import { TrashcanType } from './../shared/model/trashcan-type';
 import { TrashcanService } from './../providers/trashcan/trashcan';
 import { RankTypeService } from './../providers/rank/rank-types';
 import { RankService } from './../providers/rank/rank';
-import { ProgressBarComponent } from './../components/progress-bar/progress-bar';
 import { AuthenticationService } from './../providers/providers';
 import { AccountDetailsService } from './../providers/providers';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -20,12 +18,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LoadingController } from 'ionic-angular';
+import { DetailPopupService } from './../providers/detailpopup/detailpopup';
 
 import { Items } from '../mocks/providers/items';
 import { Settings } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 import { UserService } from '../providers/user/user';
+import { TabsPageModule } from '../pages/tabs/tabs.module';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -55,6 +55,7 @@ export function provideSettings(storage: Storage) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    TabsPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -78,6 +79,7 @@ export function provideSettings(storage: Storage) {
     AuthenticationService,
     RankService,
     Geolocation,
+    DetailPopupService,
     LoadingController,
     RankTypeService,
     StatusBar,

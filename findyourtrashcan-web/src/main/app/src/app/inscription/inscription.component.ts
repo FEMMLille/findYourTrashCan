@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { InscriptionContext } from '../core/providers/inscription/inscription.service';
 import { Logger } from '../core/providers/logger/logger.service';
 import { Router } from '@angular/router';
@@ -24,21 +29,21 @@ const log = new Logger('InscriptionComponent');
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
-  styleUrls: ['./inscription.component.scss']
+  styleUrls: ['./inscription.component.scss'],
 })
-
 export class InscriptionComponent implements OnInit {
-
   createForm: FormGroup;
   hide = true;
   hideRepeat = true;
   // form: FormUser;
   message: string = null;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private accountDetailsService: AccountDetailsService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     // this.form = new FormUser();
@@ -76,55 +81,46 @@ export class InscriptionComponent implements OnInit {
     // });
 
     this.createForm = this.fb.group({
-      'user': this.fb.group({
-        'id': '',
-        'username': new FormControl('', [
-          Validators.required,
-        ]),
-        'password': new FormControl('', [
-          Validators.required
-        ]),
-        'email': new FormControl('', [
-          Validators.required,
-        ]),
+      user: this.fb.group({
+        id: '',
+        username: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required]),
       }),
-      'id': '',
-      'firstName': new FormControl('', []
-      ),
-      'lastName': new FormControl('', [
-      ]),
-      'birthday': new FormControl(new Date(), [
-      ]),
-      'repeatPassword': new FormControl('', [
-      ]),
-      'gender': new FormControl(false, [
-      ]),
-
+      id: '',
+      firstName: new FormControl('', []),
+      lastName: new FormControl('', []),
+      birthday: new FormControl(new Date(), []),
+      repeatPassword: new FormControl('', []),
+      gender: new FormControl(false, []),
     });
-
   }
 
   sendValues(accountDetails: AccountDetails) {
     const role = new Role();
     role.id = 1; // We set bu default USER
     accountDetails.user.role = role;
-    accountDetails.avatar = "https://d34jodf30bmh8b.cloudfront.net/pictures/5660/5803/profile-1474295824-12115e61e43348f9f5c4c2c2f67b0496.jpg";
-    this.accountDetailsService.create(accountDetails)
+    accountDetails.avatar =
+      'https://d34jodf30bmh8b.cloudfront.net/pictures/5660/5803/profile-1474295824-12115e61e43348f9f5c4c2c2f67b0496.jpg';
+    this.accountDetailsService
+      .create(accountDetails)
       .finally(() => {
         this.createForm.markAsPristine();
       })
-      .subscribe(credentials => {// si ça retourne pas d'erreur c'est que c'est bon
-        log.debug(` user successfully created`);
-        this.message = 'Your account is created ! you can log in now !';
-        this.snackBar.open('Compte créé', '',
-          {
-            duration: 2000
-          }
-        );
-      }, error => {
-        log.debug(`creation error: ${error}`);
-        this.message = error;
-      });
+      .subscribe(
+        credentials => {
+          // si ça retourne pas d'erreur c'est que c'est bon
+          log.debug(` user successfully created`);
+          this.message = 'Your account is created ! you can log in now !';
+          this.snackBar.open('Compte créé', '', {
+            duration: 2000,
+          });
+        },
+        error => {
+          log.debug(`creation error: ${error}`);
+          this.message = error;
+        }
+      );
   }
 
   get username() {
@@ -132,8 +128,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageLogin() {
-    return this.username.hasError('required') ? 'You must enter a value' :
-      this.username.hasError('username') ? 'Not a valid username' : '';
+    return this.username.hasError('required')
+      ? 'You must enter a value'
+      : this.username.hasError('username') ? 'Not a valid username' : '';
   }
 
   get password() {
@@ -141,8 +138,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessagePassword() {
-    return this.password.hasError('required') ? 'You must enter a value' :
-      this.password.hasError('password') ? 'Not a valid password' : '';
+    return this.password.hasError('required')
+      ? 'You must enter a value'
+      : this.password.hasError('password') ? 'Not a valid password' : '';
   }
 
   get repeatPassword() {
@@ -150,8 +148,11 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageRepeatPassword() {
-    return this.repeatPassword.hasError('required') ? 'You must enter a value' :
-      this.repeatPassword.hasError('repeatPassword') ? 'Not a valid repeat password' : '';
+    return this.repeatPassword.hasError('required')
+      ? 'You must enter a value'
+      : this.repeatPassword.hasError('repeatPassword')
+        ? 'Not a valid repeat password'
+        : '';
   }
 
   get email() {
@@ -159,8 +160,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageMail() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.email.hasError('required')
+      ? 'You must enter a value'
+      : this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   get firstName() {
@@ -168,8 +170,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageFirstName() {
-    return this.firstName.hasError('required') ? 'You must enter a value' :
-      this.firstName.hasError('firstName') ? 'Not a valid first name' : '';
+    return this.firstName.hasError('required')
+      ? 'You must enter a value'
+      : this.firstName.hasError('firstName') ? 'Not a valid first name' : '';
   }
 
   get lastName() {
@@ -177,8 +180,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageLastName() {
-    return this.lastName.hasError('required') ? 'You must enter a value' :
-      this.lastName.hasError('lastName') ? 'Not a valid last name' : '';
+    return this.lastName.hasError('required')
+      ? 'You must enter a value'
+      : this.lastName.hasError('lastName') ? 'Not a valid last name' : '';
   }
 
   get birthday() {
@@ -186,8 +190,9 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageBirthday() {
-    return this.birthday.hasError('required') ? 'You must enter a value' :
-      this.birthday.hasError('birthday') ? 'Not a valid birthday' : '';
+    return this.birthday.hasError('required')
+      ? 'You must enter a value'
+      : this.birthday.hasError('birthday') ? 'Not a valid birthday' : '';
   }
 
   get gender() {
@@ -195,10 +200,8 @@ export class InscriptionComponent implements OnInit {
   }
 
   getErrorMessageGender() {
-    return this.gender.hasError('required') ? 'You must enter a value' :
-      this.gender.hasError('gender') ? 'Not a valid gender' : '';
+    return this.gender.hasError('required')
+      ? 'You must enter a value'
+      : this.gender.hasError('gender') ? 'Not a valid gender' : '';
   }
-
-
-
 }

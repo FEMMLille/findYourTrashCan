@@ -32,7 +32,7 @@ public class FYTCUser {
 		
 	}
 	
-	public FYTCUser(String username, String password, String email,Role role) {
+	public FYTCUser(final String username, final String password, final String email,final Role role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -44,7 +44,7 @@ public class FYTCUser {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -52,7 +52,7 @@ public class FYTCUser {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -60,7 +60,7 @@ public class FYTCUser {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -68,7 +68,7 @@ public class FYTCUser {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -76,7 +76,7 @@ public class FYTCUser {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(final Role role) {
 		this.role = role;
 	}
 
