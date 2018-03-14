@@ -49,6 +49,15 @@ export class DetailTrashcanPopupComponent {
 
   updateTrashcanEmptyState(trashcanFillingState: boolean) {
     this.trashcan.empty = trashcanFillingState;
+    this.saveTrashcan();
+  }
+
+  signalAsTrustworthy(trashcanIsTrustworthy: boolean) {
+    this.trashcan.trustworthy = trashcanIsTrustworthy;
+    this.saveTrashcan();
+  }
+
+  saveTrashcan() {
     this.trashcanService.updateTrashcan(this.trashcan).subscribe((res) => {
       this.reloadTrashcans.emit();
       this.dismissPopup;

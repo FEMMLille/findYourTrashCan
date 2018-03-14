@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/*").permitAll()
 	    		//.antMatchers(API_TRASHCAN).permitAll()
 			.antMatchers(API_ACCOUNT_DETAILS_URL).permitAll()
-				.antMatchers("/api/*").authenticated()
+				//.antMatchers("/api/*").authenticated()
 	    	.and()
 	        .addFilterBefore(new JWTLoginFilter(API_LOGIN_URL, authenticationManager()),
 	                UsernamePasswordAuthenticationFilter.class) // We filter the /api/login requests

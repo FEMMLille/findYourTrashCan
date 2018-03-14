@@ -27,6 +27,8 @@ public class Trashcan {
 
 	private boolean isEmpty;
 	
+	private boolean isTrustworthy;
+	
 	private float lat;
 	
 	private float lon;
@@ -41,13 +43,14 @@ public class Trashcan {
 	}
 
 
-	public Trashcan(Integer id, TrashcanType trashcanType, GarbageType garbageType, boolean isEmpty,
+	public Trashcan(Integer id, TrashcanType trashcanType, GarbageType garbageType, boolean isEmpty, boolean isTrustworthy, 
 			float lat, float lon, String picture, Location location) {
 		super();
 		this.id = id;
 		this.trashcanType = trashcanType;
 		this.garbageType = garbageType;
 		this.isEmpty = isEmpty;
+		this.isTrustworthy = isTrustworthy;
 		this.lat = lat;
 		this.lon = lon;
 		this.picture = picture;
@@ -84,6 +87,14 @@ public class Trashcan {
 
 	public void setEmpty(boolean isEmpty) {
 		this.isEmpty = isEmpty;
+	}
+	
+	public boolean isTrustworthy() {
+	    return isTrustworthy;
+	}
+	
+	public void setTrustworthy(boolean isTrustworthy) {
+	    this.isTrustworthy = isTrustworthy;
 	}
 
 	public float getLat() {
@@ -124,6 +135,7 @@ public class Trashcan {
 	    	+ "\n" + getTrashcanType()
 	    	+ "\n" + getGarbageType()
 	    	+ "\nisEmpty : " + isEmpty()
+	    	+ "\nisTrustWorthy : " + isTrustworthy()
 	    	+ "\nlat : " + getLat()
 	    	+ "\nlon : " + getLon()
 	    	+ "\npicture :" + getPicture()

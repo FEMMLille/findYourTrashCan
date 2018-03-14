@@ -6,6 +6,7 @@ export class Trashcan {
         public trashcanType?: TrashcanType,
         public garbageType?: GarbageType,
         public empty?: boolean,
+        public trustworthy?: boolean,
         public lat?: number,
         public lon?: number,
         public picture?: string,
