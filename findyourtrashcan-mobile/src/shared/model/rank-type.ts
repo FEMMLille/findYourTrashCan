@@ -1,6 +1,6 @@
-export class RankType {
+export class RangType {
     constructor(public id?: number,
         public label?: string,
-        public necessaryPoints?: number) {
+        public necessaryPoint?: number) {
     }
 }

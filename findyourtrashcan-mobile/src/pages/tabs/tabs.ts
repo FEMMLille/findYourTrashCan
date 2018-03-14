@@ -7,8 +7,11 @@ import { MapBounds } from './../../shared/model/map-bounds';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Point } from './../../shared/model/point';
 import { Trashcan } from './../../shared/model/trashcan';
+import { AuthenticationService } from './../../providers/auth/authenticate';
+import { RangService } from './../../providers/rang/rang';
+import { Rang } from './../../shared/model/rank';
 import { ProfilePage } from './../pages';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
@@ -31,6 +34,8 @@ export class TabsPage {
   addedTrashcan: boolean = false;
   directionTrashcan: Trashcan = new Trashcan();
   showingTrashcan: Trashcan = undefined;
+  reloadTrashcans: boolean = false;
+  userRank: Rang;
 
 
 
@@ -39,7 +44,8 @@ export class TabsPage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public network: Network, public changesDetectorRef: ChangeDetectorRef) {
+    public network: Network, public changesDetectorRef: ChangeDetectorRef,
+    public ngZone: NgZone, public rangService: RangService, public auth: AuthenticationService) {
     this.translateService.get('PLEASE_WAIT').subscribe((value) => {
       this.pleaseWait = value;
     });
@@ -125,7 +131,36 @@ export class TabsPage {
   trashcanAdded(added: boolean) {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
+    this.addPointsToRank(2000);
   }
+
+  orderReloadTrashcans() {
+    console.log("order reload trashcans");
+    this.reloadTrashcans = true;
+    this.showingTrashcan = undefined;
+    this.changesDetectorRef.detectChanges();
+    this.ngZone.runOutsideAngular(() => {
+      this.reloadTrashcans = false;
+    });
+    this.addPointsToRank(1000);
+  }
+
+  addPointsToRank(score: number) {
+    if (this.userRank == undefined) {
+      this.rangService.getRankForUser(this.auth._user.id).subscribe((res) => {
+        this.userRank = res;
+        this.addPointsToRank(score);
+      });
+    } else {
+      let oldRankTypeId = this.userRank.rangType.id;
+      this.rangService.incrementScore(this.userRank.id, score).subscribe((res) => {
+        if (res.rangType.id > oldRankTypeId) {
+          this.manageError("Félicitations !  Vous venez de passer au rang supérieur, allez voir les avantages qui vous sont accessibles sur la page des récompenses !");
+        }
+      });
+    }
+  }
+
   /**
    * A function handling error messages
    * @param msg the message we want to send
@@ -145,6 +180,7 @@ export class TabsPage {
       this.directionTrashcan = trashcan;
     this.showingTrashcan = undefined;
     this.changesDetectorRef.detectChanges();
+    this.addPointsToRank(1500);
   }
 
   displayPopup(trashcan: Trashcan) {

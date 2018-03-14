@@ -21,6 +21,9 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 
 	@Autowired
 	private FYTCUserService userService;
+	
+	@Autowired
+	private RangService rangService;
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -34,6 +37,7 @@ public class AccountDetailsServiceImpl implements AccountDetailsService {
 	public AccountDetails create(final AccountDetails accountDetails) {
 		userService.encodePassword(accountDetails.getUser());
 		accountDetails.getUser().setRole(roleRepository.findOne(accountDetails.getUser().getRole().getId()));
+		rangService.createRank(accountDetails.getUser());
 		return accountDetailsRepository.saveAndFlush(accountDetails);
 	}
 	

@@ -1,12 +1,15 @@
+import { RangType } from './../../shared/model/rank-type';
+import { Rang } from './../../shared/model/rank';
 import { WelcomePage } from './../pages';
-import { RankTypeService } from './../../providers/rank/rank-types';
-import { RankService } from './../../providers/rank/rank';
+import { RangTypeService } from './../../providers/rang/rang-types';
+import { RangService } from './../../providers/rang/rang';
 import { AccountDetailsService } from './../../providers/user/account-details';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from './../../shared/model/user';
 import { AuthenticationService } from './../../providers/auth/authenticate';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { DatePipe } from '@angular/common';
 
 import { Items } from '../../providers/providers';
 import { AccountDetails } from '../../shared/model/account-details';
@@ -21,11 +24,15 @@ export class ProfilePage {
     baseUser: User;
     user: User;
     account: AccountDetails = new AccountDetails();
+    rank: Rang
+    displayedBirthdate: string;
+    rankType: RangType;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public items: Items, public acc: AccountDetailsService,
-        public rService: RankService, public rtService: RankTypeService,
-        public auth: AuthenticationService, public translateService: TranslateService, public toast: ToastController) {
+        public rService: RangService, public rtService: RangTypeService,
+        public auth: AuthenticationService, public translateService: TranslateService,
+        public toast: ToastController, public datePipe: DatePipe) {
         this.baseUser = this.user = auth._user;
         this.initProfile();
     }
@@ -34,39 +41,39 @@ export class ProfilePage {
         if (this.auth._user != null) {
             this.acc.getAccountDetailsFromUserId(this.auth._user.id).subscribe((res) => {
                 this.account = res;
-                console.log(res);
-                //this.initRank(this.auth._user.id);
+                //console.log(res);
+                this.initRank(this.auth._user.id);
             }, (err) => {
 
             })
         } else {
-            //this.initRank(this.auth._user.id);
+            this.initRank(this.auth._user.id);
         }
     }
-    /*
-        initRank(userId: number) {
-            if (this.auth.account.rank == null) {
-                this.rService.getRankForUser(userId).subscribe((res) => {
-                    this.auth._user.account.rank = res;
-                    this.initRankType(this.auth._user.account.rank.rankId);
-                }, (err) => {
-    
-                })
-            } else {
-                this.initRankType(this.auth._user.account.rank.rankId);
-            }
+
+    initRank(userId: number) {
+        if (this.rank == null) {
+            this.rService.getRankForUser(userId).subscribe((res) => {
+                this.rank = res;
+                this.initRankType(this.rank.rangType.id);
+            }, (err) => {
+
+            })
+        } else {
+            this.initRankType(this.rank.rangType.id);
         }
-    
-        initRankType(rankId: number) {
-            if (this.auth._user.account.rankType == null) {
-                this.rService.getRankForUser(rankId).subscribe((res) => {
-                    this.auth._user.account.rankType = res;
-                }, (err) => {
-    
-                })
-            }
+    }
+
+    initRankType(rankId: number) {
+        if (this.rankType == null) {
+            this.rtService.getRankDetails(this.rank.rangType.id).subscribe((res) => {
+                this.rankType = res;
+            }, (err) => {
+
+            })
         }
-    */
+    }
+
     cancel() {
         this.navCtrl.pop();
     }

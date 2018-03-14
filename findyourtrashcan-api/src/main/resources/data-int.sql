@@ -17,3 +17,8 @@ INSERT INTO garbage_type (id,label) VALUES (5,'Aluminium') ON CONFLICT (id) DO N
 --LOCATION
 INSERT INTO location (code,label,lat,lon) VALUES (59000,'lille',50.62925,3.057256) ON CONFLICT (code) DO NOTHING
 INSERT INTO location (code,label,lat,lon) VALUES (59600,'villeneuve d ascq',50.6232523,3.1442651) ON CONFLICT (code) DO NOTHING
+
+INSERT INTO rang_type (id,label,necessary_point) VALUES (0,'Novice',10000) ON CONFLICT (id) DO NOTHING
+INSERT INTO rang_type (id,label,necessary_point) VALUES (1,'Intermediaire',30000) ON CONFLICT (id) DO NOTHING
+INSERT INTO rang_type (id,label,necessary_point) VALUES (2,'Confirme',80000) ON CONFLICT (id) DO NOTHING
+INSERT INTO rang_type (id,label,necessary_point) VALUES (3,'Ambassadeur',100000) ON CONFLICT (id) DO NOTHING

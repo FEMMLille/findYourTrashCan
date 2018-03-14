@@ -41,4 +41,6 @@ public interface TrashcanService {
 	 */
 	public List<Trashcan> filterTrashcan(Trashcan trashcan);
 	
+	public Trashcan updateTrashcan(Trashcan trashcan);
+	
 }

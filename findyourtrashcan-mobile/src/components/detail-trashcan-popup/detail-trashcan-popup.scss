@@ -20,4 +20,19 @@ detail-trashcan-popup {
             }
         }
     }
+    .warning {
+        background-color:map-get($colors, warninglight);
+    }
+
+    .w-label {
+        color: map-get($colors, danger);
+    }
+
+    h6 ion-icon {
+        margin-right:20px;
+    }
+
+    .secondary-info {
+        color: map-get($colors, disabled);
+    }
 }

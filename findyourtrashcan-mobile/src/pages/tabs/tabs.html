@@ -4,8 +4,8 @@
   </div>
 
 
-  <google-map [newTrashcans]="newTrashcans || addedTrashcan" [routeTrashcan]="directionTrashcan" (error)="manageError($event)"
-    (load)="handleLoading($event)" (updated)="newTrashcans=false" (openTrashcanDetails)="displayPopup($event)"></google-map>
+  <google-map [newTrashcans]="newTrashcans || addedTrashcan" [routeTrashcan]="directionTrashcan" [redrawMarkers]="reloadTrashcans"
+    (error)="manageError($event)" (load)="handleLoading($event)" (updated)="newTrashcans=false" (openTrashcanDetails)="displayPopup($event)"></google-map>
 
   <add-trashcan-popup [show]="openAddedTrashcanPopup" (error)="manageError($event)" (added)="trashcanAdded($event)"></add-trashcan-popup>
   <filter-trashcan-popup [showFilter]="openFilterTrashcanPopup" (error)="manageError($event)"></filter-trashcan-popup>  

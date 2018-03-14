@@ -40,6 +40,7 @@ public class TrashcanServiceImpl implements TrashcanService {
 	    trashcan.setGarbageType(garbageTypeRepository.findOne(trashcan.getGarbageType().getId()));
 	    trashcan.setTrashcanType(trashcanTypeRepository.findOne(trashcan.getTrashcanType().getId()));
 	    trashcan.setLocation(locationRepository.findOne(trashcan.getLocation().getCode()));
+	    trashcan.setTrustworthy(true);
 	    return trashcanRepository.save(trashcan);
 	}
 
@@ -51,6 +52,11 @@ public class TrashcanServiceImpl implements TrashcanService {
 	@Override
 	public List<Trashcan> getTrashcansInBounds(float neLat, float neLon, float swLat, float swLon) {
 	    return this.trashcanRepository.findInBounds(neLat, neLon, swLat, swLon);
+	}
+	
+	@Override
+	public Trashcan updateTrashcan(Trashcan trashcan) {
+	    return trashcanRepository.save(trashcan);
 	}
 
 	@Override

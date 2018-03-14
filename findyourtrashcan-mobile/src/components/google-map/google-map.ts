@@ -25,6 +25,7 @@ export class GoogleMapComponent implements OnInit {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  markers = [];
   directionsService: any;
   directionsDisplay: any;
   trashcans: Array<Trashcan> = [];
@@ -207,6 +208,8 @@ export class GoogleMapComponent implements OnInit {
     marker.addListener('click', () => {
       this.openTrashcanDetails.emit(trashcan);
     });
+
+    this.markers.push(marker);
   }
   /**
    * A function used to get the marker that simbolises a single trashcan
@@ -246,11 +249,20 @@ export class GoogleMapComponent implements OnInit {
     }
   }
 
+  deleteMarkers() {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(null);
+    }
+  }
+
   @Input()
   newTrashcans: boolean;
 
   @Input()
   routeTrashcan: Trashcan;
+
+  @Input()
+  redrawMarkers: boolean;
 
   ngOnChanges(changes: SimpleChanges) {
     // only run when newTrashcans changed, if we have new trashcans we should reload the trashcans
@@ -260,6 +272,11 @@ export class GoogleMapComponent implements OnInit {
       this.updated.emit(true);
     } else if (changes['routeTrashcan']) {
       this.showRouteTo(changes['routeTrashcan'].currentValue);
+    } else if (changes['redrawMarkers']) {
+      console.log("redrawMarkers");
+      this.trashcans = [];
+      this.deleteMarkers();
+      this.loadTrashcans(this.getMapBounds());
     }
   }
 

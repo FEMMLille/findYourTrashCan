@@ -11,4 +11,6 @@ import fr.femm.findyourtrashcan.data.RangType;
 
 public interface RangTypeRepository extends JpaRepository<RangType, Integer> {
 
+    RangType findById(Integer id);
+
 }

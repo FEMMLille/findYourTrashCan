@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../providers/auth/authenticate';
+import { TrashcanService } from './../../providers/trashcan/trashcan';
 import { Component, ChangeDetectorRef, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DetailPopupService } from '../../providers/detailpopup/detailpopup';
@@ -26,12 +28,16 @@ export class DetailTrashcanPopupComponent {
 
   public showDetailsPopup: boolean = false;
   public showingTrashcan: Trashcan = undefined;
+  public userIsTownStaff: boolean = false;
 
-  constructor(public translateService: TranslateService, public detailPopupService: DetailPopupService, public changesDetectorRef: ChangeDetectorRef) {
+  constructor(public trashcanService: TrashcanService, public translateService: TranslateService,
+    public detailPopupService: DetailPopupService, public changesDetectorRef: ChangeDetectorRef,
+    public auth: AuthenticationService) {
     this.detailPopupService.showViewObservable().subscribe((bool: boolean) => {
       this.trashcan = (this.detailPopupService.currentTrashcan) ? this.detailPopupService.currentTrashcan : null;
       this.openPopup = bool;
       this.changesDetectorRef.detectChanges();
+      this.userIsTownStaff = this.auth.isTownStaff() ? true : false
     });
   }
 
@@ -39,6 +45,24 @@ export class DetailTrashcanPopupComponent {
     this.trashcan = undefined;
     this.changesDetectorRef.detectChanges();
     this.showRouteToTrashcan.emit(null);
+  }
+
+  updateTrashcanEmptyState(trashcanFillingState: boolean) {
+    this.trashcan.empty = trashcanFillingState;
+    this.saveTrashcan();
+  }
+
+  signalAsTrustworthy(trashcanIsTrustworthy: boolean) {
+    this.trashcan.trustworthy = trashcanIsTrustworthy;
+    this.saveTrashcan();
+  }
+
+  saveTrashcan() {
+    this.trashcanService.updateTrashcan(this.trashcan).subscribe((res) => {
+      this.reloadTrashcans.emit();
+      this.dismissPopup;
+      console.log("reloadTrashcans emitted");
+    });
   }
 
   @Input()
@@ -55,6 +79,9 @@ export class DetailTrashcanPopupComponent {
 
   @Output()
   showRouteToTrashcan = new EventEmitter();
+
+  @Output()
+  reloadTrashcans = new EventEmitter();
 
   goTo() {
     this.showRouteToTrashcan.emit(this.trashcan);

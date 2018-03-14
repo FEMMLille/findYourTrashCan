@@ -1,23 +1,35 @@
 <div id="detail-trashcan-popup" [class.hide]="!trashcan == undefined" *ngIf="trashcan != null">
     <h2>{{ 'DETAIL_TRASHCAN' | translate }}</h2>
-    <h5>
+    <h6>
         <ion-icon name="trash"></ion-icon> {{trashcan.trashcanType.label}} {{trashcan.garbageType.label}}
-    </h5>
-    <h5>
-        <ion-icon name="locate"></ion-icon> position: {{trashcan.location.label}}
+    </h6>
+
+    <h6 *ngIf="trashcan.trustworthy==false" class="w-label">
+        <ion-icon name="alert"></ion-icon>La poubelle a été signalée comme inexistante
+    </h6>
+    <h6 class="secondary-info">
+        Position: {{trashcan.location.label}}
         <br> lat: {{trashcan.location.lat}}, lon: {{trashcan.location.lon}}
-    </h5>
+    </h6>
     <ion-list>
+        <ion-item *ngIf="trashcan.trustworthy==false" class="button-detail warning" (click)="signalAsTrustworthy(true)">
+            <button ion-button color="primary" clear>
+                <ion-icon name="alert"></ion-icon>La poubelle existe bien</button>
+        </ion-item>
         <ion-item class="button-detail">
             <button ion-button clear (click)="goTo()">
                 <ion-icon name="navigate"></ion-icon>Aller à la poubelle
             </button>
         </ion-item>
-        <ion-item class="button-detail">
+        <ion-item class="button-detail" (click)="updateTrashcanEmptyState(false)">
             <button ion-button color="warning" clear>
                 <ion-icon name="alert"></ion-icon>Signaler la poubelle pleine</button>
         </ion-item>
-        <ion-item class="button-detail">
+        <ion-item *ngIf="userIsTownStaff" class="button-detail" (click)="updateTrashcanEmptyState(true)">
+            <button ion-button color="agentfeature" clear>
+                <ion-icon name="alert"></ion-icon>La poubelle a été vidée</button>
+        </ion-item>
+        <ion-item class="button-detail" (click)="signalAsTrustworthy(false)">
             <button ion-button color="danger" clear>
                 <ion-icon name="alert"></ion-icon>Signaler une poubelle inexistante</button>
         </ion-item>
