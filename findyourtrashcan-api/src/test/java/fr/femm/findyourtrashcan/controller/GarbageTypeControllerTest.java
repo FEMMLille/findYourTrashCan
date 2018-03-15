@@ -19,12 +19,11 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.femm.findyourtrashcan.AbstractMvcTest;
 import fr.femm.findyourtrashcan.data.GarbageType;
 import io.jsonwebtoken.lang.Assert;
 
-@RunWith(SpringRunner.class)
-@WebAppConfiguration
-public class GarbageTypeControllerTest {
+public class GarbageTypeControllerTest extends AbstractMvcTest {
 
 	public static final String URL_GARBAGE_TYPE = "/api/garbageType";
 
@@ -57,5 +56,11 @@ public class GarbageTypeControllerTest {
 		Assert.notNull(result);
 
 
+	}
+
+	@Override
+	protected void doInit() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }
