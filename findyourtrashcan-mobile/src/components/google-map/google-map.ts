@@ -253,6 +253,10 @@ export class GoogleMapComponent implements OnInit {
     for (var i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(null);
     }
+    //Keep these console.logs or the markers will be drawn too much time
+    console.log(this.markers);
+    this.markers = [];
+    console.log(this.markers);
   }
 
   @Input()

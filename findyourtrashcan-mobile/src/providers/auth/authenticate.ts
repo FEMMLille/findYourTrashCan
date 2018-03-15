@@ -31,9 +31,13 @@ export class AuthenticationService {
             { observe: 'response' })
             .map((response: HttpResponse<any>) => {
                 this.api.token = response.headers.get('authorization');
-                this.getUser(credentials.username);
-                this.getRank();
-                return true;
+                this.userService.getByUsername(credentials.username).subscribe((res) => {
+                    this._user = res;
+                    this.rankService.getRankForUser(this._user.id).subscribe((res) => {
+                        this._rank = res;
+                        return true;
+                    });
+                });
             }, err => {
                 return false;
             });

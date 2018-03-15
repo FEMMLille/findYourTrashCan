@@ -29,7 +29,7 @@ public class RangServiceImpl implements RangService {
 
     @Override
     public Rang getByUser(Integer id) {
-	return rangRepository.findById(id);
+	return rangRepository.findByUserId(id);
     }
     
 }
