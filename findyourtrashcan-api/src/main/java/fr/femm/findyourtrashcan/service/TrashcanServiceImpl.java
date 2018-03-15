@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.femm.findyourtrashcan.data.Trashcan;
-import fr.femm.findyourtrashcan.repository.FYTCUserRepository;
 import fr.femm.findyourtrashcan.repository.GarbageTypeRepository;
 import fr.femm.findyourtrashcan.repository.LocationRepository;
 import fr.femm.findyourtrashcan.repository.TrashcanRepository;
@@ -58,6 +57,11 @@ public class TrashcanServiceImpl implements TrashcanService {
 	@Override
 	public Trashcan updateTrashcan(Trashcan trashcan) {
 	    return trashcanRepository.save(trashcan);
+	}
+
+	@Override
+	public List<Trashcan> filterTrashcan(Trashcan trashcan) {
+		return this.trashcanRepository.findByTrashcanTypeAndGarbageType(trashcan.getTrashcanType(),trashcan.getGarbageType());
 	}
 
 }

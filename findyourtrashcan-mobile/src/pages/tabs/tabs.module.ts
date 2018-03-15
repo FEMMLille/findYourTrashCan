@@ -1,4 +1,6 @@
 import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
+import { FilterTrashcanPopupComponent } from './../../components/filter-trashcan-popup/filter-trashcan-popup';
+
 import { DetailTrashcanPopupComponent } from './../../components/detail-trashcan-popup/detail-trashcan-popup';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,9 +16,10 @@ import { SetFavoriteSearchPopupComponent } from '../../components/set-favorite-s
     TabsPage,
     GoogleMapComponent,
     AddTrashcanPopupComponent,
-    SetFavoriteSearchPopupComponent
-    DetailTrashcanPopupComponent
-  ],
+    SetFavoriteSearchPopupComponent,
+    DetailTrashcanPopupComponent,
+    FilterTrashcanPopupComponent,
+    ],
   imports: [
     IonicPageModule.forChild(TabsPage),
     TranslateModule.forChild(),
