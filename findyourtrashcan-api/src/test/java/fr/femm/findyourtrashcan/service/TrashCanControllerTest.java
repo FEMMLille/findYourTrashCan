@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +19,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import fr.femm.findyourtrashcan.AbstractMvcTest;
 import fr.femm.findyourtrashcan.controller.TrashCanController;
+import fr.femm.findyourtrashcan.data.AccountDetails;
+import fr.femm.findyourtrashcan.data.FYTCUser;
 import fr.femm.findyourtrashcan.data.Role;
 import fr.femm.findyourtrashcan.data.Trashcan;
 import fr.femm.findyourtrashcan.security.TokenAuthenticationService;
@@ -32,8 +36,20 @@ public class TrashCanControllerTest extends AbstractMvcTest {
 
 	@Test
 	public void getTrashcansInBounds() throws Exception {
-		final String token = extractTokenFromHeader(login("maws2", "songoku").andReturn());
 		
+		//Recreate USER
+		final Role role = new Role();
+		role.setId(1);
+		role.setRoleName("USER");
+		role.setEnabled(true);
+		// Role role = roleRepository.findByRoleName("admin");
+		final AccountDetails details = new AccountDetails();
+		details.setBirthday(new Date(1991, 2, 10));
+		details.setUser(new FYTCUser("maws2", "songoku", "mn@gmail.com", role));
+		createUser(details).andExpect(status().isOk());
+		
+		final String token = extractTokenFromHeader(login("maws2", "songoku").andReturn());
+				
 		final Trashcan t1 = new Trashcan();
 		t1.setEmpty(true);
 		t1.setLat(0.1f);
