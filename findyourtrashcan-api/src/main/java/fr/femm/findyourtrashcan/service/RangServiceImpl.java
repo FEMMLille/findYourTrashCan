@@ -7,6 +7,7 @@ import fr.femm.findyourtrashcan.data.FYTCUser;
 import fr.femm.findyourtrashcan.data.Rang;
 import fr.femm.findyourtrashcan.data.RangType;
 import fr.femm.findyourtrashcan.repository.RangRepository;
+import fr.femm.findyourtrashcan.repository.RangTypeRepository;
 
 @Service
 public class RangServiceImpl implements RangService {
@@ -14,9 +15,14 @@ public class RangServiceImpl implements RangService {
     @Autowired
     RangRepository rangRepository;
     
+    @Autowired
+    RangTypeRepository rangTypeRepository;
+    
     @Override
     public Rang createRank(FYTCUser u) {
-	Rang userRank = new Rang(u, RangType.NEWBIE, 0);
+    	if(rangTypeRepository.findById(RangType.NEWBIE.getId()) != null)
+    		rangTypeRepository.save(RangType.NEWBIE);
+	Rang userRank = new Rang(u, rangTypeRepository.findById(RangType.NEWBIE.getId()), 0);
 	return rangRepository.save(userRank);
     }
 

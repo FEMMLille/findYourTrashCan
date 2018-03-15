@@ -1,3 +1,12 @@
+import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
+import { FilterTrashcanPopupComponent } from './../../components/filter-trashcan-popup/filter-trashcan-popup';
+import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
+import { Location } from './../../shared/model/location';
+import { GarbageType } from './../../shared/model/garbage-type';
+import { MapBounds } from './../../shared/model/map-bounds';
+import { TrashcanService } from './../../providers/trashcan/trashcan';
+import { Point } from './../../shared/model/point';
+import { Trashcan } from './../../shared/model/trashcan';
 import { AuthenticationService } from './../../providers/auth/authenticate';
 import { RangService } from './../../providers/rang/rang';
 import { Rang } from './../../shared/model/rank';
@@ -6,8 +15,8 @@ import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
-import { Trashcan } from '../../shared/model/trashcan';
 import { RewardsPage } from './../pages';
+
 @IonicPage()
 @Component({
   selector: 'page-tabs',
@@ -19,12 +28,17 @@ export class TabsPage {
   disconnected: boolean = false;
   dismissMessage: boolean = false;
   openAddedTrashcanPopup: boolean = false;
+  openFilterTrashcanPopup: boolean = false;
+
   showDetailTrashcanPopup: boolean = false;
   newTrashcans: boolean = false;
   addedTrashcan: boolean = false;
   directionTrashcan: Trashcan = new Trashcan();
   showingTrashcan: Trashcan = undefined;
   reloadTrashcans: boolean = false;
+  reloadTrashcansFiltered: Array<Trashcan> = [];
+
+
   userRank: Rang;
 
 
@@ -86,6 +100,13 @@ export class TabsPage {
   }
 
   /**
+   * A function that open filter popup
+   */
+  toggleFilterPopup() {
+    this.openFilterTrashcanPopup = !this.openFilterTrashcanPopup;
+  }
+
+  /**
    * Handling loading time
    */
   presentLoading() {
@@ -119,6 +140,14 @@ export class TabsPage {
     this.addedTrashcan = added;
     this.openAddedTrashcanPopup = false;
     this.addPointsToRank(2000);
+  }
+
+  /**
+   * A function called when we close the "fiter a trashcan" popup
+   * @param filtered The trashcans filtered
+   */
+  trashcanFiltered(filtered: Array<Trashcan>) {
+    this.reloadTrashcansFiltered = filtered;
   }
 
   orderReloadTrashcans() {
