@@ -4,6 +4,8 @@
 
 	<properties>
 		<sonar.sources>src</sonar.sources>
+		<sonar.exclusions>src/main/app/**/*,</sonar.exclusions>
+
 	</properties>
 
 	<parent>
