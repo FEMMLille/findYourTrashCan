@@ -156,13 +156,13 @@ public class TrashCanControllerTest extends AbstractMvcTest {
 		t1.setPicture("");
 		t1.setTrashcanType(trashcanTypeRepository.findOne(1));
 		t1.setGarbageType(garbageTypeRepository.findOne(1));
-		t1.setLocation(locationRepository.findOne(59000));
+		t1.setLocation(locationRepository.findOne(59000));		
 		createTrashCan(t1).andExpect(status().isOk());
 	}
 
 	private ResultActions createTrashCan(final Trashcan trashcan) throws Exception {
 		return mockMvc.perform(
-				post(WebSecurityConfig.API_TRASHCAN).contentType(MediaType.APPLICATION_JSON)
+				post(WebSecurityConfig.API_TRASHCAN).param("force", "true").contentType(MediaType.APPLICATION_JSON)
 						.content(json(trashcan)));
 	}
 
