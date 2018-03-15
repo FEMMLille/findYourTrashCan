@@ -163,6 +163,38 @@ export class GoogleMapComponent implements OnInit {
     }
   }
 
+/**
+   * A function used to load all trahcans in the visible map
+   * @param mapBounds the bounds of the map
+   */
+  loadTrashcansFiltered(mapBounds: MapBounds) {
+    this.popupService.subscribeShow(false, null);
+    var i = 1; // A variable used to smoothe the trashcans animations
+    if (!this.disconnected) {
+      //We call the webservice
+      this.trashcanService.getTrashcans(this.chooseBounds(mapBounds)).subscribe((res) => {
+        for (let trashcan of res) {
+          //We don't do anything if the trashcan is already in the array
+          if (this.checkTrashcanArraysContains(trashcan)) {
+            break;
+          } else {
+            setTimeout(() => {
+              //If we don't have it we add the trashcan
+              this.renderTrashcan(trashcan);
+            }, i * 200);
+          }
+          i++;
+        }
+      }, (err) => {
+        this.error.emit(this.internalErrorFindingTrashcans);
+        console.log(err);
+      });
+    } else {
+      this.error.emit(this.noNetwork + '.  ' + this.pleaseRetry);
+    }
+  }
+
+
   /**
   * A function used to know if we should use the map bound or the max bounds 
   * (in order to avoid to load all trashcans over the world)
@@ -264,6 +296,9 @@ export class GoogleMapComponent implements OnInit {
   @Input()
   redrawMarkers: boolean;
 
+  @Input()
+  redrawMarkersFilter: Array<Trashcan>;
+
   ngOnChanges(changes: SimpleChanges) {
     // only run when newTrashcans changed, if we have new trashcans we should reload the trashcans
     if (changes['newTrashcans']) {
@@ -277,6 +312,20 @@ export class GoogleMapComponent implements OnInit {
       this.trashcans = [];
       this.deleteMarkers();
       this.loadTrashcans(this.getMapBounds());
+    } else if (changes['redrawMarkersFilter']) {
+      console.log("redrawMarkersFilter");
+      this.trashcans = [];
+      this.deleteMarkers();
+      var i = 1; // A variable used to smoothe the trashcans animations
+
+      for (let trashcan of this.redrawMarkersFilter) {
+
+            //If we don't have it we add the trashcan
+            this.renderTrashcan(trashcan);
+
+        
+        i++;
+      }
     }
   }
 

@@ -14,6 +14,7 @@ import { DetailPopupService } from '../providers/providers';
 	exports: [ProgressBarComponent,
     GoogleMapComponent,
     AddTrashcanPopupComponent,
+    AddTrashcanPopupComponent,
     DetailTrashcanPopupComponent],
     providers:[
         DetailPopupService,
