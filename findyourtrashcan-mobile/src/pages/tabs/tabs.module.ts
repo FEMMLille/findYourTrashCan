@@ -7,12 +7,14 @@ import { IonicPageModule } from 'ionic-angular';
 import { TabsPage } from './tabs';
 import { GoogleMapComponent } from '../../components/google-map/google-map';
 import { DetailPopupService } from '../../providers/providers';
+import { SetFavoriteSearchPopupComponent } from '../../components/set-favorite-search-popup/set-favorite-search-popup';
 
 @NgModule({
   declarations: [
     TabsPage,
     GoogleMapComponent,
     AddTrashcanPopupComponent,
+    SetFavoriteSearchPopupComponent
     DetailTrashcanPopupComponent
   ],
   imports: [

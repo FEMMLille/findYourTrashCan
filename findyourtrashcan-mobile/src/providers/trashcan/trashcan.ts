@@ -30,6 +30,10 @@ export class TrashcanService {
         return this.api.post('trashcan/', trashcan);
     }
 
+    setFavoritSearch(trashcan: Trashcan) {
+      return this.api.post('trashcan/favorite', trashcan);
+    }
+
     updateTrashcan(trashcan: Trashcan) {
         return this.api.put('trashcan/', trashcan);
     }
