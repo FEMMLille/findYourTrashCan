@@ -45,10 +45,10 @@ public class TrashCanControllerTest extends AbstractMvcTest {
 		// Role role = roleRepository.findByRoleName("admin");
 		final AccountDetails details = new AccountDetails();
 		details.setBirthday(new Date(1991, 2, 10));
-		details.setUser(new FYTCUser("maws2", "songoku", "mn@gmail.com", role));
+		details.setUser(new FYTCUser("maws3", "ultragoku", "mn@gmail.com", role));
 		createUser(details).andExpect(status().isOk());
 		
-		final String token = extractTokenFromHeader(login("maws2", "songoku").andReturn());
+		final String token = extractTokenFromHeader(login("maws3", "ultragoku").andReturn());
 				
 		final Trashcan t1 = new Trashcan();
 		t1.setEmpty(true);
