@@ -1,3 +1,9 @@
+import { RewardInfoPageModule } from './../pages/reward-info/reward-info.module';
+import { RewardsPageModule } from './../pages/rewards/rewards.module';
+import { RewardLinkPage } from './../pages/reward-link/reward-link';
+import { LocationService } from './../providers/location/location';
+import { RewardsPage } from './../pages/rewards/rewards';
+import { RewardsService } from './../providers/rewards/rewards';
 import { Network } from '@ionic-native/network';
 import { GarbageTypeService } from './../providers/trashcan/garbage-type';
 import { TrashcanTypeService } from './../providers/trashcan/trashcan-type';
@@ -27,6 +33,8 @@ import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 import { UserService } from '../providers/user/user';
 import { TabsPageModule } from '../pages/tabs/tabs.module';
+import { RewardInfoPage } from '../pages/reward-info/reward-info';
+import { RewardLinkPageModule } from '../pages/reward-link/reward-link.module';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -57,6 +65,9 @@ export function provideSettings(storage: Storage) {
     BrowserModule,
     HttpClientModule,
     TabsPageModule,
+    RewardsPageModule,
+    RewardInfoPageModule,
+    RewardLinkPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -69,7 +80,7 @@ export function provideSettings(storage: Storage) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     Api,
@@ -88,8 +99,10 @@ export function provideSettings(storage: Storage) {
     TrashcanService,
     TrashcanTypeService,
     GarbageTypeService,
+    RewardsService,
     Network,
     UserService,
+    LocationService,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

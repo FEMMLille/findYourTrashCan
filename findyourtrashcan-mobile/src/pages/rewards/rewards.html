@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Vos récompenses</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <button ion-item *ngFor="let reward of rewards" (click)="rewardSelected(reward)">
+      {{ reward.label }}
+    </button>
+  </ion-list>
+  <!--
+  <ion-item-group>
+    <ion-item-divider color="light">Novice</ion-item-divider>
+    <ion-item class="reward-item">Accéder aux horaires</ion-item>
+    <ion-item-divider color="light">Confirmé</ion-item-divider>
+    <ion-item class="reward-item">Accéder aux horaires</ion-item>
+    <ion-item-divider color="light">Intermédiaire</ion-item-divider>
+    <ion-item class="reward-item no-action">Accéder aux horaires</ion-item>
+    <ion-item-divider color="light">Ambassadeur</ion-item-divider>
+    <ion-item class="reward-item">Accéder aux horaires</ion-item>
+  </ion-item-group>-->
+</ion-content>

@@ -18,7 +18,8 @@ export class AuthenticationService {
     _user: User;
     _rank: Rang;
 
-    constructor(public api: Api, public http: HttpClient, public userService: UserService, public rankService: RangService) { }
+    constructor(public api: Api, public http: HttpClient, public userService: UserService, public rankService: RangService) {
+    }
 
     /**
     * Send a POST request to our signup endpoint with the data

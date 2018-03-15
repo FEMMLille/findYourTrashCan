@@ -22,6 +22,6 @@ public interface LocationService {
 	 * @param code the id of the location
 	 * @return The location
 	 */
-	public Location getLocation(Long code);
+	public Location getLocation(Integer code);
 
 }

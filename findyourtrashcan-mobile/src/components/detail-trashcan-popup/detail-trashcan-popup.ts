@@ -70,7 +70,7 @@ export class DetailTrashcanPopupComponent {
   }
 
   checkSignalable() {
-    this.signalable = (this.auth._rank.rangType.id >= 1 || this.userIsTownStaff)
+    this.signalable = (this.auth._rank != undefined && this.auth._rank.rangType.id >= 1 || this.userIsTownStaff)
   }
 
   @Input()

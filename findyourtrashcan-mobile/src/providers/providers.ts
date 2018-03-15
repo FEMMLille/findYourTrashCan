@@ -1,3 +1,5 @@
+import { LocationService } from './location/location';
+import { RewardsService } from './rewards/rewards';
 import { TrashcanTypeService } from './trashcan/trashcan-type';
 import { GarbageTypeService } from './trashcan/garbage-type';
 import { RangTypeService } from './rang/rang-types';
@@ -23,5 +25,7 @@ export {
     TrashcanTypeService,
     TrashcanService,
     DetailPopupService,
-    GeolocationService
+    GeolocationService,
+    RewardsService,
+    LocationService
 };

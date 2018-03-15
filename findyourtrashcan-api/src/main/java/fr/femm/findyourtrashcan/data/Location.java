@@ -22,18 +22,22 @@ public class Location {
 	
 	private float lon;
 	
-	private Float longitude;
+	private String webContact;
+	
+	private String webInformations;
 
 	public Location() {
 		
 	}
 
-	public Location(Integer code, String label, float lat, float lon) {
+	public Location(Integer code, String label, float lat, float lon, String webContact, String webInformations) {
 		super();
 		this.code = code;
 		this.label = label;
 		this.lat = lat;
 		this.lon = lon;
+		this.webContact = webContact;
+		this.webInformations = webInformations;
 	}
 
 	public Integer getCode() {
@@ -68,11 +72,31 @@ public class Location {
 		this.lon = lon;
 	}	
 	
+	
+	
+	public String getWebContact() {
+	    return webContact;
+	}
+
+	public void setWebContact(String webContact) {
+	    this.webContact = webContact;
+	}
+
+	public String getWebInformations() {
+	    return webInformations;
+	}
+
+	public void setWebInformations(String webInformations) {
+	    this.webInformations = webInformations;
+	}
+
 	@Override
 	public String toString() {
 	    return "[ Location" + getCode()
 	    	+ "\nLabel : " + getLabel()
 	    	+ "\nLat : " + getLat()
-	    	+ "\nLon : " + getLon() + " ]";
+	    	+ "\nLon : " + getLon() 
+	    	+ "\nwebinformations : " + getWebInformations()
+	    	+ "\nwebContact : " + getWebContact()+ " ]";
 	}
 }

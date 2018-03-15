@@ -1,0 +1,12 @@
+page-rewards {
+    .no-action {
+        background-color: map-get($colors, disabled);
+    }
+
+    .reward-item {
+        ion-label {
+            color : map-get($colors, dark)!important;
+        }
+        
+    }
+}

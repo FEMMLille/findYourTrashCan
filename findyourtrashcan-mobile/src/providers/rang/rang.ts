@@ -12,9 +12,6 @@ import { RangType } from '../../shared/model/rank-type';
 @Injectable()
 export class RangService {
 
-    private rank: Rang;
-    // Rang = new Rang(-1, this.auth._user, new RangType(-1, "NODATA", 100000), 0)
-
     constructor(public api: Api) {
     }
 

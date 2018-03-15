@@ -16,6 +16,6 @@ import fr.femm.findyourtrashcan.data.Rewards;
 
 public interface RewardsRepository extends JpaRepository<Rewards, Integer>{
     @Query("SELECT r FROM Rewards r "
-    	+ "WHERE rang_type_id = :id")
+    	+ "WHERE rang_type_id <= :id")
     List<Rewards> findByRankTypeId(@Param("id") Integer id);
 }

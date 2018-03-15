@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { Trashcan } from '../../shared/model/trashcan';
+import { RewardsPage } from './../pages';
 @IonicPage()
 @Component({
   selector: 'page-tabs',
@@ -71,6 +72,10 @@ export class TabsPage {
    */
   gotoProfile() {
     this.navCtrl.push(ProfilePage);
+  }
+
+  gotoRewards() {
+    this.navCtrl.push(RewardsPage);
   }
 
   /**
