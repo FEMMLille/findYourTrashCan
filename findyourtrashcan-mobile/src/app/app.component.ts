@@ -1,3 +1,4 @@
+import { WelcomePage } from './../pages/pages';
 import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,7 +28,7 @@ import { Settings } from '../providers/providers';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage = WelcomePage;
 
   @ViewChild(Nav) nav: Nav;
 
