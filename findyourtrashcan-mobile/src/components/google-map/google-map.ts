@@ -163,10 +163,10 @@ export class GoogleMapComponent implements OnInit {
     }
   }
 
-/**
-   * A function used to load all trahcans in the visible map
-   * @param mapBounds the bounds of the map
-   */
+  /**
+     * A function used to load all trahcans in the visible map
+     * @param mapBounds the bounds of the map
+     */
   loadTrashcansFiltered(mapBounds: MapBounds) {
     this.popupService.subscribeShow(false, null);
     var i = 1; // A variable used to smoothe the trashcans animations
@@ -284,9 +284,8 @@ export class GoogleMapComponent implements OnInit {
   deleteMarkers() {
     for (var i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(null);
+      delete this.markers[i];
     }
-    //Keep these console.logs or the markers will be drawn too much time
-    console.log(this.markers);
     this.markers = [];
     console.log(this.markers);
   }
@@ -323,11 +322,8 @@ export class GoogleMapComponent implements OnInit {
       var i = 1; // A variable used to smoothe the trashcans animations
 
       for (let trashcan of this.redrawMarkersFilter) {
-
-            //If we don't have it we add the trashcan
-            this.renderTrashcan(trashcan);
-
-        
+        //If we don't have it we add the trashcan
+        this.renderTrashcan(trashcan);
         i++;
       }
     }

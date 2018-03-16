@@ -103,6 +103,11 @@ export class TabsPage {
    * A function that open filter popup
    */
   toggleFilterPopup() {
+    //console.log(this.openFilterTrashcanPopup);
+    if (this.openFilterTrashcanPopup) {
+      //Cancel filters
+      this.orderReloadTrashcans();
+    }
     this.openFilterTrashcanPopup = !this.openFilterTrashcanPopup;
   }
 
