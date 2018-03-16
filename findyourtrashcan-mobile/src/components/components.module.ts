@@ -7,16 +7,16 @@ import { DetailTrashcanPopupComponent } from './detail-trashcan-popup/detail-tra
 import { DetailPopupService } from '../providers/providers';
 
 @NgModule({
-	declarations: [ProgressBarComponent,
-    GoogleMapComponent,
-    AddTrashcanPopupComponent,
-	exports: [ProgressBarComponent,
-    GoogleMapComponent,
-    AddTrashcanPopupComponent,
-    DetailTrashcanPopupComponent],
-    providers:[
+    declarations: [ProgressBarComponent,
+        GoogleMapComponent,
+        AddTrashcanPopupComponent],
+    exports: [ProgressBarComponent,
+        GoogleMapComponent,
+        AddTrashcanPopupComponent,
+        DetailTrashcanPopupComponent],
+    providers: [
         DetailPopupService,
         Geolocation
     ]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

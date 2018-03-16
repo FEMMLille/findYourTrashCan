@@ -30,8 +30,8 @@ export class Api {
     var headers = new HttpHeaders({ 'Authorization': this.token });
     return this.http.put(this.url + '/' + endpoint, body, { headers: headers });
   }
-  
-  delete(endpoint: string, reqOpts?: any) {
+
+  delete(endpoint: string, ionireqOpts?: any) {
     var headers = new HttpHeaders({ 'Authorization': this.token });
     return this.http.delete(this.url + '/' + endpoint, { headers: headers });
   }
@@ -41,7 +41,7 @@ export class Api {
     return this.http.put(this.url + '/' + endpoint, body, { headers: headers });
   }
 
-  getGeolocationStreet(lat:number, lon:number){
-   return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon+'&key=AIzaSyB9k1slfRsMptrUKzKL4JmLhcCHNE5W2Iw');
+  getGeolocationStreet(lat: number, lon: number) {
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lon + '&key=AIzaSyB9k1slfRsMptrUKzKL4JmLhcCHNE5W2Iw');
   }
 }

@@ -29,6 +29,10 @@
             <button ion-button color="agentfeature" clear>
                 <ion-icon name="alert"></ion-icon>La poubelle a été vidée</button>
         </ion-item>
+        <ion-item *ngIf="userIsTownStaff && trashcan.trustworthy == false" class="button-detail" (click)="deleteTrashcan()">
+            <button ion-button color="agentfeature" clear>
+                <ion-icon name="alert"></ion-icon>Supprimer la poubelle car elle n'existe pas</button>
+        </ion-item>
         <ion-item *ngIf="signalable" class="button-detail" (click)="signalAsTrustworthy(false)">
             <button ion-button color="danger" clear>
                 <ion-icon name="alert"></ion-icon>Signaler une poubelle inexistante</button>

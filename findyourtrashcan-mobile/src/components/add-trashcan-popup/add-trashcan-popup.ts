@@ -168,6 +168,7 @@ export class AddTrashcanPopupComponent {
         this.addedTrashcan.lon = position.coords.longitude;
         this.trashcanService.addTrashcan(this.addedTrashcan, this.auth._rank.rangType.id >= 3).subscribe((res) => {
           this.added.emit("true");
+          this.dismissFilterPopup();
         }, (err) => {
           this.error.emit(this.pleaseRetry);
         });

@@ -48,4 +48,6 @@ public interface TrashcanService {
 	
 	public Trashcan updateTrashcan(Trashcan trashcan);
 	
+	public void deleteTrashcan(Integer trashcanid);
+	
 }

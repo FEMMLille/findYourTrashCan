@@ -71,6 +71,11 @@ public class TrashcanServiceImpl implements TrashcanService {
 	}
 
 	@Override
+	public void deleteTrashcan(Integer trashcanId) {
+	    trashcanRepository.delete(trashcanId);
+	}
+	
+	@Override
 	public List<Trashcan> filterTrashcan(Trashcan trashcan) {
 		return this.trashcanRepository.findByTrashcanTypeAndGarbageType(trashcan.getTrashcanType(),trashcan.getGarbageType());
 	}

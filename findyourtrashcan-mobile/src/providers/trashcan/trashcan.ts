@@ -11,7 +11,7 @@ import { AuthenticationService } from '../auth/authenticate';
 
 @Injectable()
 export class TrashcanService {
-  public hasSearched = false;
+    public hasSearched = false;
 
     constructor(public api: Api, public auth: AuthenticationService) { }
 
@@ -33,7 +33,7 @@ export class TrashcanService {
     }
 
     setFavoriteSearch(trashcan: Trashcan) {
-      return this.api.post('trashcan/favorite', trashcan);
+        return this.api.post('trashcan/favorite', trashcan);
     }
 
     filterTrashcan(trashcan: Trashcan) {
@@ -41,5 +41,9 @@ export class TrashcanService {
     }
     updateTrashcan(trashcan: Trashcan) {
         return this.api.put('trashcan/', trashcan);
+    }
+
+    deleteTrashcan(trashcanId: number) {
+        return this.api.delete('trashcan/' + trashcanId, )
     }
 }

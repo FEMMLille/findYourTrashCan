@@ -118,7 +118,6 @@ export class TabsPage {
     if (!this.disconnected) {
       if (this.auth._user.favoriteSearch) {
         this.trashcanService.filterTrashcan(this.auth._user.favoriteSearch).subscribe((res) => {
-          debugger;
           this.trashcanFiltered(res);
           this.trashcanService.hasSearched = true;
         }, (err) => {

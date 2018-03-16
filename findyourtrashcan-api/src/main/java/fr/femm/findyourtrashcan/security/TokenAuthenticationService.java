@@ -47,7 +47,6 @@ public class TokenAuthenticationService implements ApplicationContextAware {
 		    res.getWriter().append(new ObjectMapper().writeValueAsString(accD));
 		} catch (final IOException e) {
 		    // TODO Auto-generated catch block
-		    e.printStackTrace();
 		}
 	}
 

@@ -69,6 +69,13 @@ export class DetailTrashcanPopupComponent {
     });
   }
 
+  deleteTrashcan() {
+    this.trashcanService.deleteTrashcan(this.trashcan.id).subscribe((res) => {
+      this.reloadTrashcans.emit();
+      this.dismissPopup();
+    });
+  }
+
   checkSignalable() {
     this.signalable = (this.auth._rank != undefined && this.auth._rank.rangType.id >= 1 || this.userIsTownStaff)
   }
@@ -80,6 +87,7 @@ export class DetailTrashcanPopupComponent {
     // only run when property "data" changed
     if (changes['showedTrashcan']) {
       this.showDetailsPopup = (this.showingTrashcan != undefined);
+      console.log(this.showDetailsPopup);
       this.trashcan = changes['showedTrashcan'].currentValue;
     }
 
