@@ -38,6 +38,7 @@ export class AuthenticationService {
     getUser(username: string) {
         //this.token to avoid having a cyclical dependency
         this.userService.getByUsername(username).subscribe((res) => {
+          debugger;
             this._user = res;
         });
     }

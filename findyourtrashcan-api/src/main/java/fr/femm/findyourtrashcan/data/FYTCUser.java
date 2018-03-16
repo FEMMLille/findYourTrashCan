@@ -1,5 +1,6 @@
 package fr.femm.findyourtrashcan.data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,8 +26,8 @@ public class FYTCUser {
 	
 	private String email;
 
-	@OneToOne
-	private Trashcan favoriteSearch;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private TrashcanFavourite favoriteSearch;
 
 	@OneToOne
 	private Role role;
@@ -92,14 +93,14 @@ public class FYTCUser {
 	/**
 	 * @return the favoriteSearch
 	 */
-	public Trashcan getFavoriteSearch() {
+	public TrashcanFavourite getFavoriteSearch() {
 		return favoriteSearch;
 	}
 
 	/**
 	 * @param favoriteSearch the favoriteSearch to set
 	 */
-	public void setFavoriteSearch(Trashcan favoriteSearch) {
+	public void setFavoriteSearch(TrashcanFavourite favoriteSearch) {
 		this.favoriteSearch = favoriteSearch;
 	}
 

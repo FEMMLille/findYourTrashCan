@@ -184,7 +184,7 @@ export class FilterTrashcanPopupComponent {
         this.showFilterTrashcanPopup = false;
         this.fakeGreen = true;
         this.showFilterGreen.emit(true);
-
+        this.trashcanService.hasSearched = true;
 
       }, (err) => {
         this.error.emit(this.pleaseRetry);

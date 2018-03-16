@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import fr.femm.findyourtrashcan.data.FYTCUser;
 import fr.femm.findyourtrashcan.data.Trashcan;
+import fr.femm.findyourtrashcan.data.TrashcanFavourite;
 import fr.femm.findyourtrashcan.repository.FYTCUserRepository;
 import fr.femm.findyourtrashcan.repository.GarbageTypeRepository;
 import fr.femm.findyourtrashcan.repository.LocationRepository;
+import fr.femm.findyourtrashcan.repository.TrashcanFavouriteRepository;
 import fr.femm.findyourtrashcan.repository.TrashcanRepository;
 import fr.femm.findyourtrashcan.repository.TrashcanTypeRepository;
 
@@ -39,6 +42,9 @@ public class TrashcanServiceImpl implements TrashcanService {
 	@Autowired
 	private FYTCUserRepository userRepository;
 	
+	@Autowired
+	private TrashcanFavouriteRepository trashcanFavouriteRepository;
+
 	@Override
 	@Transactional
 	public Trashcan createTrashCan(Trashcan trashcan) {
@@ -71,8 +77,23 @@ public class TrashcanServiceImpl implements TrashcanService {
 
 	@Override
 	public boolean setFavoriteTrashcan(Trashcan trashcan) {
-		userRepository
-				.findByUsername(String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal())).setFavoriteSearch(trashcan);
+		FYTCUser user = userRepository
+				.findByUsername(String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+		TrashcanFavourite fav = new TrashcanFavourite();
+		fav.setEmpty(trashcan.isEmpty());
+		fav.setGarbageType(trashcan.getGarbageType());
+		fav.setLat(trashcan.getLat());
+		fav.setLocation(trashcan.getLocation());
+		fav.setLon(trashcan.getLon());
+		fav.setPicture(trashcan.getPicture());
+		fav.setTrashcanType(trashcan.getTrashcanType());
+		fav.setTrustworthy(trashcan.isTrustworthy());
+		if (user.getFavoriteSearch() != null) {
+			trashcanFavouriteRepository.delete(user.getFavoriteSearch());
+		}
+		trashcanFavouriteRepository.save(fav);
+		user.setFavoriteSearch(fav);
+		userRepository.save(user);
 		return true;
 	}
 

@@ -11,6 +11,8 @@ import { AuthenticationService } from '../auth/authenticate';
 
 @Injectable()
 export class TrashcanService {
+  public hasSearched = false;
+
     constructor(public api: Api, public auth: AuthenticationService) { }
 
     getTrashcan(id: number): Observable<any> {
@@ -30,7 +32,7 @@ export class TrashcanService {
         return this.api.post('trashcan/', trashcan);
     }
 
-    setFavoritSearch(trashcan: Trashcan) {
+    setFavoriteSearch(trashcan: Trashcan) {
       return this.api.post('trashcan/favorite', trashcan);
     }
 

@@ -98,6 +98,10 @@ export class TabsPage {
     this.filterIsRunning = !this.filterIsRunning;
   }
 
+  toggleAddTrashCan() {
+    this.openAddedTrashcanPopup = !this.openAddedTrashcanPopup;
+  }
+
   /**
    * A function that open filter popup
    */
@@ -111,6 +115,7 @@ export class TabsPage {
         this.trashcanService.filterTrashcan(this.auth._user.favoriteSearch).subscribe((res) => {
           debugger;
           this.trashcanFiltered(res);
+          this.trashcanService.hasSearched = true;
           }, (err) => {
             this.manageError("Impossible de charger la recherche favorite !");
           });
@@ -181,6 +186,11 @@ export class TabsPage {
       this.reloadTrashcans = false;
     });
     this.addPointsToRank(1000);
+  }
+
+  resetSearch() {
+    this.orderReloadTrashcans();
+    // this.trashcanService.hasSearched = false;
   }
 
   addPointsToRank(score: number) {

@@ -146,7 +146,7 @@ export class AddTrashcanPopupComponent {
   }
 
   /**
-   * 
+   *
    * @param id The id of the garbage type
    * @param label The label of the chosen garbage type (in order to change the last popup button label)
    */
@@ -176,6 +176,10 @@ export class AddTrashcanPopupComponent {
     } else {
       this.error.emit(this.noNetwork + '.  ' + this.pleaseRetry);
     }
+  }
+
+  dismissFilterPopup() {
+    this.showAddTrashcanPopup = false;
   }
 
   @Input()
