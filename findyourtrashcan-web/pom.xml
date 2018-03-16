@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<sonar.sources>src/main/app/src</sonar.sources>
+		<sonar.exclusions>src/main/app/**/*,</sonar.exclusions>
 	</properties>
 
 	<parent>
@@ -55,14 +55,14 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
+
 		<resources>
 			<resource>
 				<directory>target/frontend</directory>
 				<targetPath>static</targetPath>
 			</resource>
 		</resources>
-		
+
 	</build>
 
 

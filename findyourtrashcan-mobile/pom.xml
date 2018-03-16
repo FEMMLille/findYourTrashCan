@@ -3,8 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<sonar.sources>src</sonar.sources>
-		<sonar.exclusions>src/main/app/**/*,</sonar.exclusions>
+		<sonar.exclusions>src/**/*,</sonar.exclusions>
 
 	</properties>
 
