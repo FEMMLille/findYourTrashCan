@@ -18,13 +18,13 @@ export class Api {
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
-    var headers = new HttpHeaders({ 'Authorization': this.token });
+    var headers = new HttpHeaders({ 'Authorization': this.token,'Content-type' : 'application/json' });
     return this.http.post(this.url + '/' + endpoint, JSON.stringify(body), { headers: headers });
   }
 
   postNoToken(endpoint: string, body: any, reqOpts?: any) {
     var headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
-    return this.http.post(this.url + '/' + endpoint, JSON.stringify(body));
+    return this.http.post(this.url + '/' + endpoint, body);
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {

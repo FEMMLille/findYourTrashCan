@@ -22,7 +22,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <icon density="ldpi" src="resources/android/icon/appicon.png" />
+        <icon density="ldpi" src="src/assets/img/appicon.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
