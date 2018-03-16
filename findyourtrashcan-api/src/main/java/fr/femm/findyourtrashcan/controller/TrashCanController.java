@@ -62,6 +62,14 @@ public class TrashCanController {
 	logger.info("WebService findTrashcan [trashcanType " + trashcan + " ]");
 	return service.filterTrashcan(trashcan);
 	
-    }
+	}
+	
+	@RequestMapping(value="/favorite", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean setFavoriteTrashcan(@RequestBody Trashcan trashcan) {
+	logger.info("WebService setFavoriteTrashcan [trashcanType " + trashcan + " ]");
+		return service.setFavoriteTrashcan(trashcan);
+	}
+
+	
 
 }

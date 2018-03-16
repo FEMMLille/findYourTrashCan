@@ -1,11 +1,11 @@
-import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
-import { FilterTrashcanPopupComponent } from './../../components/filter-trashcan-popup/filter-trashcan-popup';
-import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
-import { Location } from './../../shared/model/location';
-import { GarbageType } from './../../shared/model/garbage-type';
-import { MapBounds } from './../../shared/model/map-bounds';
+// import { AddTrashcanPopupComponent } from './../../components/add-trashcan-popup/add-trashcan-popup';
+// import { FilterTrashcanPopupComponent } from './../../components/filter-trashcan-popup/filter-trashcan-popup';
+// import { TrashcanTypeService } from './../../providers/trashcan/trashcan-type';
+// import { Location } from './../../shared/model/location';
+// import { GarbageType } from './../../shared/model/garbage-type';
+// import { MapBounds } from './../../shared/model/map-bounds';
 import { TrashcanService } from './../../providers/trashcan/trashcan';
-import { Point } from './../../shared/model/point';
+// import { Point } from './../../shared/model/point';
 import { Trashcan } from './../../shared/model/trashcan';
 import { AuthenticationService } from './../../providers/auth/authenticate';
 import { RangService } from './../../providers/rang/rang';
@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { RewardsPage } from './../pages';
+
 
 @IonicPage()
 @Component({
@@ -29,6 +30,7 @@ export class TabsPage {
   dismissMessage: boolean = false;
   openAddedTrashcanPopup: boolean = false;
   openFilterTrashcanPopup: boolean = false;
+  openFavoriteTrashcanPopup: boolean = false;
 
   showDetailTrashcanPopup: boolean = false;
   newTrashcans: boolean = false;
@@ -47,6 +49,7 @@ export class TabsPage {
   private pleaseWait: string;
 
   constructor(public navCtrl: NavController, public translateService: TranslateService,
+    public trashcanService: TrashcanService,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
     public network: Network, public changesDetectorRef: ChangeDetectorRef,
     public ngZone: NgZone, public rangService: RangService, public auth: AuthenticationService) {
@@ -68,6 +71,7 @@ export class TabsPage {
       this.disconnected = false;
       this.dismissMessage = false;
     });
+
   }
 
   /**
@@ -99,6 +103,10 @@ export class TabsPage {
     this.filterIsRunning = !this.filterIsRunning;
   }
 
+  toggleAddTrashCan() {
+    this.openAddedTrashcanPopup = !this.openAddedTrashcanPopup;
+  }
+
   /**
    * A function that open filter popup
    */
@@ -109,6 +117,30 @@ export class TabsPage {
       this.orderReloadTrashcans();
     }
     this.openFilterTrashcanPopup = !this.openFilterTrashcanPopup;
+  }
+
+  filterFavoriteSearch() {
+    if (!this.disconnected) {
+      if(this.auth._user.favoriteSearch) {
+        this.trashcanService.filterTrashcan(this.auth._user.favoriteSearch).subscribe((res) => {
+          debugger;
+          this.trashcanFiltered(res);
+          this.trashcanService.hasSearched = true;
+          }, (err) => {
+            this.manageError("Impossible de charger la recherche favorite !");
+          });
+        } else {
+          let toast = this.toastCtrl.create({
+            message: "Vous n'avez pas selectionné de recherche favorite, utilisez le bouton de recherche pour le faire",
+            duration: 3000,
+            position: 'bottom',
+            dismissOnPageChange: true
+          });
+          toast.present();
+      }
+    } else {
+      this.manageError("Pas de réseau ou vous n'avez plus de session !");
+    }
   }
 
   /**
@@ -143,7 +175,7 @@ export class TabsPage {
    */
   trashcanAdded(added: boolean) {
     this.addedTrashcan = added;
-    this.openAddedTrashcanPopup = false;
+    this.openFavoriteTrashcanPopup = false;
     this.addPointsToRank(2000);
   }
 
@@ -164,6 +196,11 @@ export class TabsPage {
       this.reloadTrashcans = false;
     });
     this.addPointsToRank(1000);
+  }
+
+  resetSearch() {
+    this.orderReloadTrashcans();
+    // this.trashcanService.hasSearched = false;
   }
 
   addPointsToRank(score: number) {

@@ -10,7 +10,7 @@
     <button ion-button outline class="popup-button" type="button" (click)="showActionSheet()" [class.toggled-button]="(addedTrashcan.garbageType.id > 3)">{{ listSelectedGarbageType | slice:0:5}}{{listSelectedGarbageType.length > 5 ? '...' : ''}}</button>
   </div>
   <div class="align-right">
-    <button ion-button clear type="button"(click)="this.added.emit(false)">{{ "CANCEL" | translate }}</button>
+    <button ion-button clear type="button"(click)="dismissFilterPopup()">{{ "CANCEL" | translate }}</button>
     <button ion-button style="width:25vw" type="button" (click)="addTrashcan()">{{ "OK" | translate }}</button>
   </div>
 </div>

@@ -47,6 +47,7 @@ export class AuthenticationService {
     getUser(username: string) {
         //this.token to avoid having a cyclical dependency
         this.userService.getByUsername(username).subscribe((res) => {
+          debugger;
             this._user = res;
         });
     }
@@ -100,5 +101,9 @@ export class AuthenticationService {
 
     isTownStaff() {
         return this._user.username == "agent";
+    }
+
+    getCurrentUser() {
+      return this._user;
     }
 }
