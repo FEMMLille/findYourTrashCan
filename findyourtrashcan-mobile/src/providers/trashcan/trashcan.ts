@@ -36,7 +36,7 @@ export class TrashcanService {
         return this.api.post('trashcan/favorite', trashcan);
     }
 
-    filterTrashcan(trashcan: Trashcan) {
+    filterTrashcan(trashcan: Trashcan): Observable<any> {
         return this.api.post('trashcan/filter', trashcan);
     }
     updateTrashcan(trashcan: Trashcan) {

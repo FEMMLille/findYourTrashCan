@@ -14,7 +14,7 @@ export class UserService {
 
     getByUsername(username: string) {
         var headers = new HttpHeaders({ 'Authorization': this.api.token });
-        return this.http.get('/api/back/user/name/' + username, { headers: headers })
+        return this.http.get(this.api.url + '/user/name/' + username, { headers: headers })
             .map((res: User) => {
                 return res;
             });

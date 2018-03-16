@@ -2,6 +2,7 @@ package fr.femm.findyourtrashcan.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class FYTCUserController {
 	 *            The user send by the front request
 	 * @return The new user created
 	 */
-
+	@CrossOrigin("*")
 	@RequestMapping(method = RequestMethod.POST)
 	public FYTCUser createUser(@RequestBody final FYTCUser user) {
 		logger.info("WebService createUser " + user);
@@ -42,6 +43,7 @@ public class FYTCUserController {
 	 *            the id of the user we want to get
 	 * @return The user founded
 	 */
+	@CrossOrigin("*")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public FYTCUser getUser(@PathVariable("id") final Integer id) {
 		logger.info("WebService getUser [id : " + id + "]");
@@ -56,6 +58,7 @@ public class FYTCUserController {
 	 *            the id of the user we want to get
 	 * @return The user founded
 	 */
+	@CrossOrigin("*")
 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
 	public FYTCUser getUserByName(@PathVariable("name") final String name) {
 		logger.info("WebService getUser [name : " + name + "]");

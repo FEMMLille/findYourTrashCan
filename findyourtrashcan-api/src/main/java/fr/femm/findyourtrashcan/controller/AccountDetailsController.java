@@ -3,6 +3,7 @@ package fr.femm.findyourtrashcan.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,7 @@ public class AccountDetailsController {
 	 *            the id of the user we want to get the account details
 	 * @return The account details found
 	 */
+	@CrossOrigin("*")
 	@GetMapping(URL_GET_BY_USER_ID)
 	public AccountDetails getByUser(@PathVariable(ID) final Integer id) {
 		logger.info("WebService getAccountDetails [id : " + id + "]");
@@ -49,6 +51,7 @@ public class AccountDetailsController {
 	 *            the username of the user we want to get the account details
 	 * @return The account details found
 	 */
+	@CrossOrigin("*")
 	@GetMapping(URL_GET_BY_USER_NAME)
 	public AccountDetails getByUserName(@PathVariable(NAME) final String username) {
 		logger.info("WebService getAccountDetails [name : " + username + "]");
@@ -62,6 +65,7 @@ public class AccountDetailsController {
 	 * @param accountDetails The infos we want to update
 	 * @return The updated account details
 	 */
+	@CrossOrigin("*")
 	@PutMapping
 	public AccountDetails save(@RequestBody final AccountDetails accountDetails) {
 		logger.info("WebService saveAccountDetails " + accountDetails);
@@ -75,6 +79,7 @@ public class AccountDetailsController {
 	 *            The account details with the user in it
 	 * @return The account details and user created
 	 */
+	@CrossOrigin("*")
 	@PostMapping
 	public AccountDetails create(@RequestBody final AccountDetails accountDetails) {
 		logger.info("WebService saveAccountDetails " + accountDetails);

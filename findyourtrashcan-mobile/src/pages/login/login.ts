@@ -33,8 +33,10 @@ export class LoginPage {
   // Attempt to login in through our User service
   doLogin() {
     this.auth.authenticate(this.credentials).subscribe((res) => {
+      console.log("res");
       this.navCtrl.push(MainPage);
     }, (err) => {
+      console.log(err);
       this.showToastError(this.loginErrorString);
     });
   }

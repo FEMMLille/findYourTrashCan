@@ -27,7 +27,7 @@ export class AuthenticationService {
     */
     authenticate(credentials: Credentials): Observable<any> {
         return this.http.post(
-            'api/back/login',
+            this.api.url,
             credentials,
             { observe: 'response' })
             .map((response: HttpResponse<any>) => {
@@ -47,7 +47,7 @@ export class AuthenticationService {
     getUser(username: string) {
         //this.token to avoid having a cyclical dependency
         this.userService.getByUsername(username).subscribe((res) => {
-          debugger;
+            debugger;
             this._user = res;
         });
     }
@@ -104,6 +104,6 @@ export class AuthenticationService {
     }
 
     getCurrentUser() {
-      return this._user;
+        return this._user;
     }
 }

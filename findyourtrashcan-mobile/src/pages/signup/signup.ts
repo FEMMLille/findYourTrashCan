@@ -47,6 +47,7 @@ export class SignupPage {
       this.accountDetails.signup(this.account).subscribe((resp) => {
         this.auth.authenticate(new Credentials(this.account.user.username, this.account.user.password)).subscribe((res) => {
           this.navCtrl.push(MainPage);
+          console.log("res");
         });
       }, (err) => {
         this.showToastError(this.signupErrorString);
