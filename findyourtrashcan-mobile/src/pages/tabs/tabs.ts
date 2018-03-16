@@ -111,32 +111,27 @@ export class TabsPage {
    * A function that open filter popup
    */
   toggleFilterPopup() {
-    //console.log(this.openFilterTrashcanPopup);
-    if (this.openFilterTrashcanPopup) {
-      //Cancel filters
-      this.orderReloadTrashcans();
-    }
     this.openFilterTrashcanPopup = !this.openFilterTrashcanPopup;
   }
 
   filterFavoriteSearch() {
     if (!this.disconnected) {
-      if(this.auth._user.favoriteSearch) {
+      if (this.auth._user.favoriteSearch) {
         this.trashcanService.filterTrashcan(this.auth._user.favoriteSearch).subscribe((res) => {
           debugger;
           this.trashcanFiltered(res);
           this.trashcanService.hasSearched = true;
-          }, (err) => {
-            this.manageError("Impossible de charger la recherche favorite !");
-          });
-        } else {
-          let toast = this.toastCtrl.create({
-            message: "Vous n'avez pas selectionné de recherche favorite, utilisez le bouton de recherche pour le faire",
-            duration: 3000,
-            position: 'bottom',
-            dismissOnPageChange: true
-          });
-          toast.present();
+        }, (err) => {
+          this.manageError("Impossible de charger la recherche favorite !");
+        });
+      } else {
+        let toast = this.toastCtrl.create({
+          message: "Vous n'avez pas selectionné de recherche favorite, utilisez le bouton de recherche pour le faire",
+          duration: 3000,
+          position: 'bottom',
+          dismissOnPageChange: true
+        });
+        toast.present();
       }
     } else {
       this.manageError("Pas de réseau ou vous n'avez plus de session !");
@@ -200,7 +195,7 @@ export class TabsPage {
 
   resetSearch() {
     this.orderReloadTrashcans();
-    // this.trashcanService.hasSearched = false;
+    this.trashcanService.hasSearched = false;
   }
 
   addPointsToRank(score: number) {
