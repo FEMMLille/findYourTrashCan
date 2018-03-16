@@ -27,8 +27,8 @@ export class AuthenticationService {
     */
     authenticate(credentials: Credentials): Observable<any> {
         return this.http.post(
-            this.api.url,
-            credentials,
+            this.api.url + '/login',
+            JSON.stringify(credentials),
             { observe: 'response' })
             .map((response: HttpResponse<any>) => {
                 this.api.token = response.headers.get('authorization');

@@ -19,16 +19,17 @@ export class Api {
 
   post(endpoint: string, body: any, reqOpts?: any) {
     var headers = new HttpHeaders({ 'Authorization': this.token });
-    return this.http.post(this.url + '/' + endpoint, body, { headers: headers });
+    return this.http.post(this.url + '/' + endpoint, JSON.stringify(body), { headers: headers });
   }
 
   postNoToken(endpoint: string, body: any, reqOpts?: any) {
-    return this.http.post(this.url + '/' + endpoint, body);
+    var headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
+    return this.http.post(this.url + '/' + endpoint, JSON.stringify(body));
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
     var headers = new HttpHeaders({ 'Authorization': this.token });
-    return this.http.put(this.url + '/' + endpoint, body, { headers: headers });
+    return this.http.put(this.url + '/' + endpoint, JSON.stringify(body), { headers: headers });
   }
 
   delete(endpoint: string, ionireqOpts?: any) {
@@ -38,7 +39,7 @@ export class Api {
 
   patch(endpoint: string, body: any, reqOpts?: any) {
     var headers = new HttpHeaders({ 'Authorization': this.token });
-    return this.http.put(this.url + '/' + endpoint, body, { headers: headers });
+    return this.http.put(this.url + '/' + endpoint, JSON.stringify(body), { headers: headers });
   }
 
   getGeolocationStreet(lat: number, lon: number) {
