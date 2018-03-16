@@ -59,4 +59,8 @@ export class AuthenticationService {
     isTownStaff() {
         return this._user.username == "agent";
     }
+
+    getCurrentUser() {
+      return this._user;
+    }
 }

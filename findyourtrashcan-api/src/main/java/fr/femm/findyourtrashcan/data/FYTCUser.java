@@ -26,6 +26,9 @@ public class FYTCUser {
 	private String email;
 
 	@OneToOne
+	private Trashcan favoriteSearch;
+
+	@OneToOne
 	private Role role;
 	
 	public FYTCUser() {
@@ -84,6 +87,20 @@ public class FYTCUser {
 	public String toString() {
 		return "FYTCUser [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
 				+ ", role=" + role + "]";
+	}
+
+	/**
+	 * @return the favoriteSearch
+	 */
+	public Trashcan getFavoriteSearch() {
+		return favoriteSearch;
+	}
+
+	/**
+	 * @param favoriteSearch the favoriteSearch to set
+	 */
+	public void setFavoriteSearch(Trashcan favoriteSearch) {
+		this.favoriteSearch = favoriteSearch;
 	}
 
 }

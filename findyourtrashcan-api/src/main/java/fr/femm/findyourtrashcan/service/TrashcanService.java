@@ -40,6 +40,11 @@ public interface TrashcanService {
 	 * @return List of trashcan who match these 2 filters
 	 */
 	public List<Trashcan> filterTrashcan(Trashcan trashcan);
+
+	/**
+	 * Method to set the favorite trashcan
+	 */
+	public boolean setFavoriteTrashcan(Trashcan trashcan);
 	
 	public Trashcan updateTrashcan(Trashcan trashcan);
 	

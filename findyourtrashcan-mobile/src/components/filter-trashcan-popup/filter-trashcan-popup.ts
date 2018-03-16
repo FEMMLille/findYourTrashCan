@@ -5,11 +5,12 @@ import { Trashcan } from '../../shared/model/trashcan';
 import { TrashcanType } from '../../shared/model/trashcan-type';
 import { GarbageType } from '../../shared/model/garbage-type';
 import { TrashcanTypeService } from '../../providers/trashcan/trashcan-type';
-import { GarbageTypeService } from '../../providers/providers';
+import { GarbageTypeService, AuthenticationService } from '../../providers/providers';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the FilterTrashcanPopupComponent component.
@@ -38,7 +39,8 @@ export class FilterTrashcanPopupComponent {
 
   constructor(public trashcanTypeService: TrashcanTypeService, public garbageTypeService: GarbageTypeService,
     public translateService: TranslateService, public actionSheetCtrl: ActionSheetController, public network: Network,
-    public trashcanService: TrashcanService, public geolocation: Geolocation) {
+    public trashcanService: TrashcanService, public geolocation: Geolocation,
+  public auth: AuthenticationService, public toastCtrl: ToastController) {
 
     /**
      * Getting the trashcan type values from webservices
@@ -163,7 +165,7 @@ export class FilterTrashcanPopupComponent {
   }
 
   /**
-   * 
+   *
    * @param id The id of the garbage type
    * @param label The label of the chosen garbage type (in order to change the last popup button label)
    */
@@ -177,16 +179,38 @@ export class FilterTrashcanPopupComponent {
    */
   filterTrashcan() {
     if (!this.disconnected) {
-        this.trashcanService.filterTrashcan(this.filteredTrashcan).subscribe((res) => {
-          this.filtered.emit(res); 
-          this.showFilterTrashcanPopup = false;
-          this.fakeGreen = true;
-          this.showFilterGreen.emit(true);
+      this.trashcanService.filterTrashcan(this.filteredTrashcan).subscribe((res) => {
+        this.filtered.emit(res);
+        this.showFilterTrashcanPopup = false;
+        this.fakeGreen = true;
+        this.showFilterGreen.emit(true);
 
 
-        }, (err) => {
-          this.error.emit(this.pleaseRetry);
+      }, (err) => {
+        this.error.emit(this.pleaseRetry);
+      });
+      this.added.emit(false);
+    } else {
+      this.error.emit(this.noNetwork + '.  ' + this.pleaseRetry);
+    }
+  }
+
+  setFavoriteSearch(trashcan: Trashcan) {
+    if (!this.disconnected) {
+      this.trashcanService.setFavoriteSearch(this.filteredTrashcan).subscribe((res) => {
+        this.auth.getCurrentUser().favoriteSearch = this.filteredTrashcan;
+        let toast = this.toastCtrl.create({
+          message: "Recherche favorite sauvegardée cliquez sur le bouton de recherche rapide !",
+          duration: 3000,
+          position: 'bottom',
+          dismissOnPageChange: true
         });
+        toast.present();
+        this.added.emit("true");
+        this.dismissFilterPopup();
+      }, (err) => {
+        this.error.emit(this.pleaseRetry);
+      });
       this.added.emit(false);
     } else {
       this.error.emit(this.noNetwork + '.  ' + this.pleaseRetry);

@@ -2,13 +2,17 @@
   <div id="no-network-div" (click)="dismissNoNetworkMessage()" [class.hide]="!disconnected || dismissMessage">
     {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
   </div>
-
+  <ion-fab bottom right>
+    <button ion-fab id="favorite-search" (click)="filterFavoriteSearch()">
+      <ion-icon name="fastforward"></ion-icon>
+    </button>
+  </ion-fab>
 
   <google-map [newTrashcans]="newTrashcans || addedTrashcan" [routeTrashcan]="directionTrashcan" [redrawMarkers]="reloadTrashcans" [redrawMarkersFilter]="reloadTrashcansFiltered"
     (error)="manageError($event)" (load)="handleLoading($event)" (updated)="newTrashcans=false" (openTrashcanDetails)="displayPopup($event)"></google-map>
 
   <add-trashcan-popup [show]="openAddedTrashcanPopup" (error)="manageError($event)" (added)="trashcanAdded($event)"></add-trashcan-popup>
-  <filter-trashcan-popup [showFilter]="openFilterTrashcanPopup" (showFilterGreen)="toggleFilter($event)" (error)="manageError($event)" (filtered)="trashcanFiltered($event)"></filter-trashcan-popup>  
+  <filter-trashcan-popup [showFilter]="openFilterTrashcanPopup" (showFilterGreen)="toggleFilter($event)" (error)="manageError($event)" (filtered)="trashcanFiltered($event)"></filter-trashcan-popup>
   <detail-trashcan-popup [showedTrashcan]="showingTrashcan" (showRouteToTrashcan)="updateDirection($event)"></detail-trashcan-popup>
 </ion-content>
 
