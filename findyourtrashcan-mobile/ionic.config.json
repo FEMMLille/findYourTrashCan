@@ -1,0 +1,18 @@
+{
+  "name": "findyourtrashcan-mobile",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/api/geo",
+      "proxyUrl": "https://geo.api.gouv.fr"
+    },
+    {
+      "path": "/api/back",
+      "proxyUrl": "http://vps463488.ovh.net:5000/api"
+    }
+  ]
+}

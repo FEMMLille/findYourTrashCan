@@ -1,0 +1,12 @@
+page-reward-link {
+    ion-content {
+        text-align:center;
+        a {
+            text-align: center;
+        }
+        h1 {
+            margin-bottom:10%;
+            color:map-get($colors, primary);
+        }
+    }
+}

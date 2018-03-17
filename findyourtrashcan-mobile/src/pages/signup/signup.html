@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'SIGNUP_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form (submit)="doSignup()" #registerForm="ngForm">
+    <ion-list>
+
+
+      <ion-item>
+        <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
+        <ion-input required type="text" [(ngModel)]="account.user.username" name="userName" #username="ngModel"></ion-input>
+      </ion-item>
+      <p class="error" [hidden]="username.valid">{{ 'REQUIRED_FIELD' | translate }}</p>
+
+      <ion-item>
+        <ion-label floating>{{ 'FIRST_NAME' | translate }}</ion-label>
+        <ion-input required type="text" [(ngModel)]="account.firstName" name="firstName" #firstname="ngModel"></ion-input>
+      </ion-item>
+      <p class="error" [hidden]="firstname.valid">{{ 'REQUIRED_FIELD' | translate }}</p>
+
+      <ion-item>
+        <ion-label floating>{{ 'LAST_NAME' | translate }}</ion-label>
+        <ion-input required type="text" [(ngModel)]="account.lastName" name="lastName" #lastname="ngModel"></ion-input>
+      </ion-item>
+      <p class="error" [hidden]="lastname.valid">{{ 'REQUIRED_FIELD' | translate }}</p>
+
+      <ion-item>
+        <ion-label floating>{{ 'EMAIL' | translate }}</ion-label>
+        <ion-input required pattern="[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" type="email" [(ngModel)]="account.user.email"
+          name="email" #email="ngModel"></ion-input>
+      </ion-item>
+      <p class="error" [hidden]="email.valid">{{ 'REQUIRED_FIELD' | translate }}. {{ 'EMAIL_SHOULD_FOLLOW_PATTERN' | translate }}</p>
+
+      <ion-item>
+        <ion-label floating>{{ 'BIRTH_DATE' | translate }}</ion-label>
+        <ion-datetime required pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY" [(ngModel)]="account.birthday" name="birthday"
+          cancelText="{{ 'CANCEL_BUTTON' | translate }}" doneText="{{ 'DONE_BUTTON' | translate }}" #birthdate="ngModel"></ion-datetime>
+      </ion-item>
+      <p class="error" [hidden]="birthdate.valid">{{ 'REQUIRED_FIELD' | translate }}</p>
+
+      <ion-item>
+        <ion-label floating>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input required type="password" [(ngModel)]="account.user.password" name="password" #password="ngModel" validateEqual="cpassword"
+          reverse="true"></ion-input>
+      </ion-item>
+      <p class="error" [hidden]="password.valid">{{ 'REQUIRED_FIELD' | translate }}</p>
+
+      <ion-item>
+        <ion-label floating>{{ 'CONFIRM_PASSWORD' | translate }}</ion-label>
+        <ion-input required validateEqual="password" type="password" [(ngModel)]="cpassword" name="cpassword" #confirmPassword="ngModel"></ion-input>
+      </ion-item>
+      <p class="error" [hidden]="confirmPassword.valid">{{ 'PASSWORD_DOES_NOT_MATCH' | translate }}</p>
+
+      <div padding>
+        <button ion-button color="primary" type="submit" block [disabled]="!registerForm.form.valid">{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <button ion-button clear color="danger" type="button" (click)="cancel()" block>{{ 'CANCEL_BUTTON' | translate }}</button>
+      </div>
+
+    </ion-list>
+  </form>
+</ion-content>

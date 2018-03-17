@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form (submit)="doLogin()" #registerForm="ngForm">
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
+        <ion-input required type="email" [(ngModel)]="credentials.username" name="username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input required type="password" [(ngModel)]="credentials.password" name="password"></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" type="submit" block [disabled]="!registerForm.form.valid">{{ 'LOGIN_BUTTON' | translate }}</button>
+        <button ion-button color="primary" type="button" clear block>{{ 'FORGOTTEN_PASSWORD' | translate }}</button>
+        <button ion-button color="danger" type="button" clear block (click)="cancel()">{{ 'CANCEL_BUTTON' | translate }}</button>
+      </div>
+
+    </ion-list>
+  </form>
+</ion-content>

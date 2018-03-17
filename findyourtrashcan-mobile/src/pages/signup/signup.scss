@@ -1,0 +1,17 @@
+page-signup {
+    
+}
+
+.datetime-ios {
+    padding-left: 0!important;
+}
+
+.datetime-md {
+    padding-left: 2%;
+}
+
+.error {
+    margin-left:5%;
+    margin-right: 5%;
+    color:map-get($colors, danger)
+}

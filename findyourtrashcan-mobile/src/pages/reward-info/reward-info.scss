@@ -1,0 +1,16 @@
+page-reward-info {
+    ion-content {
+        text-align:center;
+        a {
+            text-align: center;
+        }
+        h1 {
+            margin-bottom:10%;
+            color:map-get($colors, primary);
+        }
+        h2 {
+            margin-bottom:10%;
+            color:map-get($colors, agentfeature);
+        }
+    }
+}
