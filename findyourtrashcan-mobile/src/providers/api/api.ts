@@ -18,7 +18,7 @@ export class Api {
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
-    var headers = new HttpHeaders({ 'Authorization': this.token,'Content-type' : 'application/json' });
+    var headers = new HttpHeaders({ 'Authorization': this.token, 'Content-type': 'application/json' });
     return this.http.post(this.url + '/' + endpoint, JSON.stringify(body), { headers: headers });
   }
 
@@ -28,7 +28,7 @@ export class Api {
   }
 
   put(endpoint: string, body: any, reqOpts?: any) {
-    var headers = new HttpHeaders({ 'Authorization': this.token });
+    var headers = new HttpHeaders({ 'Authorization': this.token, 'Content-type': 'application/json' });
     return this.http.put(this.url + '/' + endpoint, JSON.stringify(body), { headers: headers });
   }
 

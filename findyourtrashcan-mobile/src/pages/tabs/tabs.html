@@ -2,7 +2,7 @@
   <div id="no-network-div" (click)="dismissNoNetworkMessage()" [class.hide]="!disconnected || dismissMessage">
     {{ 'RUNNING_IN_OFFLINE_MODE' | translate }}
   </div>
-  <ion-fab bottom right>
+  <ion-fab middle right>
     <button ion-fab id="favorite-search" (click)="filterFavoriteSearch()">
       <ion-icon name="star"></ion-icon>
     </button>
